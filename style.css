@@ -15,6 +15,14 @@
     --leaf:       #5a6b2b;
     --line:       rgba(58,42,28,.16);
     --line-soft:  rgba(58,42,28,.08);
+    /* Sombras cálidas multicapa (matiz marrón, no gris) */
+    --shadow-sm:  0 2px 4px rgba(74,42,19,.04), 0 8px 16px -8px rgba(74,42,19,.08);
+    --shadow-md:  0 4px 8px rgba(74,42,19,.06), 0 24px 40px -20px rgba(74,42,19,.18);
+    --shadow-lg:  0 8px 16px rgba(74,42,19,.08), 0 40px 60px -28px rgba(74,42,19,.25);
+    /* Highlight interior superior — acabado "papel bajo luz" */
+    --card-inset: inset 0 1px 0 rgba(255,255,255,.6);
+    /* Degradado cream-sobre-cream para tarjetas claras */
+    --card-bg:    linear-gradient(180deg, #fdf7e8 0%, #f7ecd0 100%);
   }
   *,*::before,*::after{box-sizing:border-box}
   html,body{margin:0;padding:0}
@@ -279,17 +287,17 @@
     gap:22px;
   }
   .mix-card{
-    background:#fbf4e1;
+    background:var(--card-bg);
     border-radius:20px;
     padding:24px;
     border:1px solid var(--line-soft);
-    box-shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 20px 40px -24px rgba(58,42,28,.2);
+    box-shadow:var(--card-inset), var(--shadow-md);
     display:flex; flex-direction:column;
     position:relative;
     overflow:hidden;
     transition:transform .25s, box-shadow .25s;
   }
-  .mix-card:hover{transform:translateY(-4px); box-shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 30px 50px -24px rgba(58,42,28,.28)}
+  .mix-card:hover{transform:translateY(-4px); box-shadow:var(--card-inset), var(--shadow-lg)}
   .mix-photo{
     aspect-ratio:1/1;
     border-radius:14px;
@@ -322,10 +330,11 @@
   }
   .fruto{
     text-align:center;
-    background:#fbf4e1;
+    background:var(--card-bg);
     border-radius:16px;
     padding:20px 14px;
     border:1px solid var(--line-soft);
+    box-shadow:var(--card-inset), var(--shadow-sm);
     position:relative;
   }
   .fruto.premium::before{
@@ -354,11 +363,11 @@
     gap:24px;
   }
   .config-card{
-    background:#fbf4e1;
+    background:var(--card-bg);
     border-radius:22px;
     padding:28px;
     border:1px solid var(--line-soft);
-    box-shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 24px 40px -28px rgba(58,42,28,.2);
+    box-shadow:var(--card-inset), var(--shadow-md);
   }
   .config-card .eyebrow-row{display:flex; align-items:center; gap:10px; margin-bottom:6px}
   .config-card h3{font-size:26px; font-style:italic}
@@ -456,10 +465,11 @@
     display:grid; grid-template-columns:repeat(4,1fr); gap:20px;
   }
   .why-card{
-    background:#fbf4e1;
+    background:var(--card-bg);
     border-radius:18px;
     padding:28px 22px;
     border:1px solid var(--line-soft);
+    box-shadow:var(--card-inset), var(--shadow-sm);
     transition:transform .25s;
   }
   .why-card:hover{transform:translateY(-3px)}
@@ -489,10 +499,11 @@
   }
   .step{
     text-align:center;
-    background:#fbf4e1;
+    background:var(--card-bg);
     border-radius:18px;
     padding:26px 22px;
     border:1px solid var(--line-soft);
+    box-shadow:var(--card-inset), var(--shadow-sm);
     position:relative; z-index:1;
   }
   .step-icon{
@@ -549,10 +560,11 @@
   .testimonios{background:var(--paper)}
   .testi-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px}
   .testi{
-    background:#fbf4e1;
+    background:var(--card-bg);
     border-radius:20px;
     padding:28px;
     border:1px solid var(--line-soft);
+    box-shadow:var(--card-inset), var(--shadow-md);
     position:relative;
   }
   .testi .quote{
@@ -668,7 +680,7 @@
     border-radius:18px;
     overflow:hidden;
     border:1px solid var(--line-soft);
-    box-shadow:0 20px 40px -24px rgba(58,42,28,.2);
+    box-shadow:var(--shadow-md);
   }
   .beneficio-card img{width:100%; display:block}
 
