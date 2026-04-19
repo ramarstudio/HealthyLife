@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice">
+  
+<defs>
+  <filter id="grain">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"></feTurbulence>
+    <feColorMatrix values="0 0 0 0 0.22  0 0 0 0 0.16  0 0 0 0 0.1  0 0 0 0.15 0"></feColorMatrix>
+    <feComposite in2="SourceGraphic" operator="in"></feComposite>
+  </filter>
+  <radialGradient id="paperBg" cx="50%" cy="40%" r="75%">
+    <stop offset="0%" stop-color="#fbf4e1"></stop>
+    <stop offset="100%" stop-color="#e9dabb"></stop>
+  </radialGradient>
+  <radialGradient id="almondG" cx="30%" cy="30%"><stop offset="0%" stop-color="#f0d5a8"></stop><stop offset="100%" stop-color="#b88654"></stop></radialGradient>
+  <radialGradient id="peanutG" cx="30%" cy="30%"><stop offset="0%" stop-color="#eac38a"></stop><stop offset="100%" stop-color="#a96e34"></stop></radialGradient>
+  <radialGradient id="raisinG" cx="30%" cy="30%"><stop offset="0%" stop-color="#c49a4e"></stop><stop offset="100%" stop-color="#5a2d1a"></stop></radialGradient>
+  <radialGradient id="cranG" cx="30%" cy="30%"><stop offset="0%" stop-color="#b04040"></stop><stop offset="100%" stop-color="#4a1018"></stop></radialGradient>
+  <radialGradient id="walnutG" cx="30%" cy="30%"><stop offset="0%" stop-color="#c8924a"></stop><stop offset="100%" stop-color="#6a3a12"></stop></radialGradient>
+  <radialGradient id="pecanG" cx="30%" cy="30%"><stop offset="0%" stop-color="#b87248"></stop><stop offset="100%" stop-color="#4a1d0a"></stop></radialGradient>
+  <radialGradient id="granolaG" cx="30%" cy="30%"><stop offset="0%" stop-color="#d9a46a"></stop><stop offset="100%" stop-color="#8c5418"></stop></radialGradient>
+  <radialGradient id="pbG" cx="30%" cy="30%"><stop offset="0%" stop-color="#e8b878"></stop><stop offset="100%" stop-color="#a06a30"></stop></radialGradient>
+  <radialGradient id="chocoG" cx="30%" cy="30%"><stop offset="0%" stop-color="#7a4a24"></stop><stop offset="100%" stop-color="#2a1408"></stop></radialGradient>
+</defs>
+  <rect width="400" height="400" fill="url(#paperBg)"></rect>
+  
+      <g transform="translate(120 140) rotate(-10)">
+        <ellipse cx="1" cy="2" rx="14" ry="22" fill="rgba(0,0,0,.25)"></ellipse>
+        <path d="M 0 -22 Q 14 -14 14 0 Q 14 18 0 22 Q -14 18 -14 0 Q -14 -14 0 -22 Z" fill="url(#almondG)"></path>
+        <path d="M 0 -18 Q 8 -10 8 0 Q 8 14 0 18" stroke="rgba(120,70,20,.3)" fill="none" stroke-width="1"></path>
+        <ellipse cx="-4" cy="-8" rx="4" ry="8" fill="rgba(255,235,200,.4)"></ellipse>
+      </g><g transform="translate(200 120) rotate(20)">
+        <ellipse cx="1" cy="2" rx="14" ry="22" fill="rgba(0,0,0,.25)"></ellipse>
+        <path d="M 0 -22 Q 14 -14 14 0 Q 14 18 0 22 Q -14 18 -14 0 Q -14 -14 0 -22 Z" fill="url(#almondG)"></path>
+        <path d="M 0 -18 Q 8 -10 8 0 Q 8 14 0 18" stroke="rgba(120,70,20,.3)" fill="none" stroke-width="1"></path>
+        <ellipse cx="-4" cy="-8" rx="4" ry="8" fill="rgba(255,235,200,.4)"></ellipse>
+      </g><g transform="translate(180 220.00000000000003) rotate(-5)">
+        <ellipse cx="1" cy="2" rx="14" ry="22" fill="rgba(0,0,0,.25)"></ellipse>
+        <path d="M 0 -22 Q 14 -14 14 0 Q 14 18 0 22 Q -14 18 -14 0 Q -14 -14 0 -22 Z" fill="url(#almondG)"></path>
+        <path d="M 0 -18 Q 8 -10 8 0 Q 8 14 0 18" stroke="rgba(120,70,20,.3)" fill="none" stroke-width="1"></path>
+        <ellipse cx="-4" cy="-8" rx="4" ry="8" fill="rgba(255,235,200,.4)"></ellipse>
+      </g><g transform="translate(240 240) rotate(15)">
+        <ellipse cx="1" cy="2" rx="14" ry="22" fill="rgba(0,0,0,.25)"></ellipse>
+        <path d="M 0 -22 Q 14 -14 14 0 Q 14 18 0 22 Q -14 18 -14 0 Q -14 -14 0 -22 Z" fill="url(#almondG)"></path>
+        <path d="M 0 -18 Q 8 -10 8 0 Q 8 14 0 18" stroke="rgba(120,70,20,.3)" fill="none" stroke-width="1"></path>
+        <ellipse cx="-4" cy="-8" rx="4" ry="8" fill="rgba(255,235,200,.4)"></ellipse>
+      </g><g transform="translate(120 260) rotate(25)">
+        <ellipse cx="1" cy="2" rx="14" ry="22" fill="rgba(0,0,0,.25)"></ellipse>
+        <path d="M 0 -22 Q 14 -14 14 0 Q 14 18 0 22 Q -14 18 -14 0 Q -14 -14 0 -22 Z" fill="url(#almondG)"></path>
+        <path d="M 0 -18 Q 8 -10 8 0 Q 8 14 0 18" stroke="rgba(120,70,20,.3)" fill="none" stroke-width="1"></path>
+        <ellipse cx="-4" cy="-8" rx="4" ry="8" fill="rgba(255,235,200,.4)"></ellipse>
+      </g><g transform="translate(240 160) rotate(-20)">
+        <ellipse cx="1" cy="2" rx="14" ry="22" fill="rgba(0,0,0,.25)"></ellipse>
+        <path d="M 0 -22 Q 14 -14 14 0 Q 14 18 0 22 Q -14 18 -14 0 Q -14 -14 0 -22 Z" fill="url(#almondG)"></path>
+        <path d="M 0 -18 Q 8 -10 8 0 Q 8 14 0 18" stroke="rgba(120,70,20,.3)" fill="none" stroke-width="1"></path>
+        <ellipse cx="-4" cy="-8" rx="4" ry="8" fill="rgba(255,235,200,.4)"></ellipse>
+      </g><g transform="translate(160 288) rotate(5)">
+        <ellipse cx="1" cy="2" rx="14" ry="22" fill="rgba(0,0,0,.25)"></ellipse>
+        <path d="M 0 -22 Q 14 -14 14 0 Q 14 18 0 22 Q -14 18 -14 0 Q -14 -14 0 -22 Z" fill="url(#almondG)"></path>
+        <path d="M 0 -18 Q 8 -10 8 0 Q 8 14 0 18" stroke="rgba(120,70,20,.3)" fill="none" stroke-width="1"></path>
+        <ellipse cx="-4" cy="-8" rx="4" ry="8" fill="rgba(255,235,200,.4)"></ellipse>
+      </g>
+      <g transform="translate(260 260)"><ellipse rx="14" ry="11" fill="url(#cranG)"></ellipse></g>
+      <g transform="translate(272 160)"><ellipse rx="18" ry="14" fill="url(#raisinG)"></ellipse></g>
+      <g transform="translate(80 280)"><ellipse rx="13" ry="10" fill="url(#cranG)"></ellipse></g>
+    
+  <rect width="400" height="400" fill="url(#paperBg)" filter="url(#grain)" opacity=".15"></rect>
+</svg>
