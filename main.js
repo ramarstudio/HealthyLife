@@ -9,6 +9,8 @@
     { name: 'Almendras',               price50: 3.50, price100:  7.00, premium: true,  img: 'assets/img/p-almendras.png' },
   ];
 
+  const cart = new Map(); // key: name -> {name, price, qty}
+
   function renderFavGrid() {
     const grid = document.getElementById('favGrid');
     grid.innerHTML = PRODUCTS.map(p => `
@@ -18,7 +20,56 @@
           <div class="chip-name">${p.name}</div>
           <div class="chip-price">50 gr · S/ ${p.price50.toFixed(2)}</div>
         </div>
+        <div class="chip-qty">
+          <button class="qty-btn" data-action="minus">−</button>
+          <span class="qty-val">1</span>
+          <button class="qty-btn" data-action="plus">+</button>
+        </div>
       </div>`).join('');
+
+    grid.querySelectorAll('.fruto-chip').forEach(el => {
+      el.addEventListener('click', (e) => {
+        if (e.target.closest('.qty-btn')) return;
+        const name = el.dataset.name;
+        const price = parseFloat(el.dataset.price);
+        if (cart.has(name)) {
+          cart.delete(name);
+          el.classList.remove('on');
+          el.querySelector('.qty-val').textContent = '1';
+        } else {
+          cart.set(name, { name, price, qty: 1 });
+          el.classList.add('on');
+        }
+        updateCart();
+      });
+
+      el.querySelectorAll('.qty-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const name = el.dataset.name;
+          const price = parseFloat(el.dataset.price);
+          if (!cart.has(name)) {
+            cart.set(name, { name, price, qty: 1 });
+            el.classList.add('on');
+          }
+          const item = cart.get(name);
+          if (btn.dataset.action === 'plus') {
+            item.qty = Math.min(item.qty + 1, 9);
+          } else {
+            item.qty -= 1;
+            if (item.qty <= 0) {
+              cart.delete(name);
+              el.classList.remove('on');
+              el.querySelector('.qty-val').textContent = '1';
+              updateCart();
+              return;
+            }
+          }
+          el.querySelector('.qty-val').textContent = item.qty;
+          updateCart();
+        });
+      });
+    });
   }
   renderFavGrid();
 
@@ -33,39 +84,49 @@
   }
   renderFrutos();
 
-  // Cart logic
-  const cart = new Map(); // key: name -> {name, price}
-  document.querySelectorAll('.fruto-chip').forEach(el => {
-    el.addEventListener('click', () => {
-      const name = el.dataset.name;
-      const price = parseFloat(el.dataset.price);
-      if (cart.has(name)) { cart.delete(name); el.classList.remove('on'); }
-      else { cart.set(name, {name, price}); el.classList.add('on'); }
-      updateCart();
-    });
-  });
+  // Size-card toggles
   document.querySelectorAll('.size-card').forEach(el => {
     el.addEventListener('click', () => {
       const name = el.dataset.name;
       const price = parseFloat(el.dataset.price);
       if (cart.has(name)) { cart.delete(name); el.classList.remove('on'); }
-      else { cart.set(name, {name, price}); el.classList.add('on'); }
+      else { cart.set(name, { name, price, qty: 1 }); el.classList.add('on'); }
       updateCart();
     });
   });
-  function updateCart(){
-    const count = cart.size;
-    const total = [...cart.values()].reduce((s,i)=>s+i.price, 0);
+
+  // Duo and Healthy Life toggles
+  document.querySelectorAll('.duo-row.fruto-chip, .healthy-row.fruto-chip').forEach(el => {
+    el.addEventListener('click', () => {
+      const name = el.dataset.name;
+      const price = parseFloat(el.dataset.price);
+      if (cart.has(name)) { cart.delete(name); el.classList.remove('on'); }
+      else { cart.set(name, { name, price, qty: 1 }); el.classList.add('on'); }
+      updateCart();
+    });
+  });
+
+  function updateCart() {
+    const allItems = [...cart.values()];
+    const count = allItems.reduce((s, i) => s + (i.qty || 1), 0);
+    const total = allItems.reduce((s, i) => s + i.price * (i.qty || 1), 0);
     document.getElementById('cartCount').textContent = count === 1 ? '1 producto' : `${count} productos`;
     document.getElementById('cartTotal').textContent = `S/ ${total.toFixed(2)}`;
   }
-  function sendToWa(){
-    if(cart.size === 0){
+
+  function sendToWa() {
+    if (cart.size === 0) {
       alert('Selecciona al menos un producto para enviar tu pedido.');
       return;
     }
-    const lines = [...cart.values()].map(i=>`• ${i.name} — S/ ${i.price.toFixed(2)}`).join('\n');
-    const total = [...cart.values()].reduce((s,i)=>s+i.price, 0).toFixed(2);
+    const lines = [...cart.values()].map(i => {
+      const qty = i.qty || 1;
+      const subtotal = (i.price * qty).toFixed(2);
+      return qty > 1
+        ? `• ${i.name} ×${qty} — S/ ${subtotal}`
+        : `• ${i.name} — S/ ${subtotal}`;
+    }).join('\n');
+    const total = [...cart.values()].reduce((s, i) => s + i.price * (i.qty || 1), 0).toFixed(2);
     const msg = `¡Hola Healthy Life! 🌰\nQuisiera pedir:\n\n${lines}\n\nTotal estimado: S/ ${total}\n\n¿Me ayudan con la coordinación del envío?`;
     window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
   }
@@ -76,7 +137,7 @@
       const target = document.querySelector(a.getAttribute('href'));
       if (target) {
         e.preventDefault();
-        window.scrollTo({top: target.offsetTop - 70, behavior:'smooth'});
+        window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' });
         document.querySelector('.nav-links')?.classList.remove('open');
       }
     });
