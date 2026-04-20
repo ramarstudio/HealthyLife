@@ -142,3 +142,125 @@
       }
     });
   });
+
+  // ═══════ SCROLL REVEAL ANIMATIONS ═══════
+  function initReveal() {
+    // Add reveal class to key elements
+    const revealSelectors = [
+      '.section-head',
+      '.mix-card',
+      '.fruto',
+      '.reel',
+      '.config-card',
+      '.why-card',
+      '.step',
+      '.testi',
+      '.trust-card',
+      '.about-hero',
+      '.hero-proof',
+      '.hero-values',
+      '.social-bar',
+      '.footer-cta',
+      '.mixes-poster',
+      '.config-poster',
+      '.about-hero-logo',
+    ];
+
+    revealSelectors.forEach(sel => {
+      document.querySelectorAll(sel).forEach((el, i) => {
+        el.classList.add('reveal');
+        // Stagger items in grids
+        const delay = Math.min(i, 4);
+        if (delay > 0) el.classList.add(`reveal-delay-${delay}`);
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.08,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
+
+  // ═══════ ANIMATED COUNTERS ═══════
+  function initCounters() {
+    const counters = document.querySelectorAll('.social-bar .stat .n');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const text = el.textContent.trim();
+          const isPercent = text.includes('%');
+          const isStar = text.includes('★');
+
+          if (isStar) {
+            const num = parseFloat(text.replace('★ ', ''));
+            animateValue(el, 0, num, 1500, '★ ', 1);
+          } else if (isPercent) {
+            const num = parseInt(text);
+            animateValue(el, 0, num, 1200, '', 0, '%');
+          } else {
+            const num = parseInt(text);
+            if (!isNaN(num)) animateValue(el, 0, num, 1000);
+          }
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(el => counterObserver.observe(el));
+  }
+
+  function animateValue(el, start, end, duration, prefix = '', decimals = 0, suffix = '') {
+    const startTime = performance.now();
+    function update(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+      const current = start + (end - start) * eased;
+      el.textContent = prefix + current.toFixed(decimals) + suffix;
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  // ═══════ NAV SCROLL EFFECT ═══════
+  function initNavScroll() {
+    const nav = document.querySelector('.nav');
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      if (scrollY > 100) {
+        nav.style.background = 'rgba(10,15,10,.88)';
+        nav.style.borderBottomColor = 'rgba(106,163,74,.12)';
+      } else {
+        nav.style.background = 'rgba(10,15,10,.72)';
+        nav.style.borderBottomColor = 'rgba(232,228,218,.06)';
+      }
+      lastScroll = scrollY;
+    }, { passive: true });
+  }
+
+  // ═══════ PARALLAX HERO WATERMARK ═══════
+  function initParallax() {
+    const watermark = document.querySelector('.hero-watermark');
+    if (!watermark) return;
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      watermark.style.transform = `translateY(${scrollY * 0.15}px)`;
+    }, { passive: true });
+  }
+
+  // Initialize all
+  initReveal();
+  initCounters();
+  initNavScroll();
+  initParallax();
