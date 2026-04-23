@@ -1,5 +1,19 @@
-  const WA_NUMBER = 'XXXXXXXXXX'; // reemplazar con número real, ej. 51987654321
+(() => {
+  'use strict';
 
+  // ═══════ CONFIGURATION ═══════
+  // Centralizes all magic numbers and settings in one place
+  const CONFIG = {
+    waNumber: '51XXXXXXXXX',   // TODO: reemplazar con número real
+    maxItemQty: 9,
+    navScrollThreshold: 100,
+    navHeight: 70,
+    parallaxFactor: 0.15,
+    reveal: { threshold: 0.08, rootMargin: '0px 0px -40px 0px' },
+    counterThreshold: 0.5,
+  };
+
+  // ═══════ PRODUCT DATA — single source of truth ═══════
   const PRODUCTS = [
     { name: 'Pasas rubias',            price50: 2.50, price100:  5.00, premium: false, img: 'assets/img/p-pasas.png'     },
     { name: 'Maní',                    price50: 1.00, price100:  2.00, premium: false, img: 'assets/img/p-mani.png'      },
@@ -9,72 +23,146 @@
     { name: 'Almendras',               price50: 3.50, price100:  7.00, premium: true,  img: 'assets/img/p-almendras.png' },
   ];
 
-  const cart = new Map(); // key: name -> {name, price, qty}
+  // ═══════ DOM HELPERS ═══════
+  const $ = (sel, ctx = document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
+  // ═══════ CART STATE ═══════
+  const cart = new Map();
+
+  /**
+   * Calculates cart totals from current state.
+   * Single source of truth — used by both updateCart() and sendToWa().
+   */
+  function getCartTotals() {
+    const items = [...cart.values()];
+    const count = items.reduce((s, i) => s + (i.qty || 1), 0);
+    const total = items.reduce((s, i) => s + i.price * (i.qty || 1), 0);
+    return { items, count, total };
+  }
+
+  /**
+   * Toggles an item in/out of the cart.
+   * Replaces 3 duplicated toggle patterns throughout the codebase.
+   */
+  function toggleCartItem(el) {
+    const name = el.dataset.name;
+    const price = parseFloat(el.dataset.price);
+    if (!name || isNaN(price)) return;
+
+    if (cart.has(name)) {
+      cart.delete(name);
+      el.classList.remove('on');
+      const qtyEl = $('.qty-val', el);
+      if (qtyEl) qtyEl.textContent = '1';
+    } else {
+      cart.set(name, { name, price, qty: 1 });
+      el.classList.add('on');
+    }
+    updateCart();
+  }
+
+  /** Updates the sticky cart UI with current totals. */
+  function updateCart() {
+    const { count, total } = getCartTotals();
+    $('#cartCount').textContent = count === 1 ? '1 producto' : `${count} productos`;
+    $('#cartTotal').textContent = `S/ ${total.toFixed(2)}`;
+  }
+
+  /** Builds the WhatsApp message and opens the chat. */
+  function sendToWa() {
+    if (cart.size === 0) {
+      alert('Selecciona al menos un producto para enviar tu pedido.');
+      return;
+    }
+    const { items, total } = getCartTotals();
+    const lines = items.map(i => {
+      const qty = i.qty || 1;
+      const subtotal = (i.price * qty).toFixed(2);
+      return qty > 1
+        ? `• ${i.name} ×${qty} — S/ ${subtotal}`
+        : `• ${i.name} — S/ ${subtotal}`;
+    }).join('\n');
+
+    const msg = `¡Hola Healthy Life! 🌰\nQuisiera pedir:\n\n${lines}\n\nTotal estimado: S/ ${total.toFixed(2)}\n\n¿Me ayudan con la coordinación del envío?`;
+    window.open(`https://wa.me/${CONFIG.waNumber}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  // ═══════ RENDERERS ═══════
+
+  /** Renders the "Tu favorito" interactive grid in the configurator. */
   function renderFavGrid() {
-    const grid = document.getElementById('favGrid');
+    const grid = $('#favGrid');
+    if (!grid) return;
+
     grid.innerHTML = PRODUCTS.map(p => `
-      <div class="fruto-chip" data-name="${p.name}" data-price="${p.price50}">
+      <div class="fruto-chip" role="button" tabindex="0"
+           data-name="${p.name}" data-price="${p.price50}"
+           aria-label="${p.name} — S/ ${p.price50.toFixed(2)} por 50 gr">
         <div class="chip-dot" style="background-image:url('${p.img}')"></div>
         <div class="chip-info">
           <div class="chip-name">${p.name}</div>
           <div class="chip-price">50 gr · S/ ${p.price50.toFixed(2)}</div>
         </div>
         <div class="chip-qty">
-          <button class="qty-btn" data-action="minus">−</button>
+          <button class="qty-btn" data-action="minus" aria-label="Reducir cantidad de ${p.name}">−</button>
           <span class="qty-val">1</span>
-          <button class="qty-btn" data-action="plus">+</button>
+          <button class="qty-btn" data-action="plus" aria-label="Aumentar cantidad de ${p.name}">+</button>
         </div>
       </div>`).join('');
 
-    grid.querySelectorAll('.fruto-chip').forEach(el => {
-      el.addEventListener('click', (e) => {
+    $$('.fruto-chip', grid).forEach(el => {
+      // Toggle selection (click or keyboard)
+      const handleToggle = (e) => {
         if (e.target.closest('.qty-btn')) return;
-        const name = el.dataset.name;
-        const price = parseFloat(el.dataset.price);
-        if (cart.has(name)) {
-          cart.delete(name);
-          el.classList.remove('on');
-          el.querySelector('.qty-val').textContent = '1';
-        } else {
-          cart.set(name, { name, price, qty: 1 });
-          el.classList.add('on');
+        toggleCartItem(el);
+      };
+
+      el.addEventListener('click', handleToggle);
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleToggle(e);
         }
-        updateCart();
       });
 
-      el.querySelectorAll('.qty-btn').forEach(btn => {
+      // Quantity buttons
+      $$('.qty-btn', el).forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
           const name = el.dataset.name;
           const price = parseFloat(el.dataset.price);
+          if (isNaN(price)) return;
+
           if (!cart.has(name)) {
             cart.set(name, { name, price, qty: 1 });
             el.classList.add('on');
           }
           const item = cart.get(name);
           if (btn.dataset.action === 'plus') {
-            item.qty = Math.min(item.qty + 1, 9);
+            item.qty = Math.min(item.qty + 1, CONFIG.maxItemQty);
           } else {
             item.qty -= 1;
             if (item.qty <= 0) {
               cart.delete(name);
               el.classList.remove('on');
-              el.querySelector('.qty-val').textContent = '1';
+              $('.qty-val', el).textContent = '1';
               updateCart();
               return;
             }
           }
-          el.querySelector('.qty-val').textContent = item.qty;
+          $('.qty-val', el).textContent = item.qty;
           updateCart();
         });
       });
     });
   }
-  renderFavGrid();
 
+  /** Renders the individual fruits showcase section. */
   function renderFrutos() {
-    const grid = document.getElementById('frutosGrid');
+    const grid = $('#frutosGrid');
+    if (!grid) return;
+
     grid.innerHTML = PRODUCTS.map(p => `
       <div class="fruto${p.premium ? ' premium' : ''}">
         <div class="fruto-img" style="background-image:url('${p.img}')"></div>
@@ -82,94 +170,84 @@
         <p class="prices">50 gr · <b>S/ ${p.price50.toFixed(2)}</b><br/>100 gr · <b>S/ ${p.price100.toFixed(2)}</b></p>
       </div>`).join('');
   }
-  renderFrutos();
 
-  // Size-card toggles
-  document.querySelectorAll('.size-card').forEach(el => {
-    el.addEventListener('click', () => {
-      const name = el.dataset.name;
-      const price = parseFloat(el.dataset.price);
-      if (cart.has(name)) { cart.delete(name); el.classList.remove('on'); }
-      else { cart.set(name, { name, price, qty: 1 }); el.classList.add('on'); }
-      updateCart();
+  // ═══════ GENERIC TOGGLE BINDING ═══════
+  /**
+   * Binds click + keyboard toggle to all elements matching a selector.
+   * Adds ARIA role and tabindex for accessibility.
+   */
+  function initToggleListeners(selector) {
+    $$(selector).forEach(el => {
+      el.setAttribute('role', 'button');
+      el.setAttribute('tabindex', '0');
+
+      el.addEventListener('click', () => toggleCartItem(el));
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleCartItem(el);
+        }
+      });
     });
-  });
-
-  // Duo and Healthy Life toggles
-  document.querySelectorAll('.duo-row.fruto-chip, .healthy-row.fruto-chip').forEach(el => {
-    el.addEventListener('click', () => {
-      const name = el.dataset.name;
-      const price = parseFloat(el.dataset.price);
-      if (cart.has(name)) { cart.delete(name); el.classList.remove('on'); }
-      else { cart.set(name, { name, price, qty: 1 }); el.classList.add('on'); }
-      updateCart();
-    });
-  });
-
-  function updateCart() {
-    const allItems = [...cart.values()];
-    const count = allItems.reduce((s, i) => s + (i.qty || 1), 0);
-    const total = allItems.reduce((s, i) => s + i.price * (i.qty || 1), 0);
-    document.getElementById('cartCount').textContent = count === 1 ? '1 producto' : `${count} productos`;
-    document.getElementById('cartTotal').textContent = `S/ ${total.toFixed(2)}`;
   }
 
-  function sendToWa() {
-    if (cart.size === 0) {
-      alert('Selecciona al menos un producto para enviar tu pedido.');
-      return;
-    }
-    const lines = [...cart.values()].map(i => {
-      const qty = i.qty || 1;
-      const subtotal = (i.price * qty).toFixed(2);
-      return qty > 1
-        ? `• ${i.name} ×${qty} — S/ ${subtotal}`
-        : `• ${i.name} — S/ ${subtotal}`;
-    }).join('\n');
-    const total = [...cart.values()].reduce((s, i) => s + i.price * (i.qty || 1), 0).toFixed(2);
-    const msg = `¡Hola Healthy Life! 🌰\nQuisiera pedir:\n\n${lines}\n\nTotal estimado: S/ ${total}\n\n¿Me ayudan con la coordinación del envío?`;
-    window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+  // ═══════ SMOOTH SCROLL ═══════
+  function initSmoothScroll() {
+    $$('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const target = $(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          window.scrollTo({ top: target.offsetTop - CONFIG.navHeight, behavior: 'smooth' });
+          $('.nav-links')?.classList.remove('open');
+        }
+      });
+    });
   }
 
-  // Smooth scroll + close mobile menu
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', (e) => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' });
-        document.querySelector('.nav-links')?.classList.remove('open');
+  // ═══════ MOBILE MENU ═══════
+  function initMobileMenu() {
+    const toggle = $('.mobile-toggle');
+    const navLinks = $('.nav-links');
+    if (!toggle || !navLinks) return;
+
+    toggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+        navLinks.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.focus();
       }
     });
-  });
+  }
+
+  // ═══════ CART CTA BINDING ═══════
+  function initCartCta() {
+    const cta = $('#cartCta');
+    if (!cta) return;
+    cta.addEventListener('click', (e) => {
+      e.preventDefault();
+      sendToWa();
+    });
+  }
 
   // ═══════ SCROLL REVEAL ANIMATIONS ═══════
   function initReveal() {
-    // Add reveal class to key elements
     const revealSelectors = [
-      '.section-head',
-      '.mix-card',
-      '.fruto',
-      '.reel',
-      '.config-card',
-      '.why-card',
-      '.step',
-      '.testi',
-      '.trust-card',
-      '.about-hero',
-      '.hero-proof',
-      '.hero-values',
-      '.social-bar',
-      '.footer-cta',
-      '.mixes-poster',
-      '.config-poster',
-      '.about-hero-logo',
+      '.section-head', '.mix-card', '.fruto', '.reel',
+      '.config-card', '.why-card', '.step', '.testi',
+      '.trust-card', '.about-hero', '.hero-proof',
+      '.hero-values', '.social-bar', '.footer-cta',
+      '.mixes-poster', '.config-poster', '.about-hero-logo',
     ];
 
     revealSelectors.forEach(sel => {
-      document.querySelectorAll(sel).forEach((el, i) => {
+      $$(sel).forEach((el, i) => {
         el.classList.add('reveal');
-        // Stagger items in grids
         const delay = Math.min(i, 4);
         if (delay > 0) el.classList.add(`reveal-delay-${delay}`);
       });
@@ -183,42 +261,14 @@
         }
       });
     }, {
-      threshold: 0.08,
-      rootMargin: '0px 0px -40px 0px'
+      threshold: CONFIG.reveal.threshold,
+      rootMargin: CONFIG.reveal.rootMargin,
     });
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    $$('.reveal').forEach(el => observer.observe(el));
   }
 
   // ═══════ ANIMATED COUNTERS ═══════
-  function initCounters() {
-    const counters = document.querySelectorAll('.social-bar .stat .n');
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          const text = el.textContent.trim();
-          const isPercent = text.includes('%');
-          const isStar = text.includes('★');
-
-          if (isStar) {
-            const num = parseFloat(text.replace('★ ', ''));
-            animateValue(el, 0, num, 1500, '★ ', 1);
-          } else if (isPercent) {
-            const num = parseInt(text);
-            animateValue(el, 0, num, 1200, '', 0, '%');
-          } else {
-            const num = parseInt(text);
-            if (!isNaN(num)) animateValue(el, 0, num, 1000);
-          }
-          counterObserver.unobserve(el);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    counters.forEach(el => counterObserver.observe(el));
-  }
-
   function animateValue(el, start, end, duration, prefix = '', decimals = 0, suffix = '') {
     const startTime = performance.now();
     function update(now) {
@@ -232,35 +282,94 @@
     requestAnimationFrame(update);
   }
 
+  function initCounters() {
+    const counters = $$('.social-bar .stat .n');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const text = el.textContent.trim();
+
+          if (text.includes('★')) {
+            animateValue(el, 0, parseFloat(text.replace('★ ', '')), 1500, '★ ', 1);
+          } else if (text.includes('%')) {
+            animateValue(el, 0, parseInt(text), 1200, '', 0, '%');
+          } else {
+            const num = parseInt(text);
+            if (!isNaN(num)) animateValue(el, 0, num, 1000);
+          }
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: CONFIG.counterThreshold });
+
+    counters.forEach(el => observer.observe(el));
+  }
+
   // ═══════ NAV SCROLL EFFECT ═══════
+  // Uses CSS class toggle instead of inline style manipulation
   function initNavScroll() {
-    const nav = document.querySelector('.nav');
-    let lastScroll = 0;
+    const nav = $('.nav');
+    if (!nav) return;
+
     window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      if (scrollY > 100) {
-        nav.style.background = 'rgba(10,15,10,.88)';
-        nav.style.borderBottomColor = 'rgba(106,163,74,.12)';
-      } else {
-        nav.style.background = 'rgba(10,15,10,.72)';
-        nav.style.borderBottomColor = 'rgba(232,228,218,.06)';
-      }
-      lastScroll = scrollY;
+      nav.classList.toggle('nav--scrolled', window.scrollY > CONFIG.navScrollThreshold);
     }, { passive: true });
   }
 
   // ═══════ PARALLAX HERO WATERMARK ═══════
+  // Throttled with requestAnimationFrame to avoid layout thrashing
   function initParallax() {
-    const watermark = document.querySelector('.hero-watermark');
+    const watermark = $('.hero-watermark');
     if (!watermark) return;
+
+    let ticking = false;
     window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      watermark.style.transform = `translateY(${scrollY * 0.15}px)`;
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          watermark.style.transform = `translateY(${window.scrollY * CONFIG.parallaxFactor}px)`;
+          ticking = false;
+        });
+        ticking = true;
+      }
     }, { passive: true });
   }
 
-  // Initialize all
+  // ═══════ LAZY VIDEO LOADING ═══════
+  // Videos load only when approaching the viewport, saving ~6.6MB on initial load
+  function initLazyVideos() {
+    const videos = $$('video[data-src]');
+    if (!videos.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const video = entry.target;
+          video.src = video.dataset.src;
+          video.removeAttribute('data-src');
+          video.load();
+          observer.unobserve(video);
+        }
+      });
+    }, { rootMargin: '300px' });
+
+    videos.forEach(v => observer.observe(v));
+  }
+
+  // ═══════ INITIALIZE EVERYTHING ═══════
+  renderFavGrid();
+  renderFrutos();
+
+  initToggleListeners('.size-card');
+  initToggleListeners('.duo-row.fruto-chip');
+  initToggleListeners('.healthy-row.fruto-chip');
+
+  initSmoothScroll();
+  initMobileMenu();
+  initCartCta();
   initReveal();
   initCounters();
   initNavScroll();
   initParallax();
+  initLazyVideos();
+})();

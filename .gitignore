@@ -1,4 +1,23 @@
-uploads/
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+
+# Dependencies
+node_modules/
+
+# Build
+dist/
+*.min.js
+*.min.css
+
+# Original WhatsApp media (renamed copies are used instead)
+uploads/WhatsApp*
+
+# Scratch/temp
+scratch/
 scraps/
-.claude/
-CLAUDE.md
