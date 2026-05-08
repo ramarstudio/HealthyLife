@@ -1,793 +1,659 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Healthy Life Organic · Frutos Secos</title>
-<meta name="description" content="Frutos secos seleccionados a mano en Lima, Perú. Mixes personalizados, 100% orgánicos, sin aditivos. Pide por WhatsApp y recíbelos el mismo día.">
-<meta property="og:type"        content="website">
-<meta property="og:site_name"   content="Healthy Life Organic">
-<meta property="og:title"       content="Healthy Life Organic · Frutos Secos">
-<meta property="og:description" content="Frutos secos seleccionados a mano en Lima, Perú. Mixes 100% orgánicos, sin aditivos. Pide por WhatsApp.">
-<meta property="og:image"       content="assets/frutos-secos.jpeg">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%238e9244'/><text x='50' y='68' font-family='Georgia,serif' font-size='46' font-style='italic' text-anchor='middle' fill='%23f6efd7'>Hl</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Healthy Life — Frutos Secos Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-<!-- ═══════ SVG SYMBOL DEFINITIONS ═══════ -->
-<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
-  <defs>
-    <symbol id="icon-wa" viewBox="0 0 24 24">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </symbol>
-  </defs>
-</svg>
-
-<!-- =================== NAV =================== -->
-<nav class="nav">
-  <div class="nav-row">
-    <a href="#inicio" class="brand">
-      <div class="brand-seal"><span>Hl</span></div>
-      <div class="brand-name">
-        <span class="top">Frutos Secos</span>
-        <span class="main">Healthy life</span>
-      </div>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#inicio">Inicio</a></li>
-      <li><a href="#mixes">Catálogo</a></li>
-      <li><a href="#configurador">Arma tu mix</a></li>
-      <li><a href="#nosotros">Nosotros</a></li>
-      <li><a href="#contacto">Contacto</a></li>
-    </ul>
-    <a href="#contacto" class="btn btn-wa">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><use href="#icon-wa"/></svg>
-      Pedir por WhatsApp
-    </a>
-    <button class="mobile-toggle" aria-label="Menú" aria-expanded="false">
-      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-    </button>
-  </div>
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-brand">
+    <img src="assets/img/logo.jpg" alt="Healthy Life"/>
+    <span class="nav-brand-name">Healthy life</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#hero">Inicio</a></li>
+    <li><a href="#catalogo">Catálogo</a></li>
+    <li><a href="#mixes">Mixes</a></li>
+    <li><a href="#personalizar">Personalizar</a></li>
+    <li><a href="#nutricionistas">Nosotros</a></li>
+  </ul>
+  <a href="#" class="nav-cta" id="nav-wa-btn">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Pedir por WhatsApp
+  </a>
 </nav>
 
-<!-- =================== HERO =================== -->
-<section id="inicio" class="hero paper-bg">
-  <div class="hero-watermark" aria-hidden="true">
-    <span>Hl</span>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Frutos Secos · 100% Orgánicos · Lima, Perú</p>
+    <h1 class="hero-title">La energía<br>que necesitas<br>en su estado<br><em>más puro.</em></h1>
+    <p class="hero-body">Seleccionados a mano del Gran Mercado Mayorista de Lima. Envasados en bolsas reutilizables. Sin aditivos, sin conservantes — solo el fruto en su mejor versión.</p>
+    <div class="hero-actions">
+      <a href="#mixes" class="btn-solid">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Explorar mixes
+      </a>
+      <a href="#catalogo" class="btn-outline">Ver catálogo</a>
+    </div>
+    <div class="hero-trust">
+      <div class="hero-trust-item"><div class="hero-trust-dot"></div>Calidad seleccionada</div>
+      <div class="hero-trust-item"><div class="hero-trust-dot"></div>Eco-friendly</div>
+      <div class="hero-trust-item"><div class="hero-trust-dot"></div>Precios justos</div>
+      <div class="hero-trust-item"><div class="hero-trust-dot"></div>Respaldado por nutricionistas</div>
+    </div>
   </div>
+  <div class="hero-right">
+    <div class="hero-img-grid">
+      <div class="hero-img-cell">
+        <video src="assets/video/nueces.mp4" autoplay muted loop playsinline></video>
+        <span class="overlay-label">Nueces</span>
+      </div>
+      <div class="hero-img-cell">
+        <video src="assets/video/almendras.mp4" autoplay muted loop playsinline></video>
+        <span class="overlay-label">Almendras</span>
+      </div>
+      <div class="hero-img-cell">
+        <video src="assets/video/arandanos.mp4" autoplay muted loop playsinline></video>
+        <span class="overlay-label">Arándanos</span>
+      </div>
+      <div class="hero-img-cell">
+        <video src="assets/video/pecanas.mp4" autoplay muted loop playsinline></video>
+        <span class="overlay-label">Pecanas</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <div class="container hero-container">
-    <div class="hero-grid">
+<!-- TICKER -->
+<div class="ticker-bar">
+  <div class="ticker-inner" id="ticker-inner"></div>
+</div>
 
-      <!-- Copy -->
-      <div class="hero-copy">
-        <span class="eyebrow">100% orgánico · desde Lima, Perú</span>
-        <h1 class="hero-title">
-          La energía que necesitas<br/>
-          <span class="display-script">en su estado</span> <em>más puro.</em>
-        </h1>
-        <p class="hero-lede">Frutos secos seleccionados a mano, combinados a tu gusto. Un complemento nutritivo para reactivar tu atención y mantenerte en tu mejor forma — sin aditivos, sin complicaciones.</p>
+<!-- BENEFICIOS -->
+<section id="beneficios">
+  <div class="wrap">
+    <div class="benefits-header">
+      <div>
+        <div class="tag" style="margin-bottom:20px;">Por qué elegirnos</div>
+        <h2>Snacks que trabajan<br><em>por ti</em></h2>
+      </div>
+      <div class="benefits-header-right">
+        <p>Diseñados para el ritmo universitario: entre clases, antes del gym, durante una sesión larga de estudio. Cada fruto seco tiene un propósito nutricional real.</p>
+        <p style="font-size:0.78rem;color:var(--ink-light);">Trabajamos con nutricionistas profesionales para asegurar que nuestras combinaciones ofrezcan los mejores beneficios. Nuestros productos son un complemento nutritivo, no un reemplazo de las comidas principales.</p>
+      </div>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-tile">
+        <div class="benefit-num">01</div>
+        <h3>Reactiva tu atención</h3>
+        <p>El Omega-3 de las nueces y las grasas saludables de las pecanas mantienen tus neuronas activas durante las clases más largas y las reuniones que no acaban.</p>
+      </div>
+      <div class="benefit-tile">
+        <div class="benefit-num">02</div>
+        <h3>Combate la fatiga cognitiva</h3>
+        <p>La vitamina E de las almendras y los antioxidantes de los arándanos protegen tus células del estrés oxidativo y el cansancio diario acumulado por horas de pantalla.</p>
+      </div>
+      <div class="benefit-tile">
+        <div class="benefit-num">03</div>
+        <h3>Snack real, ingredientes reales</h3>
+        <p>Sin azúcares añadidos, sin conservantes, sin rellenos. Especificamos el contenido exacto de cada mix para que sepas exactamente qué estás consumiendo.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div class="hero-cta">
-          <a href="#mixes" class="btn btn-primary btn-lg">
-            Explora nuestros mixes
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-          <a href="#configurador" class="btn btn-ghost btn-lg">Arma tu match</a>
+<!-- CATÁLOGO -->
+<section id="catalogo">
+  <div class="wrap">
+    <div class="catalog-header">
+      <div>
+        <div class="tag" style="margin-bottom:18px;">Frutos secos individuales</div>
+        <h2>Conoce nuestros<br><em>productos</em></h2>
+      </div>
+      <p class="catalog-note">Disponibles en 50 gr. Seleccionados a mano cada semana.</p>
+    </div>
+    <div class="catalog-grid">
+
+      <!-- Pasas Rubias -->
+      <div class="product-card">
+        <div class="product-img">
+          <video src="assets/video/pasas.mp4" autoplay muted loop playsinline></video>
         </div>
-
-        <div class="hero-proof">
-          <div class="proof-stars">
-            <div class="stars-row">★★★★★</div>
-            <div class="proof-label"><b>4.9/5</b> · 180+ pedidos</div>
+        <div class="product-body">
+          <h3 class="product-name">Pasas Rubias</h3>
+          <p class="product-desc">Tu dulce natural. El shot de energía inmediata que necesitas cuando sientes que se te acaban las pilas a mitad de la tarde.</p>
+          <div class="product-prices">
+            <div class="price-row">
+              <span class="price-size">50 gr</span>
+              <span class="price-val">S/ 2.50</span>
+              <button class="price-btn" onclick="addToCart('Pasas Rubias 50gr',2.50)">+ Añadir</button>
+            </div>
           </div>
-          <div class="proof-sep"></div>
-          <div class="proof-delivery">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13h13V6H3zM16 10h4l1 3v3h-5zM7 20a2 2 0 100-4 2 2 0 000 4zM18 20a2 2 0 100-4 2 2 0 000 4z" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+
+      <!-- Maní -->
+      <div class="product-card">
+        <div class="product-img">
+          <video src="assets/video/mani.mp4" autoplay muted loop playsinline></video>
+        </div>
+        <div class="product-body">
+          <h3 class="product-name">Maní</h3>
+          <p class="product-desc">Alto contenido de proteína. Te mantiene lleno por horas — el compañero ideal si vas al gym, caminas mucho o tienes un día súper movido.</p>
+          <div class="product-prices">
+            <div class="price-row">
+              <span class="price-size">50 gr</span>
+              <span class="price-val">S/ 1.00</span>
+              <button class="price-btn" onclick="addToCart('Maní 50gr',1.00)">+ Añadir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arándanos -->
+      <div class="product-card">
+        <div class="product-img">
+          <video src="assets/video/arandanos.mp4" autoplay muted loop playsinline></video>
+        </div>
+        <div class="product-body">
+          <h3 class="product-name">Arándanos Deshidratados</h3>
+          <p class="product-desc">Si trabajas frente a la compu o no sueltas el cel, estos pequeñitos son tus mejores aliados. Protegen tu vista del cansancio digital.</p>
+          <div class="product-prices">
+            <div class="price-row">
+              <span class="price-size">50 gr</span>
+              <span class="price-val">S/ 2.50</span>
+              <button class="price-btn" onclick="addToCart('Arándanos Deshidratados 50gr',2.50)">+ Añadir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nueces -->
+      <div class="product-card">
+        <div class="product-img">
+          <video src="assets/video/nueces.mp4" autoplay muted loop playsinline></video>
+          <span class="premium-tag">Premium</span>
+        </div>
+        <div class="product-body">
+          <h3 class="product-name">Nueces</h3>
+          <p class="product-desc">Son las únicas con un montón de Omega-3. Ayudan a que tus neuronas se conecten a mil por hora. El hack perfecto para los días de mucha carga mental o reuniones largas.</p>
+          <div class="product-prices">
+            <div class="price-row">
+              <span class="price-size">50 gr</span>
+              <span class="price-val">S/ 4.00</span>
+              <button class="price-btn" onclick="addToCart('Nueces 50gr',4.00)">+ Añadir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pecanas -->
+      <div class="product-card">
+        <div class="product-img">
+          <video src="assets/video/pecanas.mp4" autoplay muted loop playsinline></video>
+          <span class="premium-tag">Premium</span>
+        </div>
+        <div class="product-body">
+          <h3 class="product-name">Pecanas</h3>
+          <p class="product-desc">Sus grasas buenas mantienen tus arterias limpias y te ayudan a controlar la ansiedad entre comidas, dándote esa sensación de saciedad que tanto buscamos.</p>
+          <div class="product-prices">
+            <div class="price-row">
+              <span class="price-size">50 gr</span>
+              <span class="price-val">S/ 4.00</span>
+              <button class="price-btn" onclick="addToCart('Pecanas 50gr',4.00)">+ Añadir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Almendras -->
+      <div class="product-card">
+        <div class="product-img">
+          <video src="assets/video/almendras.mp4" autoplay muted loop playsinline></video>
+          <span class="premium-tag">Premium</span>
+        </div>
+        <div class="product-body">
+          <h3 class="product-name">Almendras</h3>
+          <p class="product-desc">Tienen mucha vitamina E, que protege tus células del estrés y el cansancio diario. Evitan que el agotamiento se refleje en tu piel y te mantienen radiante.</p>
+          <div class="product-prices">
+            <div class="price-row">
+              <span class="price-size">50 gr</span>
+              <span class="price-val">S/ 3.50</span>
+              <button class="price-btn" onclick="addToCart('Almendras 50gr',3.50)">+ Añadir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MIXES -->
+<section id="mixes">
+  <div class="wrap">
+    <div class="mixes-intro">
+      <div>
+        <div class="tag" style="background:oklch(50% 0.09 145 / 0.2);color:var(--gold-light);margin-bottom:20px;">Packs prediseñados</div>
+        <h2>Descubre nuestros<br><em>mixes</em></h2>
+      </div>
+      <div>
+        <p>Combinaciones pensadas para cada momento del día. Cada mix fue desarrollado junto a nutricionistas para asegurar un aporte real.</p>
+        <p class="mixes-note">Precio por 50 gr · Envasado en bolsa ziploc reutilizable</p>
+      </div>
+    </div>
+    <div class="mixes-grid">
+
+      <div class="mix-card">
+        <div class="mix-img">
+          <img src="assets/img/nueces.png" alt="El Cerebrito"/>
+          <div class="mix-icon">🧠</div>
+        </div>
+        <div class="mix-body">
+          <h3 class="mix-name">El Cerebrito</h3>
+          <p class="mix-desc">Nueces, almendras y pecanas para potenciar tu cerebro. Perfecto antes de un examen o una sesión larga de estudio.</p>
+          <div class="mix-footer">
             <div>
-              <b>Envío el mismo día</b>
-              <span>en Lima, sin costo extra</span>
+              <span class="mix-price">S/ 4.00</span>
+              <span class="mix-sub">por 50 gr</span>
             </div>
+            <button class="btn-add-dark" onclick="addToCart('Mix El Cerebrito 50gr',4.00)">Añadir</button>
           </div>
         </div>
       </div>
 
-      <!-- Media: editorial video card + floating products -->
-      <div class="hero-media">
-        <div class="hero-video-card">
-          <img
-            class="hero-photo"
-            src="assets/frutos-secos.jpeg"
-            alt="Los seis frutos secos Healthy Life — seleccionados a mano en Lima"/>
+      <div class="mix-card">
+        <div class="mix-img">
+          <img src="assets/img/pasas-rubias.png" alt="El Chill"/>
+          <div class="mix-icon">🍃</div>
+        </div>
+        <div class="mix-body">
+          <h3 class="mix-name">El Chill</h3>
+          <p class="mix-desc">Pasas, arándanos y maní. Una mezcla ligera y relajante — perfecta como snack entre clases o para ver una peli.</p>
+          <div class="mix-footer">
+            <div>
+              <span class="mix-price">S/ 2.50</span>
+              <span class="mix-sub">por 50 gr</span>
+            </div>
+            <button class="btn-add-dark" onclick="addToCart('Mix El Chill 50gr',2.50)">Añadir</button>
+          </div>
         </div>
       </div>
 
-    </div>
+      <div class="mix-card">
+        <div class="mix-img">
+          <img src="assets/img/arandanos.png" alt="El Toditito para Ti"/>
+          <div class="mix-icon">💋</div>
+        </div>
+        <div class="mix-body">
+          <h3 class="mix-name">El Toditito para Ti</h3>
+          <p class="mix-desc">Los 6 frutos secos de la casa en un solo pack. La mezcla más completa para quien quiere probarlo todo y no elegir.</p>
+          <div class="mix-footer">
+            <div>
+              <span class="mix-price">S/ 3.00</span>
+              <span class="mix-sub">por 50 gr</span>
+            </div>
+            <button class="btn-add-dark" onclick="addToCart('Mix El Toditito 50gr',3.00)">Añadir</button>
+          </div>
+        </div>
+      </div>
 
-    <!-- Values strip -->
-    <div class="hero-values">
-      <div class="value">
-        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6">
-          <path d="M14 26c-2-3-2-7 2-10 3-2 5-3 8-2" stroke-linecap="round"/>
-          <path d="M20 30c4-1 7-4 7-9 0-4-3-7-7-7-3 0-6 2-7 4" stroke-linecap="round"/>
-          <circle cx="24" cy="20" r="1.2" fill="currentColor"/>
-        </svg>
-        <div><b>Selección a mano</b><span>fruto por fruto</span></div>
+      <div class="mix-card">
+        <div class="mix-img">
+          <img src="assets/img/pecanas.png" alt="A Tu Medida"/>
+          <div class="mix-icon">✨</div>
+        </div>
+        <div class="mix-body">
+          <h3 class="mix-name">A Tu Medida</h3>
+          <p class="mix-desc">Elige tus frutos favoritos y creamos tu mezcla perfecta. Hecho justo como a ti te gusta, con los ingredientes que tú eliges.</p>
+          <div class="mix-footer">
+            <div>
+              <span class="mix-price">S/ 3.50</span>
+              <span class="mix-sub">por 50 gr</span>
+            </div>
+            <button class="btn-add-dark" onclick="addToCart('Mix A Tu Medida 50gr',3.50)">Añadir</button>
+          </div>
+        </div>
       </div>
-      <div class="value">
-        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6">
-          <rect x="10" y="12" width="20" height="20" rx="2" stroke-linejoin="round"/>
-          <path d="M14 12v-2c0-1 1-2 2-2h8c1 0 2 1 2 2v2" stroke-linecap="round"/>
-          <path d="M15 22l3 3 7-7" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <div><b>Ziploc reutilizable</b><span>cero plástico extra</span></div>
-      </div>
-      <div class="value">
-        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6">
-          <circle cx="20" cy="20" r="10"/>
-          <path d="M20 15v10M16 18h8M17 23h6" stroke-linecap="round"/>
-        </svg>
-        <div><b>Precio justo</b><span>desde S/ 1.00</span></div>
-      </div>
-      <div class="value">
-        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6">
-          <path d="M6 22c0-6 4-11 14-11M30 22c0 6-4 11-14 11" stroke-linecap="round"/>
-          <circle cx="14" cy="11" r="2"/>
-          <circle cx="16" cy="33" r="2"/>
-        </svg>
-        <div><b>Orgánico real</b><span>sin aditivos</span></div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Marquee band -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>Pecanas</span><span>·</span>
-      <span>Nueces</span><span>·</span>
-      <span>Almendras</span><span>·</span>
-      <span>Arándanos</span><span>·</span>
-      <span>Pasas rubias</span><span>·</span>
-      <span>Maní tostado</span><span>·</span>
-      <span>Healthy Life</span><span>·</span>
-      <span>Pecanas</span><span>·</span>
-      <span>Nueces</span><span>·</span>
-      <span>Almendras</span><span>·</span>
-      <span>Arándanos</span><span>·</span>
-      <span>Pasas rubias</span><span>·</span>
-      <span>Maní tostado</span><span>·</span>
-      <span>Healthy Life</span><span>·</span>
     </div>
   </div>
 </section>
 
-<!-- =================== MIXES =================== -->
-<section id="mixes" class="mixes">
-  <div class="container">
-    <div class="mixes-editorial">
-      <div class="mixes-poster">
-        <img src="assets/mixes.jpeg" alt="Catálogo de mixes Healthy Life"/>
+<!-- PACK EN MANCHA -->
+<section id="pack-mancha">
+  <div class="wrap">
+    <div class="mancha-inner">
+      <div class="mancha-text">
+        <div class="tag" style="background:oklch(58% 0.11 72 / 0.25);color:var(--white);margin-bottom:20px;">Oferta grupal</div>
+        <h2><strong>Pack en Mancha</strong> —<br>cuantos más son,<br>más se ahorran.</h2>
+        <p>¿Venís varios del salón, la residencia o el gym? Coordinen su pedido juntos y acceden a descuento automático por volumen. Sin complicaciones.</p>
+        <div class="mancha-tiers">
+          <div class="mancha-tier">
+            <span class="mancha-tier-label">5 a 9 paquetes</span>
+            <span class="mancha-tier-pct">5% OFF</span>
+          </div>
+          <div class="mancha-tier">
+            <span class="mancha-tier-label">10 a 19 paquetes</span>
+            <span class="mancha-tier-pct">10% OFF</span>
+          </div>
+          <div class="mancha-tier">
+            <span class="mancha-tier-label">20 paquetes o más</span>
+            <span class="mancha-tier-pct">15% OFF</span>
+          </div>
+        </div>
       </div>
-      <div class="mixes-content">
-        <div class="section-head mixes-section-head">
-          <span class="eyebrow">nuestro catálogo</span>
-          <h2>Mixes <em>firmados</em> por Healthy Life</h2>
-          <p>Cuatro combinaciones diseñadas con objetivos específicos. Todas a precio por 50 gr, listas para tu día.</p>
+      <div class="mancha-cta">
+        <div class="mancha-box">
+          <h3 class="mancha-box-title">Envío gratis coordinado</h3>
+          <p>Coordinamos la entrega directamente por WhatsApp a cualquier punto de Lima — residencias, campus universitarios, oficinas.</p>
         </div>
-
-        <div class="mixes-grid">
-
-      <!-- Card 1 — Cerebrito (FEATURED) -->
-      <article class="mix-card mix-card--featured">
-        <div class="mix-num">01</div>
-        <div class="mix-photo mp--brand">
-          <div class="mp-glow"></div>
-          <img class="mp-img mp-img-a" src="assets/img/p-pecanas.png"  alt="Pecanas"/>
-          <img class="mp-img mp-img-b" src="assets/img/p-almendras.png" alt="Almendras"/>
-          <img class="mp-img mp-img-c" src="assets/img/walnut.svg"      alt="Nueces"/>
-        </div>
-        <div class="mix-body">
-          <span class="smallcaps">mix premium · concentración</span>
-          <h3>El Cerebrito</h3>
-          <p class="ingredients">Nueces, almendras y pecanas en proporciones justas — para las horas en que la cabeza no puede fallar.</p>
-          <div class="ing-chips">
-            <span>Nueces</span><span>Almendras</span><span>Pecanas</span>
-          </div>
-          <div class="row">
-            <div><span class="price">S/ 4.00</span><span class="price-sub">por 50 gr</span></div>
-            <a href="#configurador" class="mini-cta">Añadir <span>→</span></a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Card 2 — A tu medida -->
-      <article class="mix-card">
-        <div class="mix-num">02</div>
-        <div class="mix-photo mp--cream">
-          <div class="mp-glow"></div>
-          <img class="mp-img mp-img-a" src="assets/img/p-pasas.png"    alt="Pasas rubias"/>
-          <img class="mp-img mp-img-b" src="assets/img/p-arandanos.png" alt="Arándanos"/>
-          <img class="mp-img mp-img-c" src="assets/img/p-almendras.png" alt="Almendras"/>
-        </div>
-        <div class="mix-body">
-          <span class="smallcaps">customizable</span>
-          <h3>A tu medida</h3>
-          <p class="ingredients">Elige tus favoritos y arma el mix perfecto para ti. Tú escoges los protagonistas.</p>
-          <div class="row">
-            <div><span class="price">S/ 3.50</span><span class="price-sub">por 50 gr</span></div>
-            <a href="#configurador" class="mini-cta">Armar <span>→</span></a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Card 3 — Toditito -->
-      <article class="mix-card">
-        <div class="mix-num">03</div>
-        <div class="mix-photo mp--warm">
-          <div class="mp-glow"></div>
-          <img class="mp-img mp-img-a" src="assets/img/p-mani.png"      alt="Maní"/>
-          <img class="mp-img mp-img-b" src="assets/img/p-pasas.png"     alt="Pasas rubias"/>
-          <img class="mp-img mp-img-c" src="assets/img/p-pecanas.png"   alt="Pecanas"/>
-          <img class="mp-img mp-img-d" src="assets/img/p-arandanos.png" alt="Arándanos"/>
-        </div>
-        <div class="mix-body">
-          <span class="smallcaps">completo</span>
-          <h3>El Toditito</h3>
-          <p class="ingredients">Una mezcla completa con nuestros 6 frutos secos — el sampler oficial de la casa.</p>
-          <div class="row">
-            <div><span class="price">S/ 3.00</span><span class="price-sub">por 50 gr</span></div>
-            <a href="#configurador" class="mini-cta">Añadir <span>→</span></a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Card 4 — Chill -->
-      <article class="mix-card">
-        <div class="mix-num">04</div>
-        <div class="mix-photo mp--berry">
-          <div class="mp-glow"></div>
-          <img class="mp-img mp-img-a" src="assets/img/p-arandanos.png" alt="Arándanos"/>
-          <img class="mp-img mp-img-b" src="assets/img/p-pasas.png"     alt="Pasas rubias"/>
-          <img class="mp-img mp-img-c" src="assets/img/p-mani.png"      alt="Maní"/>
-        </div>
-        <div class="mix-body">
-          <span class="smallcaps">relax mode</span>
-          <h3>El Chill</h3>
-          <p class="ingredients">Pasas, arándanos y maní — dulce natural, ideal para bajar el ritmo sin bajar la guardia.</p>
-          <div class="row">
-            <div><span class="price">S/ 2.50</span><span class="price-sub">por 50 gr</span></div>
-            <a href="#configurador" class="mini-cta">Añadir <span>→</span></a>
-          </div>
-        </div>
-      </article>
-        </div><!-- /.mixes-grid -->
-      </div><!-- /.mixes-content -->
-    </div><!-- /.mixes-editorial -->
-  </div>
-</section>
-
-<!-- =================== FRUTOS INDIVIDUALES =================== -->
-<section class="frutos">
-  <div class="container">
-    <div class="section-head">
-      <span class="eyebrow">por peso unitario</span>
-      <h2>Los seis <em>protagonistas</em></h2>
-      <p>También puedes llevártelos individualmente. Disponibles en formato de 50 gr y 100 gr.</p>
-    </div>
-
-    <div class="frutos-grid" id="frutosGrid"></div>
-
-    <p class="frutos-note">
-      <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10" cy="10" r="8"/><path d="M10 6v4M10 13v.5" stroke-linecap="round"/></svg>
-      Los marcados como <b>premium</b> tienen mayor densidad nutricional y precio por gramo.
-    </p>
-  </div>
-</section>
-
-<!-- =================== BENEFICIOS / REELS =================== -->
-<section class="beneficios">
-  <div class="container">
-    <div class="section-head">
-      <span class="eyebrow">pequeños videos, gran sabor</span>
-      <h2>Mira el producto <em>moverse</em></h2>
-      <p>Sin filtros, sin photoshop. Así se ve lo que te llega a casa.</p>
-    </div>
-
-    <div class="reel-grid">
-      <article class="reel">
-        <div class="reel-video">
-          <video
-            data-src="uploads/v3.mp4"
-            poster="assets/video-frames/video-3.png"
-            muted loop autoplay playsinline preload="none"></video>
-        </div>
-        <div class="reel-body">
-          <span class="smallcaps">textura · crujido</span>
-          <h3>Tostado en casa</h3>
-          <p>Ese sonido cuando abres la bolsa — y ese aroma que reconoces. Maní y frutos que entran al horno recién llegados.</p>
-          <a href="#mixes" class="reel-link">Ver mixes <span>→</span></a>
-        </div>
-      </article>
-
-      <article class="reel reel--featured">
-        <div class="reel-video">
-          <video
-            data-src="uploads/v5.mp4"
-            poster="assets/video-frames/video-5.png"
-            muted loop autoplay playsinline preload="none"></video>
-        </div>
-        <div class="reel-body">
-          <span class="smallcaps">dulce natural · energía</span>
-          <h3>Pasas, el shot rápido</h3>
-          <p>Cuando sientes que se te acaban las pilas a mitad del día, un puñado pequeño hace más que un café grande.</p>
-          <a href="#configurador" class="reel-link">Probar ahora <span>→</span></a>
-        </div>
-      </article>
-
-      <article class="reel">
-        <div class="reel-video">
-          <video
-            data-src="uploads/v7.mp4"
-            poster="assets/video-frames/video-7.png"
-            muted loop autoplay playsinline preload="none"></video>
-        </div>
-        <div class="reel-body">
-          <span class="smallcaps">foco · vitamina E</span>
-          <h3>Almendras, el clásico</h3>
-          <p>Un pequeño puñado al día, rico en vitamina E — protege tus células del desgaste diario sin que te enteres.</p>
-          <a href="#mixes" class="reel-link">Ver ficha <span>→</span></a>
-        </div>
-      </article>
+        <button class="btn-mancha" id="mancha-wa-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Coordinar pedido grupal
+        </button>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- =================== CONFIGURADOR =================== -->
-<section id="configurador" class="configurador">
-  <div class="container">
-    <div class="config-intro">
-      <div class="section-head config-section-head">
-        <span class="eyebrow">catálogo interactivo</span>
-        <h2>Arma tu <em>match</em> saludable</h2>
-        <p>Elige tus favoritos, define el tamaño y envíanos tu pedido por WhatsApp. Así de simple.</p>
-      </div>
-      <div class="config-poster">
-        <img src="assets/match-saludable.jpeg" alt="Opciones del configurador — Healthy Life"/>
-      </div>
-    </div>
-
-    <div class="config-grid">
-      <!-- TU FAVORITO -->
-      <div class="config-card">
-        <div class="config-head">
-          <span class="config-num">01</span>
-          <div>
-            <span class="smallcaps">100% de un solo fruto</span>
-            <h3>Tu favorito</h3>
-          </div>
-        </div>
-        <p class="desc">Solo lo que te gusta. Un solo fruto, del primero al último gramo.</p>
-        <div class="favorito-grid" id="favGrid"></div>
-      </div>
-
-      <!-- MIX A TU MEDIDA -->
-      <div class="config-card">
-        <div class="config-head">
-          <span class="config-num">02</span>
-          <div>
-            <span class="smallcaps">tú eliges el tamaño</span>
-            <h3>Mix a tu medida</h3>
-          </div>
-        </div>
-        <p class="desc">Desde un snack rápido hasta un pack para compartir — tú escoges cuánto llevarte.</p>
-        <div class="size-grid" id="sizeGrid">
-          <div class="size-card" data-name="Snack rápido (80gr)" data-price="4">
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 10h12l-2 16H12L10 10z"/><path d="M10 10c0-2 2-4 6-4s6 2 6 4" stroke-linecap="round"/></svg>
-            <div class="n">Snack rápido</div>
-            <div class="g">80 gr</div>
-            <div class="p">S/ 4</div>
-          </div>
-          <div class="size-card" data-name="Energía constante (120gr)" data-price="6">
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 4L8 18h6l-2 10 10-14h-6l2-10z" stroke-linejoin="round"/></svg>
-            <div class="n">Energía constante</div>
-            <div class="g">120 gr</div>
-            <div class="p">S/ 6</div>
-          </div>
-          <div class="size-card" data-name="Para compartir (150gr)" data-price="7">
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="12" r="3"/><circle cx="21" cy="12" r="3"/><path d="M5 26c0-4 3-6 6-6s6 2 6 6M15 26c0-4 3-6 6-6s6 2 6 6" stroke-linecap="round"/></svg>
-            <div class="n">Para compartir</div>
-            <div class="g">150 gr</div>
-            <div class="p">S/ 7</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- DUO DINÁMICO -->
-      <div class="config-card">
-        <div class="config-head">
-          <span class="config-num">03</span>
-          <div>
-            <span class="smallcaps">combinaciones preparadas</span>
-            <h3>Dúo dinámico</h3>
-          </div>
-        </div>
-        <p class="desc">Dos frutos en perfecta armonía, escogidos por nosotros según el nivel.</p>
-        <div class="duo-grid" id="duoGrid">
-          <div class="duo-row fruto-chip" data-name="Mix Económico" data-price="5">
-            <div class="left">
-              <b>Mix Económico</b>
-              <span>2 acompañantes</span>
-            </div>
-            <span class="duo-price">S/ 5</span>
-          </div>
-          <div class="duo-row fruto-chip" data-name="Mix Power" data-price="7">
-            <div class="left">
-              <b>Mix Power</b>
-              <span>1 fruto Premium + 1 Acompañante</span>
-            </div>
-            <span class="duo-price">S/ 7</span>
-          </div>
-          <div class="duo-row fruto-chip" data-name="Mix Premium" data-price="7">
-            <div class="left">
-              <b>Mix Premium</b>
-              <span>2 frutos poderosos</span>
-            </div>
-            <span class="duo-price">S/ 7</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- HEALTHY LIFE -->
-      <div class="config-card">
-        <div class="config-head">
-          <span class="config-num">04</span>
-          <div>
-            <span class="smallcaps">la familia Healthy</span>
-            <h3>Healthy Life</h3>
-          </div>
-        </div>
-        <p class="desc">Nuestros productos hermanos — para complementar tu día con sabor natural.</p>
-        <div class="healthy-grid" id="healthyGrid">
-          <div class="healthy-row fruto-chip" data-name="Granola (250gr)" data-price="6">
-            <div class="photo" style="background-image:url('assets/img/granola.svg')"></div>
-            <div class="body">
-              <h4>Granola</h4>
-              <div class="g">250 gr · Tostada en casa</div>
-            </div>
-            <div class="p">S/ 6</div>
-          </div>
-          <div class="healthy-row fruto-chip" data-name="Mantequilla de maní (250gr)" data-price="12">
-            <div class="photo" style="background-image:url('assets/img/pbutter.svg')"></div>
-            <div class="body">
-              <h4>Mantequilla de maní</h4>
-              <div class="g">250 gr · Solo maní natural</div>
-            </div>
-            <div class="p">S/ 12</div>
-          </div>
-          <div class="healthy-row fruto-chip" data-name="Chocomaní (250gr)" data-price="14">
-            <div class="photo" style="background-image:url('assets/img/choco.svg')"></div>
-            <div class="body">
-              <h4>Chocomaní</h4>
-              <div class="g">250 gr · Maní + cacao</div>
-            </div>
-            <div class="p">S/ 14</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Cart sticky -->
-    <div class="cart" id="cart" aria-live="polite">
-      <div class="summary">
+<!-- PERSONALIZAR -->
+<section id="personalizar">
+  <div class="wrap">
+    <div class="builder-wrap">
+      <div class="builder-header">
         <div>
-          <div class="label">Tu selección</div>
-          <div class="count" id="cartCount">0 productos</div>
+          <div class="tag" style="margin-bottom:18px;">Personalización</div>
+          <h2>Arma tu<br><em>mix favorito</em></h2>
         </div>
-        <div class="summary-sep"></div>
-        <div>
-          <div class="label">Total estimado</div>
-          <div class="total" id="cartTotal">S/ 0.00</div>
+        <p>Elige los frutos que quieras, el gramaje y te lo envasamos al instante. El mix más honesto: solo lo que tú eliges, con sus alérgenos declarados en el envase.</p>
+      </div>
+      <div class="builder-grid">
+        <div class="ing-toggle" data-name="Pasas Rubias" data-price50="2.50" onclick="toggleIng(this)">
+          <img class="ing-img" src="assets/img/pasas-rubias.png" alt="Pasas Rubias"/>
+          <span class="ing-name">Pasas Rubias</span>
+          <div class="ing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
+        </div>
+        <div class="ing-toggle" data-name="Maní" data-price50="1.00" onclick="toggleIng(this)">
+          <img class="ing-img" src="assets/img/mani.png" alt="Maní"/>
+          <span class="ing-name">Maní</span>
+          <div class="ing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
+        </div>
+        <div class="ing-toggle" data-name="Arándanos" data-price50="2.50" onclick="toggleIng(this)">
+          <img class="ing-img" src="assets/img/arandanos.png" alt="Arándanos"/>
+          <span class="ing-name">Arándanos</span>
+          <div class="ing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
+        </div>
+        <div class="ing-toggle" data-name="Nueces" data-price50="4.00" onclick="toggleIng(this)">
+          <img class="ing-img" src="assets/img/nueces.png" alt="Nueces"/>
+          <span class="ing-name">Nueces</span>
+          <div class="ing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
+        </div>
+        <div class="ing-toggle" data-name="Pecanas" data-price50="4.00" onclick="toggleIng(this)">
+          <img class="ing-img" src="assets/img/pecanas.png" alt="Pecanas"/>
+          <span class="ing-name">Pecanas</span>
+          <div class="ing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
+        </div>
+        <div class="ing-toggle" data-name="Almendras" data-price50="3.50" onclick="toggleIng(this)">
+          <img class="ing-img" src="assets/img/almendras.png" alt="Almendras"/>
+          <span class="ing-name">Almendras</span>
+          <div class="ing-check"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2,6 5,9 10,3"/></svg></div>
         </div>
       </div>
-      <a href="#" class="btn btn-wa" id="cartCta">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><use href="#icon-wa"/></svg>
-        Enviar pedido por WhatsApp
-      </a>
+      <div class="allergen-note" id="allergen-note">
+        <strong>Alérgenos:</strong> Este mix contiene frutos secos — puede no ser apto para personas con alergia a nueces, maní o almendras. Lo indicamos en tu envase con total transparencia.
+      </div>
+      <div class="builder-controls">
+        <div class="weight-group">
+          <span class="weight-label">Gramaje</span>
+          <div class="weight-btns">
+            <button class="w-btn active" onclick="setW(this,50)">50 gr</button>
+            <button class="w-btn" onclick="setW(this,100)">100 gr</button>
+          </div>
+        </div>
+        <div class="price-group">
+          <span class="price-est-label">Precio estimado</span>
+          <span class="price-est">S/ <span id="b-price">—</span></span>
+        </div>
+        <button class="btn-solid" onclick="addCustomMix()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          Añadir al pedido
+        </button>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- =================== NOSOTROS =================== -->
-<section id="nosotros" class="nosotros">
-  <div class="container">
-
-    <!-- Editorial intro with logo -->
-    <div class="about-hero">
-      <div class="about-hero-logo">
-        <img src="assets/logo.jpeg" alt="Healthy Life Organic"/>
-      </div>
-      <div class="about-hero-copy">
-        <span class="eyebrow">sobre nosotros</span>
-        <h2>Un complemento <em>real</em>,<br/>no un suplemento más.</h2>
-        <p>Healthy Life nace en Lima como un gesto cotidiano: frutos secos de verdad, comprados frescos en el Gran Mercado Mayorista, guardados en vidrio y empacados en Ziploc reutilizable para que te duren — y para que el planeta respire un poco mejor.</p>
-      </div>
-    </div>
-
-    <!-- Why cards -->
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-icon">
-          <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M10 18c-1.5-2-1.5-4 1-6 2-1.5 3.5-2 5.5-1.5M14 20c2.5-.5 4.5-2.5 4.5-5.5 0-2.5-2-4.5-4.5-4.5-2 0-4 1.5-4.5 3" stroke-linecap="round"/>
-            <circle cx="16" cy="14" r=".7" fill="currentColor"/>
-            <path d="M6 13c0-1 1-2 2-2M22 13c0 1-1 2-2 2" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <h3>Mejora cognitiva</h3>
-        <p>Reactiva tu atención y concentración con los nutrientes naturales de nuestros frutos secos.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">
-          <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M15 3L6 16h6l-2 9 10-13h-6l1-9z" stroke-linejoin="round" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <h3>Energía natural</h3>
-        <p>Combate la fatiga con un snack nutritivo que te mantiene activo durante todo el día.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">
-          <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M14 22s-8-5-8-11c0-3 2-5 5-5 2 0 3 1 3 3 0-2 1-3 3-3 3 0 5 2 5 5 0 6-8 11-8 11z" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <h3>100% natural</h3>
-        <p>Productos seleccionados del Gran Mercado Mayorista de Lima, sin aditivos artificiales.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">
-          <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M14 4l8 3v7c0 5-3.5 9-8 10-4.5-1-8-5-8-10V7l8-3z" stroke-linejoin="round"/>
-            <path d="M10 14l3 3 5-5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <h3>Calidad garantizada</h3>
-        <p>Conservados en envases de vidrio y empacados en bolsas reutilizables Ziploc.</p>
-      </div>
-    </div>
-
-    <!-- Proceso -->
-    <div class="proceso">
-      <div class="section-head">
-        <span class="eyebrow">nuestro proceso</span>
-        <h2>De la selección <em>a tu mano</em></h2>
-        <p>Garantizamos calidad en cada paso. Así trabajamos.</p>
-      </div>
-
-      <div class="steps">
-        <div class="step">
-          <div class="step-icon">
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6">
-              <path d="M6 12l2-5h16l2 5M6 12v14h20V12M6 12h20M12 26v-6h8v6" stroke-linejoin="round" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="step-num">paso 01</div>
-          <h4>Selección</h4>
-          <p>Obtenemos nuestros productos del Gran Mercado Mayorista de Lima, seleccionando solo la mejor calidad.</p>
-        </div>
-        <div class="step">
-          <div class="step-icon">
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6">
-              <path d="M10 8h12v3H10zM8 11h16v15H8z" stroke-linejoin="round"/>
-              <path d="M13 15c0 2 1 3 3 3s3-1 3-3" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="step-num">paso 02</div>
-          <h4>Conservación</h4>
-          <p>Los frutos secos se conservan en envases de vidrio para mantener su frescura y propiedades nutritivas.</p>
-        </div>
-        <div class="step">
-          <div class="step-icon">
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6">
-              <path d="M16 6l10 5v10l-10 5-10-5V11l10-5zM6 11l10 5 10-5M16 16v10" stroke-linejoin="round" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="step-num">paso 03</div>
-          <h4>Empacado</h4>
-          <p>Cada pedido se entrega en bolsas Ziploc reutilizables, cuidando el producto y el medio ambiente.</p>
-        </div>
-        <div class="step">
-          <div class="step-icon">
-            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6">
-              <path d="M22 10c4 4 4 10 0 14M10 24c-4-4-4-10 0-14 3-3 7-3 10-2 1 3 1 7-2 10s-7 5-10 2z" stroke-linejoin="round" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="step-num">paso 04</div>
-          <h4>100% natural</h4>
-          <p>Sin aditivos artificiales. Energía pura en su estado más natural, lista para disfrutar.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Trust card -->
-    <div class="trust-card">
-      <div class="trust-leaf">
-        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6">
-          <path d="M26 6c-6 0-15 3-17 12-1 5 2 8 5 8 8-2 13-12 12-20zM9 26c3-8 9-14 17-17" stroke-linejoin="round" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <div>
-        <span class="smallcaps trust-eyebrow">— respaldados por expertos</span>
-        <h3 class="trust-title">Respaldados por nutricionistas</h3>
+<!-- NUTRICIONISTAS + PROCESO -->
+<section id="nutricionistas">
+  <div class="wrap">
+    <div class="nutri-grid">
+      <div class="nutri-left">
+        <span class="tag">Respaldados por nutricionistas</span>
+        <h2 style="margin-top:20px;">Ciencia detrás de<br>cada <em>mezcla</em></h2>
         <p>Trabajamos con nutricionistas profesionales para asegurar que nuestras combinaciones ofrezcan los mejores beneficios nutricionales. Cada mix está diseñado pensando en tu salud y bienestar, proporcionando los nutrientes que tu cuerpo necesita para rendir al máximo.</p>
-        <div class="trust-note">
-          <b>Recordatorio importante</b>
-          Nuestros productos son un complemento nutritivo, no un reemplazo de las comidas principales. Consúmelos como parte de una dieta balanceada.
+        <div class="nutri-callout">
+          <div class="nutri-callout-title">Recordatorio importante</div>
+          <p>Nuestros productos son un complemento nutritivo, no un reemplazo de las comidas principales. Consúmelos como parte de una dieta balanceada.</p>
         </div>
       </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- =================== TESTIMONIOS =================== -->
-<section id="testimonios" class="testimonios">
-  <div class="container">
-    <div class="section-head">
-      <span class="eyebrow">lo que dice la comunidad</span>
-      <h2>Favoritos entre <em>universitarios</em></h2>
-      <p>Nos cuentan que les ayudan a recuperar energía durante clases — y que están ricos.</p>
-    </div>
-
-    <div class="testi-grid">
-      <div class="testi">
-        <span class="quote">"</span>
-        <div class="stars">★★★★★</div>
-        <p>«El mix Cerebrito se volvió mi ritual antes de parciales. Me cae bien al estómago y me mantiene despierta sin el bajón del café.»</p>
-        <div class="testi-person">
-          <div class="avatar">C</div>
-          <div>
-            <b>Camila R.</b>
-            <span>Estudiante de Ingeniería</span>
+      <div class="nutri-right">
+        <div class="nutri-step">
+          <div class="nutri-step-num">1</div>
+          <div class="nutri-step-body">
+            <h3>Selección en el Mercado Mayorista</h3>
+            <p>Vamos cada semana al Gran Mercado Mayorista de Lima a elegir a mano solo los mejores lotes — los más frescos, los mejor conservados, los de mejor sabor.</p>
           </div>
         </div>
-      </div>
-      <div class="testi">
-        <span class="quote">"</span>
-        <div class="stars">★★★★★</div>
-        <p>«Pedí un pack surtido y llegó al día siguiente por WhatsApp, súper fácil. Los arándanos y las pecanas son lo máximo.»</p>
-        <div class="testi-person">
-          <div class="avatar">J</div>
-          <div>
-            <b>Joaquín M.</b>
-            <span>Estudiante de Psicología</span>
+        <div class="nutri-step">
+          <div class="nutri-step-num">2</div>
+          <div class="nutri-step-body">
+            <h3>Envasado en bolsas reutilizables</h3>
+            <p>Usamos bolsas ziploc reutilizables que conservan la frescura y reducen residuos. Un pequeño gesto que hace diferencia para el planeta y para tu snack.</p>
           </div>
         </div>
-      </div>
-      <div class="testi">
-        <span class="quote">"</span>
-        <div class="stars">★★★★★</div>
-        <p>«Me gusta que use bolsitas reutilizables y que sepan de dónde vienen los productos. Se nota que es fresco y de confianza.»</p>
-        <div class="testi-person">
-          <div class="avatar">V</div>
-          <div>
-            <b>Valeria S.</b>
-            <span>Estudiante de Nutrición</span>
+        <div class="nutri-step">
+          <div class="nutri-step-num">3</div>
+          <div class="nutri-step-body">
+            <h3>Etiquetado transparente</h3>
+            <p>Cada bolsa lleva los ingredientes exactos que contiene. Sin mezclas ocultas, sin sorpresas — y con alérgenos declarados para que comas con total confianza.</p>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div class="social-bar">
-      <div class="stat">
-        <div class="n">6</div>
-        <div class="l">Frutos seleccionados</div>
-      </div>
-      <div class="divider"></div>
-      <div class="stat">
-        <div class="n">100%</div>
-        <div class="l">Orgánico</div>
-      </div>
-      <div class="divider"></div>
-      <div class="stat">
-        <div class="n">3</div>
-        <div class="l">Formatos disponibles</div>
-      </div>
-      <div class="divider"></div>
-      <div class="stat">
-        <div class="n">★ 4.9</div>
-        <div class="l">Opinión de clientes</div>
+        <div class="nutri-step">
+          <div class="nutri-step-num">4</div>
+          <div class="nutri-step-body">
+            <h3>Entrega coordinada por WhatsApp</h3>
+            <p>Coordinamos cada entrega directamente contigo. Si algo llega en mal estado, lo cambiamos sin hacer preguntas — tu satisfacción está primero, siempre.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- =================== FOOTER =================== -->
-<footer id="contacto" class="footer">
-  <div class="container">
-
-    <div class="footer-cta">
-      <div>
-        <span class="eyebrow footer-eyebrow">listo cuando tú lo estés</span>
-        <h2>¿Pedimos juntos <em>algo rico</em>?</h2>
+<!-- CONFIANZA -->
+<section id="confianza">
+  <div class="wrap">
+    <div class="trust-layout">
+      <div class="trust-left">
+        <div class="tag" style="margin-bottom:20px;">Transparencia total</div>
+        <h2>Confianza y<br><em>transparencia</em></h2>
+        <p style="margin-top:16px;">Creemos que deberías saber exactamente qué estás comiendo. Por eso somos radicalmente honestos sobre ingredientes, alérgenos y calidad.</p>
       </div>
-      <a href="#configurador" class="btn btn-wa btn-lg">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><use href="#icon-wa"/></svg>
-        Armar mi pedido
-      </a>
+      <div class="trust-items">
+        <div class="trust-item">
+          <div class="trust-dot"></div>
+          <div>
+            <h3>Garantía de Calidad</h3>
+            <p>Si tu pedido llega dañado, aceptamos la responsabilidad y realizamos el cambio inmediato más una compensación. Sin preguntas, sin trámites complicados.</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-dot"></div>
+          <div>
+            <h3>Transparencia Total</h3>
+            <p>Especificamos el contenido exacto de cada mix para que sepas exactamente qué estás consumiendo. Ingredientes visibles en cada bolsa, alérgenos declarados.</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-dot"></div>
+          <div>
+            <h3>En Constante Crecimiento</h3>
+            <p>Estamos trabajando para añadir más variedades de frutos secos próximamente. Escúchanos en Instagram para ser el primero en enterarte de novedades.</p>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <div class="footer-grid">
+<!-- TESTIMONIOS -->
+<section id="testimonios">
+  <div class="wrap">
+    <div class="test-header">
+      <div class="tag" style="margin-bottom:16px;">Testimonios</div>
+      <h2>Lo que dicen<br><em>nuestros clientes</em></h2>
+      <p style="margin-top:12px;">Universitarios reales que cambiaron sus snacks y notaron la diferencia.</p>
+    </div>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="test-quote">"¡Me encantan! Los llevo a la universidad todos los días. Me ayudan a mantenerme concentrada durante las clases largas y saben deliciosos."</p>
+        <div class="test-author">
+          <div class="test-avatar">M</div>
+          <div>
+            <div class="test-name">María González</div>
+            <div class="test-role">Estudiante de Ingeniería</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="test-quote">"Perfectos para recuperar energía entre clases. Son prácticos, ricos y realmente noto la diferencia en mi nivel de concentración."</p>
+        <div class="test-author">
+          <div class="test-avatar">C</div>
+          <div>
+            <div class="test-name">Carlos Ramírez</div>
+            <div class="test-role">Estudiante de Medicina</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="test-quote">"Los compro todas las semanas. Me parecen muy ricos y son el snack perfecto durante los exámenes. ¡Totalmente recomendados!"</p>
+        <div class="test-author">
+          <div class="test-avatar">A</div>
+          <div>
+            <div class="test-name">Ana Flores</div>
+            <div class="test-role">Estudiante de Derecho</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner wrap">
+    <div class="footer-top">
       <div class="footer-brand">
-        <div class="footer-brand-row">
-          <div class="brand-seal"><span>Hl</span></div>
-          <div class="brand-name">
-            <span class="top">Frutos Secos</span>
-            <span class="main">Healthy life</span>
-          </div>
+        <div class="footer-brand-logo">
+          <img src="assets/img/logo.jpg" alt="Logo"/>
+          <span class="footer-brand-name">Healthy life</span>
         </div>
-        <p class="footer-desc">La energía que necesitas en su estado más puro. Frutos secos seleccionados del Gran Mercado Mayorista de Lima.</p>
-        <a href="https://instagram.com/healthylifeorganic" class="handle" target="_blank" rel="noopener">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".7" fill="currentColor"/></svg>
-          @healthylifeorganic
-        </a>
+        <p>100% orgánico — frutos secos seleccionados a mano para un estilo de vida más saludable. Lima, Perú.</p>
+        <a href="https://instagram.com/healthylifeorganic" class="footer-ig">@HEALTHYLIFEORGANIC</a>
       </div>
-
-      <div>
-        <h4>Navegación</h4>
-        <a href="#inicio">Inicio</a>
-        <a href="#mixes">Catálogo</a>
-        <a href="#configurador">Arma tu mix</a>
-        <a href="#nosotros">Nosotros</a>
-        <a href="#testimonios">Testimonios</a>
-      </div>
-
-      <div>
-        <h4>Medios de pago</h4>
-        <p class="footer-payment-note">Pago contra entrega en todas las modalidades.</p>
-        <div class="payments">
-          <span class="pay-chip yape">Yape</span>
-          <span class="pay-chip plin">Plin</span>
-          <span class="pay-chip">Tarjeta</span>
-          <span class="pay-chip">Efectivo</span>
-        </div>
-        <p class="footer-shipping-note">
-          <b>Envío gratis</b> coordinado por WhatsApp.
-        </p>
-      </div>
-
       <div>
         <h4>Contáctanos</h4>
-        <a href="#configurador" class="footer-wa-link">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><use href="#icon-wa"/></svg>
-          Pedidos por WhatsApp
-        </a>
-        <a href="mailto:hola@healthylifeorganic.pe">hola@healthylifeorganic.pe</a>
-        <div class="horario">
-          <b>Horario de respuesta</b>
-          Lun a Sáb · 9:00 a 19:00<br/>
-          Fuera de horario respondemos al siguiente día hábil.
+        <ul class="footer-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp: +51 999 999 999
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            info@healthylife.pe
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Respuesta en menos de 2 horas
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Lima, Perú
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h4>Métodos de Pago</h4>
+        <div class="payment-chips">
+          <div class="pay-chip">Yape</div>
+          <div class="pay-chip">Efectivo</div>
+          <div class="pay-chip">Contraentrega</div>
         </div>
+        <ul class="footer-perks">
+          <li>Garantía de calidad</li>
+          <li>Envío gratis por WhatsApp</li>
+          <li>Cambio si llega en mal estado</li>
+          <li>Ingredientes visibles en cada bolsa</li>
+        </ul>
       </div>
     </div>
-
     <div class="footer-bottom">
-      <span>© 2026 Healthy Life Organic · Lima, Perú</span>
-      <span>Hecho con cariño, frutos secos y cero aditivos 🌿</span>
+      © 2026 Healthy Life · Todos los derechos reservados · Hecho con cuidado para una vida más saludable
     </div>
   </div>
 </footer>
 
-<!-- Sticky WA button -->
-<a href="#contacto" class="wa-float" aria-label="WhatsApp">
-  <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><use href="#icon-wa"/></svg>
+<!-- FLOATING CART -->
+<div id="cart-fab">
+  <div class="cart-panel" id="cart-panel">
+    <div class="cart-head">
+      <h3>Tu pedido</h3>
+      <button class="cart-close" onclick="toggleCart()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="cart-body" id="cart-body">
+      <div class="cart-empty-msg" id="cart-empty">Tu carrito está vacío</div>
+    </div>
+    <div class="cart-foot">
+      <div class="cart-total-row">
+        <span class="cart-total-label">Total</span>
+        <span class="cart-total-amt" id="cart-total">S/ 0.00</span>
+      </div>
+      <div class="pay-row">
+        <button class="pay-btn active" id="pb-yape" onclick="selPay('Yape')">Yape</button>
+        <button class="pay-btn" id="pb-efectivo" onclick="selPay('Efectivo')">Efectivo</button>
+        <button class="pay-btn" id="pb-contra" onclick="selPay('Contraentrega')">Contra.</button>
+      </div>
+      <button class="btn-checkout" id="checkout-btn" onclick="checkout()" disabled="">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+        Enviar pedido por WhatsApp
+      </button>
+    </div>
+  </div>
+  <button class="cart-trigger" onclick="toggleCart()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    <span class="cart-badge hidden" id="cart-badge">0</span>
+  </button>
+</div>
+
+<!-- WA FLOAT -->
+<a href="https://wa.me/51999999999" id="wa-float" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
 <script src="main.js"></script>
-
 </body>
 </html>
