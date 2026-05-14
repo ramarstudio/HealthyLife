@@ -16,8 +16,21 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const DUOS_Y_FAMILIA = [
-        { id: 'comp_eco', nombre: 'Mix Económico (2 frutos a elegir)', precio: 5.00, img: 'assets/img/mix-chill.svg' },
-        { id: 'comp_power', nombre: 'Mix Power (1 premium + 1 a elegir)', precio: 7.00, img: 'assets/img/mix-cerebrito.svg' },
+        { id: 'comp_eco',     nombre: 'Mix Económico', descripcion: '2 acompañantes a elegir',   precio: 5.00, img: 'assets/img/mix-chill.svg',     tipoDuo: 'eco'     },
+        { id: 'comp_power',   nombre: 'Mix Power',     descripcion: '1 premium + 1 acompañante', precio: 7.00, img: 'assets/img/mix-cerebrito.svg', tipoDuo: 'power'   },
+        { id: 'comp_premium', nombre: 'Mix Premium',   descripcion: '2 frutos poderosos',        precio: 7.00, img: 'assets/img/mix-cerebrito.svg', tipoDuo: 'premium' },
+    ];
+
+    const ACOMPAÑANTES_DUO = [
+        { id: 'pasas',     nombre: 'Pasas rubias', img: 'assets/img/p-pasas.png'      },
+        { id: 'mani',      nombre: 'Maní',          img: 'assets/img/p-mani.png'       },
+        { id: 'arandanos', nombre: 'Arándanos',      img: 'assets/img/p-arandanos.png'  },
+    ];
+
+    const PREMIUMS_DUO = [
+        { id: 'nueces',    nombre: 'Nueces',    img: 'assets/img/walnut.svg'      },
+        { id: 'pecanas',   nombre: 'Pecanas',   img: 'assets/img/p-pecanas.png'   },
+        { id: 'almendras', nombre: 'Almendras', img: 'assets/img/p-almendras.png' },
     ];
 
     // Map para el "Bolsa Maestra" (Solo para el configurador de abajo)
@@ -159,8 +172,64 @@ document.addEventListener('DOMContentLoaded', () => {
         return div;
     }
 
+    function crearItemDuo(producto) {
+        const div = document.createElement('div');
+        div.className = 'item-chip';
+        div.innerHTML = `
+            <div class="item-info" style="display: flex; align-items: center; gap: 15px;">
+                <img src="${producto.img}" alt="${producto.nombre}" style="width: 50px; height: 50px; object-fit: contain; border-radius: 50%; background: var(--bg-alt); padding: 5px; border: 1px solid var(--border-color);">
+                <div>
+                    <strong style="font-size: 1.05rem; display: block; color: var(--text-main);">${producto.nombre}</strong>
+                    <small style="color: var(--text-muted); font-size: 0.83rem;">${producto.descripcion}</small><br>
+                    <small style="color: var(--accent-orange); font-weight: 600; font-size: 0.9rem;">S/ ${producto.precio.toFixed(2)}</small>
+                </div>
+            </div>
+            <div class="qty-controls">
+                <button class="qty-btn btn-minus">−</button>
+                <span class="qty-val">0</span>
+                <button class="qty-btn btn-plus">+</button>
+            </div>
+        `;
+
+        const btnMinus = div.querySelector('.btn-minus');
+        const btnPlus  = div.querySelector('.btn-plus');
+        const qtyVal   = div.querySelector('.qty-val');
+
+        btnPlus.addEventListener('click', (e) => {
+            e.stopPropagation();
+            abrirModalDuo(producto, (frutos) => {
+                const actual = carritoBolsa.get(producto.id) || { ...producto, cantidad: 0, selecciones: [] };
+                actual.cantidad++;
+                actual.selecciones.push(frutos);
+                carritoBolsa.set(producto.id, actual);
+                qtyVal.textContent = actual.cantidad;
+                div.classList.add('selected');
+                actualizarBolsa();
+            });
+        });
+
+        btnMinus.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const actual = carritoBolsa.get(producto.id);
+            if (actual && actual.cantidad > 0) {
+                actual.cantidad--;
+                actual.selecciones.pop();
+                qtyVal.textContent = actual.cantidad;
+                if (actual.cantidad === 0) {
+                    div.classList.remove('selected');
+                    carritoBolsa.delete(producto.id);
+                } else {
+                    carritoBolsa.set(producto.id, actual);
+                }
+                actualizarBolsa();
+            }
+        });
+
+        return div;
+    }
+
     PRODUCTOS_FAVORITOS.forEach(prod => favGrid.appendChild(crearItemConfigurador(prod)));
-    DUOS_Y_FAMILIA.forEach(prod => duoGrid.appendChild(crearItemConfigurador(prod)));
+    DUOS_Y_FAMILIA.forEach(prod => duoGrid.appendChild(crearItemDuo(prod)));
 
     // ── CATÁLOGO: datos, descuentos y carrito ──────────────────────────
 
@@ -401,6 +470,148 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // ── MODAL DÚOS Y FAMILIA ──────────────────────────────────────────────
+    let duoCallback = null;
+    const duoEstado = {};
+
+    function abrirModalDuo(producto, onConfirm) {
+        duoCallback = onConfirm;
+        duoEstado.tipoDuo = producto.tipoDuo;
+
+        document.getElementById('duoModalNombre').textContent = producto.nombre;
+        document.getElementById('duoModalDesc').textContent =
+            `${producto.descripcion} · S/ ${producto.precio.toFixed(2)}`;
+
+        const body = document.getElementById('duoModalBody');
+        body.innerHTML = '';
+        const confirmBtn = document.getElementById('duoConfirmBtn');
+        confirmBtn.disabled = true;
+
+        function checkComplete() {
+            let ok = false;
+            if (producto.tipoDuo === 'eco')     ok = (duoEstado.selEco      || []).length === 2;
+            if (producto.tipoDuo === 'power')   ok = !!(duoEstado.selPremium && duoEstado.selAcomp);
+            if (producto.tipoDuo === 'premium') ok = (duoEstado.selPremiums || []).length === 2;
+            confirmBtn.disabled = !ok;
+        }
+
+        function buildChips(lista, container, maxSel, key) {
+            duoEstado[key] = [];
+            const grid = document.createElement('div');
+            grid.className = 'ingredient-chips';
+            const contador = document.createElement('p');
+            contador.className = 'modal-ing-counter';
+            contador.textContent = `0 / ${maxSel} seleccionados`;
+
+            lista.forEach(fruto => {
+                const chip = document.createElement('div');
+                chip.className = 'ing-chip';
+                chip.innerHTML = `<img src="${fruto.img}" alt="${fruto.nombre}">
+                    <div class="ing-chip-info"><strong>${fruto.nombre}</strong></div>
+                    <div class="modal-check"></div>`;
+                chip.addEventListener('click', () => {
+                    const sel = duoEstado[key];
+                    if (sel.includes(fruto.id)) {
+                        sel.splice(sel.indexOf(fruto.id), 1);
+                        chip.classList.remove('selected');
+                        chip.querySelector('.modal-check').textContent = '';
+                    } else if (sel.length < maxSel) {
+                        sel.push(fruto.id);
+                        chip.classList.add('selected');
+                        chip.querySelector('.modal-check').textContent = '✓';
+                    }
+                    contador.textContent = `${sel.length} / ${maxSel} seleccionados`;
+                    grid.querySelectorAll('.ing-chip:not(.selected)').forEach(c => {
+                        c.style.opacity       = sel.length >= maxSel ? '0.35' : '';
+                        c.style.pointerEvents = sel.length >= maxSel ? 'none' : '';
+                    });
+                    checkComplete();
+                });
+                grid.appendChild(chip);
+            });
+            container.appendChild(grid);
+            container.appendChild(contador);
+        }
+
+        function buildSingle(lista, container, key) {
+            duoEstado[key] = null;
+            const grid = document.createElement('div');
+            grid.className = 'ingredient-chips';
+            lista.forEach(fruto => {
+                const chip = document.createElement('div');
+                chip.className = 'ing-chip';
+                chip.innerHTML = `<img src="${fruto.img}" alt="${fruto.nombre}">
+                    <div class="ing-chip-info"><strong>${fruto.nombre}</strong></div>
+                    <div class="modal-check"></div>`;
+                chip.addEventListener('click', () => {
+                    grid.querySelectorAll('.ing-chip').forEach(c => {
+                        c.classList.remove('selected');
+                        c.querySelector('.modal-check').textContent = '';
+                    });
+                    chip.classList.add('selected');
+                    chip.querySelector('.modal-check').textContent = '✓';
+                    duoEstado[key] = fruto.id;
+                    checkComplete();
+                });
+                grid.appendChild(chip);
+            });
+            container.appendChild(grid);
+        }
+
+        function addLabel(text, parent, extraStyle) {
+            const p = document.createElement('p');
+            p.className = 'modal-label';
+            p.textContent = text;
+            if (extraStyle) Object.assign(p.style, extraStyle);
+            parent.appendChild(p);
+        }
+
+        if (producto.tipoDuo === 'eco') {
+            addLabel('Elige tus 2 acompañantes:', body);
+            buildChips(ACOMPAÑANTES_DUO, body, 2, 'selEco');
+
+        } else if (producto.tipoDuo === 'power') {
+            addLabel('Elige tu fruto premium:', body);
+            buildSingle(PREMIUMS_DUO, body, 'selPremium');
+            addLabel('Elige tu acompañante:', body, { marginTop: '14px' });
+            buildSingle(ACOMPAÑANTES_DUO, body, 'selAcomp');
+
+        } else if (producto.tipoDuo === 'premium') {
+            addLabel('Elige tus 2 frutos poderosos:', body);
+            buildChips(PREMIUMS_DUO, body, 2, 'selPremiums');
+        }
+
+        document.getElementById('modalDuo').classList.add('open');
+    }
+
+    window.confirmarDuo = function() {
+        if (document.getElementById('duoConfirmBtn').disabled) return;
+
+        const nombreFruto = (id, lista) => lista.find(f => f.id === id)?.nombre || id;
+        let frutos = [];
+
+        if (duoEstado.tipoDuo === 'eco') {
+            frutos = duoEstado.selEco.map(id => nombreFruto(id, ACOMPAÑANTES_DUO));
+        } else if (duoEstado.tipoDuo === 'power') {
+            frutos = [
+                nombreFruto(duoEstado.selPremium, PREMIUMS_DUO),
+                nombreFruto(duoEstado.selAcomp,   ACOMPAÑANTES_DUO),
+            ];
+        } else if (duoEstado.tipoDuo === 'premium') {
+            frutos = duoEstado.selPremiums.map(id => nombreFruto(id, PREMIUMS_DUO));
+        }
+
+        document.getElementById('modalDuo').classList.remove('open');
+        if (duoCallback) { duoCallback(frutos); duoCallback = null; }
+    };
+
+    window.cerrarModalDuo = function(e) {
+        if (!e || e.target === document.getElementById('modalDuo')) {
+            document.getElementById('modalDuo').classList.remove('open');
+            duoCallback = null;
+        }
+    };
+
     window.seleccionarPago = function(btn) {
         document.querySelectorAll('.payment-btn').forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
@@ -481,7 +692,12 @@ document.addEventListener('DOMContentLoaded', () => {
             carritoBolsa.forEach(item => {
                 const subtotal = item.precio * item.cantidad;
                 total += subtotal;
-                if (item.esGramos) {
+                if (item.selecciones && item.selecciones.length > 0) {
+                    item.selecciones.forEach((sel, idx) => {
+                        const label = item.cantidad > 1 ? `${item.nombre} #${idx + 1}` : item.nombre;
+                        mensaje += `👉 *${label}:* ${sel.join(' + ')} — S/ ${item.precio.toFixed(2)}\n`;
+                    });
+                } else if (item.esGramos) {
                     mensaje += `👉 *${item.cantidad * 50}g* de ${item.nombre} — S/ ${subtotal.toFixed(2)}\n`;
                 } else if (item.unidad) {
                     mensaje += `👉 *${item.cantidad}x* ${item.nombre} (${item.unidad}) — S/ ${subtotal.toFixed(2)}\n`;
@@ -510,8 +726,10 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.tipo = 'configurador';
         document.getElementById('modalNombre').textContent = 'Tu Mix Personalizado';
         document.getElementById('modalResumen').textContent = `${totalProductos} producto${totalProductos > 1 ? 's' : ''} · Total S/ ${totalPrecio.toFixed(2)}`;
-        document.getElementById('seccionIngredientes').style.display = 'none';
-        document.getElementById('seccionMixes').style.display = 'none';
+        const secIng = document.getElementById('seccionIngredientes');
+        const secMix = document.getElementById('seccionMixes');
+        if (secIng) secIng.style.display = 'none';
+        if (secMix) secMix.style.display = 'none';
         abrirModalUI();
     });
 

@@ -56,6 +56,7 @@ em { color: var(--accent-orange); font-style: italic; }
 .btn-outline:hover { background: var(--text-main); color: var(--bg-main); transform: translateY(-3px); }
 .btn-wa { background: #25D366; color: white; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); }
 .btn-wa:hover { background: #1EBE5D; transform: translateY(-2px); }
+.btn-wa:disabled { background: #a8e6c3; box-shadow: none; cursor: not-allowed; transform: none; }
 
 /* ── HERO SECTION ── */
 .hero { padding: 80px 0; }

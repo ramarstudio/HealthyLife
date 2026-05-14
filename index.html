@@ -170,7 +170,6 @@
                                 <button class="qty-btn btn-plus">+</button>
                             </div>
                         </div>
-                        <button class="btn btn-wa btn-comprar" onclick="abrirModalCatalogo('compra_cerebrito', 'El Cerebrito', 4.00)">Pedir al WhatsApp</button>
                     </div>
                 </div>
                 <div class="card product-card reveal reveal-delay-2">
@@ -191,7 +190,6 @@
                                 <button class="qty-btn btn-plus">+</button>
                             </div>
                         </div>
-                        <button class="btn btn-wa btn-comprar" onclick="abrirModalMedida('compra_medida')">Pedir al WhatsApp</button>
                     </div>
                 </div>
                 <div class="card product-card reveal reveal-delay-3">
@@ -211,7 +209,6 @@
                                 <button class="qty-btn btn-plus">+</button>
                             </div>
                         </div>
-                        <button class="btn btn-wa btn-comprar" onclick="abrirModalCatalogo('compra_toditito', 'El Toditito Para Ti', 3.00)">Pedir al WhatsApp</button>
                     </div>
                 </div>
                 <div class="card product-card reveal reveal-delay-4">
@@ -231,7 +228,6 @@
                                 <button class="qty-btn btn-plus">+</button>
                             </div>
                         </div>
-                        <button class="btn btn-wa btn-comprar" onclick="abrirModalCatalogo('compra_chill', 'El Chill', 2.50)">Pedir al WhatsApp</button>
                     </div>
                 </div>
             </div>
@@ -378,6 +374,21 @@
             <div class="modal-actions">
                 <button class="btn btn-outline" onclick="cerrarModal()">Cancelar</button>
                 <button class="btn btn-wa" onclick="confirmarPedido()">Pedir al WhatsApp →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Dúos y Familia -->
+    <div id="modalDuo" class="modal-overlay" onclick="cerrarModalDuo(event)">
+        <div class="modal-card">
+            <div class="modal-prod-header">
+                <h3 id="duoModalNombre"></h3>
+                <p id="duoModalDesc" class="modal-resumen-text"></p>
+            </div>
+            <div id="duoModalBody" class="modal-section"></div>
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="cerrarModalDuo()">Cancelar</button>
+                <button id="duoConfirmBtn" class="btn btn-wa" onclick="confirmarDuo()" disabled>Añadir →</button>
             </div>
         </div>
     </div>
