@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Healthy Life Organic · Frutos Secos</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@400;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <!-- Navegación -->
@@ -23,9 +27,7 @@
             </a>
             <ul class="nav-links">
                 <li><a href="#nosotros">Nosotros</a></li>
-                <li><a href="#mixes">Mixes Firmados</a></li>
-                <li><a href="#reels">Videos</a></li>
-                <li><a href="#configurador">Arma tu Mix</a></li>
+                <li><a href="#mixes">Catálogo</a></li>
             </ul>
         </div>
     </nav>
@@ -36,11 +38,12 @@
             <div class="hero-text reveal">
                 <span class="eyebrow">100% orgánico · Lima, Perú</span>
                 <h1 class="hero-title">La energía que necesitas en su estado <em>más puro.</em></h1>
-                <p class="hero-lede">Frutos secos seleccionados a mano. Un complemento nutritivo para reactivar tu atención y mantenerte en tu mejor forma. Sin azúcar añadida, sin preservantes.</p>
-                
+                <p class="hero-lede">Frutos secos seleccionados a mano. Un complemento nutritivo para reactivar tu
+                    atención y mantenerte en tu mejor forma. Sin azúcar añadida, sin preservantes.</p>
+
                 <div class="hero-cta">
                     <a href="#mixes" class="btn btn-primary btn-lg">Comprar ahora</a>
-                    <a href="#configurador" class="btn btn-outline btn-lg">Arma tu match</a>
+                    <a href="#mixes" class="btn btn-outline btn-lg">Ver catálogo</a>
                 </div>
 
                 <div class="hero-proof">
@@ -53,7 +56,7 @@
 
             <div class="hero-media reveal reveal-delay-1">
                 <div class="hero-video-card">
-                    <img src="assets/img/frutos-secos.jpeg" alt="Frutos Secos Healthy Life" class="hero-photo"> 
+                    <img src="assets/img/frutos-secos.jpeg" alt="Frutos Secos Healthy Life" class="hero-photo">
                 </div>
             </div>
         </div>
@@ -69,7 +72,9 @@
                 <div class="nosotros-text">
                     <span class="eyebrow">sobre nosotros</span>
                     <h2>Un complemento <em>real</em>, <br>no un suplemento más.</h2>
-                    <p>Healthy Life nace en Lima como un gesto cotidiano: frutos secos de verdad, comprados frescos en el Gran Mercado Mayorista, guardados en vidrio y empacados en Ziploc reutilizable para que te duren — y para que el planeta respire un poco mejor.</p>
+                    <p>Healthy Life nace en Lima como un gesto cotidiano: frutos secos de verdad, comprados frescos en
+                        el Gran Mercado Mayorista, guardados en vidrio y empacados en Ziploc reutilizable para que te
+                        duren — y para que el planeta respire un poco mejor.</p>
                 </div>
             </div>
 
@@ -108,9 +113,14 @@
                 <div class="trust-content">
                     <span class="eyebrow">respaldado por expertos</span>
                     <h2>Avalado por Nutricionistas</h2>
-                    <p>Trabajamos de la mano con profesionales de la salud para asegurar que nuestras combinaciones ofrezcan los mejores beneficios nutricionales. Cada mix está diseñado pensando en tu salud y bienestar, proporcionando la energía exacta que tu cuerpo necesita para rendir al máximo en la universidad o el trabajo.</p>
+                    <p>Trabajamos de la mano con profesionales de la salud para asegurar que nuestras combinaciones
+                        ofrezcan los mejores beneficios nutricionales. Cada mix está diseñado pensando en tu salud y
+                        bienestar, proporcionando la energía exacta que tu cuerpo necesita para rendir al máximo en la
+                        universidad o el trabajo.</p>
                     <div class="trust-disclaimer">
-                        <strong>Recordatorio importante:</strong> Nuestros productos son un complemento nutritivo 100% natural, no un reemplazo de tus comidas principales. Consúmelos como parte de una dieta balanceada.
+                        <strong>Recordatorio importante:</strong> Nuestros productos son un complemento nutritivo 100%
+                        natural, no un reemplazo de tus comidas principales. Consúmelos como parte de una dieta
+                        balanceada.
                     </div>
                 </div>
             </div>
@@ -120,13 +130,30 @@
     <!-- Catálogo Avanzado con Botones Directos -->
     <section id="mixes" class="catalog">
         <div class="container">
+
+            <!-- ── MIXES FIRMADOS ── -->
             <div class="section-title text-center reveal">
                 <span class="eyebrow">nuestro catálogo</span>
                 <h2>Mixes <em>firmados</em> por Healthy Life</h2>
                 <p>Elige la cantidad de tu favorito y mándalo directo al WhatsApp.</p>
             </div>
-            
+
             <div class="grid-4 catalog-grid">
+                <div class="card product-card reveal">
+                    <img src="assets/img/toditito para ti.png" alt="El Toditito para ti">
+                    <div class="purchase-controls" id="compra_toditito">
+                        <div class="qty-group">
+                            <div class="qty-controls">
+                                <button class="qty-btn btn-minus">−</button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn btn-plus">+</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-wa btn-comprar"
+                            onclick="comprarItemDirecto('compra_toditito', 'Mix El Toditito para Ti (50g)', 3.00)">Pedir
+                            al WhatsApp</button>
+                    </div>
+                </div>
                 <div class="card product-card reveal reveal-delay-1">
                     <img src="assets/img/el cerebrito.png" alt="El Cerebrito">
                     <div class="purchase-controls" id="compra_cerebrito">
@@ -137,36 +164,12 @@
                                 <button class="qty-btn btn-plus">+</button>
                             </div>
                         </div>
-                        <button class="btn btn-wa btn-comprar" onclick="comprarItemDirecto('compra_cerebrito', 'Mix El Cerebrito (50g)', 4.00)">Pedir al WhatsApp</button>
+                        <button class="btn btn-wa btn-comprar"
+                            onclick="comprarItemDirecto('compra_cerebrito', 'Mix El Cerebrito (50g)', 4.00)">Pedir al
+                            WhatsApp</button>
                     </div>
                 </div>
                 <div class="card product-card reveal reveal-delay-2">
-                    <img src="assets/img/a tu medida.png" alt="A tu medida">
-                    <div class="purchase-controls" id="compra_medida">
-                        <div class="qty-group">
-                            <div class="qty-controls">
-                                <button class="qty-btn btn-minus">−</button>
-                                <span class="qty-val">0</span>
-                                <button class="qty-btn btn-plus">+</button>
-                            </div>
-                        </div>
-                        <button class="btn btn-wa btn-comprar" onclick="comprarItemDirecto('compra_medida', 'Mix A Tu Medida (50g)', 3.50)">Pedir al WhatsApp</button>
-                    </div>
-                </div>
-                <div class="card product-card reveal reveal-delay-3">
-                    <img src="assets/img/toditito para ti.png" alt="El Toditito para ti">
-                    <div class="purchase-controls" id="compra_toditito">
-                        <div class="qty-group">
-                            <div class="qty-controls">
-                                <button class="qty-btn btn-minus">−</button>
-                                <span class="qty-val">0</span>
-                                <button class="qty-btn btn-plus">+</button>
-                            </div>
-                        </div>
-                        <button class="btn btn-wa btn-comprar" onclick="comprarItemDirecto('compra_toditito', 'Mix El Toditito (50g)', 3.00)">Pedir al WhatsApp</button>
-                    </div>
-                </div>
-                <div class="card product-card reveal reveal-delay-4">
                     <img src="assets/img/elchill.png" alt="El Chill">
                     <div class="purchase-controls" id="compra_chill">
                         <div class="qty-group">
@@ -176,122 +179,213 @@
                                 <button class="qty-btn btn-plus">+</button>
                             </div>
                         </div>
-                        <button class="btn btn-wa btn-comprar" onclick="comprarItemDirecto('compra_chill', 'Mix El Chill (50g)', 2.50)">Pedir al WhatsApp</button>
+                        <button class="btn btn-wa btn-comprar"
+                            onclick="comprarItemDirecto('compra_chill', 'Mix El Chill (50g)', 2.50)">Pedir al
+                            WhatsApp</button>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Videos Reels -->
-    <section id="reels" class="reels-section bg-alt">
-        <div class="container">
-            <div class="section-title text-center reveal">
-                <span class="eyebrow">pequeños videos, gran sabor</span>
-                <h2>Mira el producto <em>moverse</em></h2>
-                <p>Sin filtros. Así se ve lo que te llega a casa.</p>
-            </div>
-            <div class="grid-4 reels-grid">
-                <div class="card reel-card reveal">
-                    <div class="video-wrapper">
-                        <video data-src="uploads/WhatsApp Video 2026-04-19 at 2.13.56 AM.mp4" muted loop autoplay playsinline preload="none"></video>
-                    </div>
-                    <h3 class="text-center">Pecanas</h3>
-                </div>
-                <div class="card reel-card featured-reel reveal reveal-delay-1">
-                    <div class="popular-tag">El favorito</div>
-                    <div class="video-wrapper">
-                        <video data-src="uploads/WhatsApp Video 2026-04-19 at 2.13.57 AM (1).mp4" muted loop autoplay playsinline preload="none"></video>
-                    </div>
-                    <h3 class="text-center">Maní</h3>
-                </div>
-                <div class="card reel-card reveal reveal-delay-2">
-                    <div class="video-wrapper">
-                        <video data-src="uploads/WhatsApp Video 2026-04-19 at 2.13.58 AM.mp4" muted loop autoplay playsinline preload="none"></video>
-                    </div>
-                    <h3 class="text-center">Nueces</h3>
-                </div>
-                <div class="card reel-card reveal reveal-delay-3">
-                    <div class="video-wrapper">
-                        <video data-src="uploads/WhatsApp Video 2026-04-19 at 2.13.59 AM.mp4" muted loop autoplay playsinline preload="none"></video>
-                    </div>
-                    <h3 class="text-center">Almendras</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Packs en Mancha -->
-    <section id="packs" class="packs-section">
-        <div class="container">
-            <div class="section-title text-center reveal">
-                <span class="eyebrow">Ahorra en grupo</span>
-                <h2>Oferta <em>Pack en Mancha</em></h2>
-            </div>
-            <div class="grid-3">
-                <div class="card pack-card reveal">
-                    <h4>Pack Estudio</h4>
-                    <p>Ideal para parciales<br>5 mixes surtidos (50g c/u)</p>
-                    <div class="price-old">S/ 18.00</div>
-                    <div class="price-new">S/ 15.00</div>
-                    <span class="discount-badge">Lleva 5, paga menos</span>
-                </div>
-                <div class="card pack-card popular reveal reveal-delay-1">
-                    <div class="popular-tag">Más Popular</div>
-                    <h4>Pack Full Day</h4>
-                    <p>Para toda la semana<br>10 mixes surtidos (50g c/u)</p>
-                    <div class="price-old">S/ 35.00</div>
-                    <div class="price-new">S/ 28.00</div>
-                    <span class="discount-badge">Ahorro inteligente</span>
-                </div>
-                <div class="card pack-card reveal reveal-delay-2">
-                    <h4>Pack Mancha</h4>
-                    <p>Para compartir<br>20 mixes surtidos (50g c/u)</p>
-                    <div class="price-old">S/ 70.00</div>
-                    <div class="price-new">S/ 50.00</div>
-                    <span class="discount-badge">Mejor precio garantizado</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Configurador -->
-    <section id="configurador" class="configurador bg-alt">
-        <div class="container">
-            <div class="config-intro grid-2 align-center reveal">
-                <div>
-                    <span class="eyebrow">catálogo interactivo</span>
-                    <h2>Arma tu <em>match saludable</em></h2>
-                    <p>Elige tus ingredientes individuales o complementos. Todo se suma automáticamente a tu pedido de WhatsApp al final.</p>
-                </div>
-                <img src="assets/img/match-saludable.jpeg" alt="Flyer Match saludable" class="config-poster">
-            </div>
-            
-            <div class="config-grid">
-                <div class="config-panel reveal">
-                    <div class="config-head">
-                        <span class="config-num">01</span>
-                        <h3>Tu Favorito <br><small>Individuales (50g)</small></h3>
-                    </div>
-                    <div id="favGrid" class="items-grid"></div>
-                </div>
-                <div class="config-panel reveal reveal-delay-1">
-                    <div class="config-head">
-                        <span class="config-num">02</span>
-                        <h3>Dúos & Familia <br><small>Complementos</small></h3>
-                    </div>
-                    <div id="duoGrid" class="items-grid list-view"></div>
                 </div>
             </div>
 
-            <!-- Sticky Cart -->
-            <div class="cart-bar reveal">
-                <div class="cart-info">
-                    <span id="cartCount">0 productos en tu bolsa</span>
-                    <strong id="cartTotal">Total estimado: S/ 0.00</strong>
-                </div>
-                <button id="btnPedirWa" class="btn btn-wa btn-lg">Ir a WhatsApp</button>
+            <!-- ── DÚOS ── -->
+            <div class="section-title text-center reveal" style="margin-top:70px;">
+                <span class="eyebrow">combina y ahorra</span>
+                <h2>Dúos <em>dinámicos</em></h2>
+                <p>Dos productos, un solo pedido.</p>
             </div>
+
+            <div class="grid-4 catalog-grid">
+                <div class="card product-card reveal">
+                    <img src="assets/img/mix-chill.svg" alt="Mix Económico">
+                    <div class="purchase-controls" id="compra_eco">
+                        <div class="qty-group">
+                            <div class="qty-controls">
+                                <button class="qty-btn btn-minus">−</button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn btn-plus">+</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-wa btn-comprar"
+                            onclick="comprarItemDirecto('compra_eco', 'Mix Económico – 2 acompañantes', 5.00)">Pedir al
+                            WhatsApp</button>
+                    </div>
+                </div>
+                <div class="card product-card reveal reveal-delay-1">
+                    <img src="assets/img/mix-cerebrito.svg" alt="Mix Power">
+                    <div class="purchase-controls" id="compra_power">
+                        <div class="qty-group">
+                            <div class="qty-controls">
+                                <button class="qty-btn btn-minus">−</button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn btn-plus">+</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-wa btn-comprar"
+                            onclick="comprarItemDirecto('compra_power', 'Mix Power – 1 premium + 1 acompañante', 7.00)">Pedir
+                            al WhatsApp</button>
+                    </div>
+                </div>
+                <div class="card product-card reveal reveal-delay-2">
+                    <img src="assets/img/mix-medida.svg" alt="Mix Premium">
+                    <div class="purchase-controls" id="compra_premium">
+                        <div class="qty-group">
+                            <div class="qty-controls">
+                                <button class="qty-btn btn-minus">−</button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn btn-plus">+</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-wa btn-comprar"
+                            onclick="comprarItemDirecto('compra_premium', 'Mix Premium – 2 poderosos', 7.00)">Pedir al
+                            WhatsApp</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ── PRODUCTO A TU MEDIDA ── -->
+            <div class="section-title text-center reveal" style="margin-top:70px;">
+                <span class="eyebrow">ingredientes seleccionados</span>
+                <h2>Producto a <em>tu medida</em></h2>
+                <p>Frutos secos individuales por porción de 50g.</p>
+            </div>
+
+            <div class="grid-4 catalog-grid">
+                <div class="card product-card reveal">
+                    <img src="assets/img/p-pasas.png" alt="Pasas Rubias">
+                    <div class="purchase-controls" id="compra_pasas">
+                        <div class="qty-group">
+                            <div class="qty-controls">
+                                <button class="qty-btn btn-minus">−</button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn btn-plus">+</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-wa btn-comprar"
+                            onclick="comprarItemDirecto('compra_pasas', 'Pasas Rubias (50g)', 2.50)">Pedir al
+                            WhatsApp</button>
+                    </div>
+                </div>
+                <div class="card product-card reveal reveal-delay-1">
+                    <img src="assets/img/p-mani.png" alt="Maní">
+                    <div class="purchase-controls" id="compra_mani">
+                        <div class="qty-group">
+                            <div class="qty-controls">
+                                <button class="qty-btn btn-minus">−</button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn btn-plus">+</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-wa btn-comprar"
+                            onclick="comprarItemDirecto('compra_mani', 'Maní (50g)', 1.00)">Pedir al WhatsApp</button>
+                    </div>
+                </div>
+                <div class="card product-card reveal reveal-delay-2">
+                    <img src="assets/img/p-arandanos.png" alt="Arándanos deshidratados">
+                    <div class="purchase-controls" id="compra_arandanos">
+                        <div class="qty-group">
+                            <div class="qty-controls">
+                                <button class="qty-btn btn-minus">−</button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn btn-plus">+</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-wa btn-comprar"
+                            onclick="comprarItemDirecto('compra_arandanos', 'Arándanos deshidratados (50g)', 2.50)">Pedir
+                            al WhatsApp</button>
+                    </div>
+                </div>
+                <div class="card product-card reveal reveal-delay-3">
+                    <img src="assets/img/walnut.svg" alt="Nueces">
+                    <div class="purchase-controls" id="compra_nueces">
+                        <div class="qty-group">
+                            <div class="qty-controls">
+                                <button class="qty-btn btn-minus">−</button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn btn-plus">+</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-wa btn-comprar"
+                            onclick="comprarItemDirecto('compra_nueces', 'Nueces (50g)', 4.00)">Pedir al
+                            WhatsApp</button>
+                    </div>
+                </div>
+                <div class="card product-card reveal reveal-delay-4">
+                    <img src="assets/img/p-pecanas.png" alt="Pecanas">
+                    <div class="purchase-controls" id="compra_pecanas">
+                        <div class="qty-group">
+                            <div class="qty-controls">
+                                <button class="qty-btn btn-minus">−</button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn btn-plus">+</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-wa btn-comprar"
+                            onclick="comprarItemDirecto('compra_pecanas', 'Pecanas (50g)', 4.00)">Pedir al
+                            WhatsApp</button>
+                    </div>
+                </div>
+                <div class="card product-card reveal reveal-delay-5">
+                    <img src="assets/img/p-almendras.png" alt="Almendras">
+                    <div class="purchase-controls" id="compra_almendras">
+                        <div class="qty-group">
+                            <div class="qty-controls">
+                                <button class="qty-btn btn-minus">−</button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn btn-plus">+</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-wa btn-comprar"
+                            onclick="comprarItemDirecto('compra_almendras', 'Almendras (50g)', 3.50)">Pedir al
+                            WhatsApp</button>
+                    </div>
+                </div>
+                <div class="card product-card reveal reveal-delay-6">
+                    <img src="assets/img/granola.svg" alt="Granola Artesanal">
+                    <div class="purchase-controls" id="compra_granola">
+                        <div class="qty-group">
+                            <div class="qty-controls">
+                                <button class="qty-btn btn-minus">−</button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn btn-plus">+</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-wa btn-comprar"
+                            onclick="comprarItemDirecto('compra_granola', 'Granola Artesanal (250g)', 6.00)">Pedir al
+                            WhatsApp</button>
+                    </div>
+                </div>
+                <div class="card product-card reveal">
+                    <img src="assets/img/pbutter.svg" alt="Mantequilla de Maní">
+                    <div class="purchase-controls" id="compra_mantequilla">
+                        <div class="qty-group">
+                            <div class="qty-controls">
+                                <button class="qty-btn btn-minus">−</button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn btn-plus">+</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-wa btn-comprar"
+                            onclick="comprarItemDirecto('compra_mantequilla', 'Mantequilla de Maní Casera (250g)', 12.00)">Pedir
+                            al WhatsApp</button>
+                    </div>
+                </div>
+                <div class="card product-card reveal reveal-delay-1">
+                    <img src="assets/img/choco.svg" alt="Chocomani">
+                    <div class="purchase-controls" id="compra_chocomani">
+                        <div class="qty-group">
+                            <div class="qty-controls">
+                                <button class="qty-btn btn-minus">−</button>
+                                <span class="qty-val">0</span>
+                                <button class="qty-btn btn-plus">+</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-wa btn-comprar"
+                            onclick="comprarItemDirecto('compra_chocomani', 'Chocomani', 8.00)">Pedir al
+                            WhatsApp</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -324,4 +418,5 @@
 
     <script src="main.js"></script>
 </body>
+
 </html>
