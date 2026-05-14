@@ -117,6 +117,9 @@ em { color: var(--accent-orange); font-style: italic; }
 
 /* ── CATÁLOGO ── */
 .catalog { padding: 80px 0; }
+.catalog-divider { text-align: center; margin: 70px 0 10px; padding-top: 60px; border-top: 1px solid var(--border-color); }
+.catalog-divider h2 { margin: 8px 0 10px; }
+.catalog-divider p { color: var(--text-muted); max-width: 480px; margin: 0 auto; }
 .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; margin-top: 40px; }
 .product-card { 
     background: white; 

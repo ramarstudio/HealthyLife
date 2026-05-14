@@ -232,17 +232,40 @@
                 </div>
             </div>
 
-            <!-- Hint vacío -->
-            <p id="catalogHint" class="catalog-hint">Usa <strong>+</strong> en cualquier mix para empezar tu pedido</p>
 
-            <!-- Carrito del catálogo -->
-            <div id="catalogCartBar" class="cart-bar" style="display:none">
-                <div class="cart-info">
-                    <span id="catalogCartCount">0 mixes</span>
-                    <strong id="catalogCartTotal">S/ 0.00</strong>
+            <!-- Divisor Individuales & Complementos -->
+            <div id="configurador" class="catalog-divider reveal">
+                <span class="eyebrow">arma tu combo</span>
+                <h2>Individuales & <em>Complementos</em></h2>
+                <p>Suma frutos sueltos, granola o mantequillas. Todo va al mismo pedido de WhatsApp.</p>
+            </div>
+
+            <div class="config-grid">
+                <div class="config-panel reveal">
+                    <div class="config-head">
+                        <span class="config-num">01</span>
+                        <h3>Tu Favorito <br><small>Individuales (50g)</small></h3>
+                    </div>
+                    <div id="favGrid" class="items-grid"></div>
                 </div>
-                <span id="catalogPromoMsg" class="promo-hint"></span>
-                <button id="btnPedirCatalogo" class="btn btn-wa btn-lg">Pedir todo →</button>
+                <div class="config-panel reveal reveal-delay-1">
+                    <div class="config-head">
+                        <span class="config-num">02</span>
+                        <h3>Dúos & Familia <br><small>Complementos</small></h3>
+                    </div>
+                    <div id="duoGrid" class="items-grid list-view"></div>
+                </div>
+            </div>
+
+            <!-- Barra unificada de pedido -->
+            <p id="unifiedHint" class="catalog-hint">Usa <strong>+</strong> en cualquier producto para empezar tu pedido</p>
+            <div id="unifiedCartBar" class="cart-bar" style="display:none">
+                <div class="cart-info">
+                    <span id="unifiedCartCount">0 productos</span>
+                    <strong id="unifiedCartTotal">S/ 0.00</strong>
+                </div>
+                <span id="unifiedPromoMsg" class="promo-hint"></span>
+                <button id="btnPedirTodo" class="btn btn-wa btn-lg">Pedir todo →</button>
             </div>
         </div>
     </section>
@@ -282,46 +305,6 @@
                     </div>
                     <h3 class="text-center">Almendras</h3>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Configurador -->
-    <section id="configurador" class="configurador bg-alt">
-        <div class="container">
-            <div class="config-intro grid-2 align-center reveal">
-                <div>
-                    <span class="eyebrow">catálogo interactivo</span>
-                    <h2>Arma tu <em>match saludable</em></h2>
-                    <p>Elige tus ingredientes individuales o complementos. Todo se suma automáticamente a tu pedido de WhatsApp al final.</p>
-                </div>
-                <img src="assets/img/match-saludable.jpeg" alt="Flyer Match saludable" class="config-poster">
-            </div>
-            
-            <div class="config-grid">
-                <div class="config-panel reveal">
-                    <div class="config-head">
-                        <span class="config-num">01</span>
-                        <h3>Tu Favorito <br><small>Individuales (50g)</small></h3>
-                    </div>
-                    <div id="favGrid" class="items-grid"></div>
-                </div>
-                <div class="config-panel reveal reveal-delay-1">
-                    <div class="config-head">
-                        <span class="config-num">02</span>
-                        <h3>Dúos & Familia <br><small>Complementos</small></h3>
-                    </div>
-                    <div id="duoGrid" class="items-grid list-view"></div>
-                </div>
-            </div>
-
-            <!-- Sticky Cart -->
-            <div class="cart-bar reveal">
-                <div class="cart-info">
-                    <span id="cartCount">0 productos en tu bolsa</span>
-                    <strong id="cartTotal">Total estimado: S/ 0.00</strong>
-                </div>
-                <button id="btnPedirWa" class="btn btn-wa btn-lg">Ir a WhatsApp</button>
             </div>
         </div>
     </section>

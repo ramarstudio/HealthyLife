@@ -38,17 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const favGrid = document.getElementById('favGrid');
     const duoGrid = document.getElementById('duoGrid');
 
-    // Función para actualizar los totales en la barra flotante de abajo
-    function actualizarBolsa() {
-        let total = 0;
-        let conteo = 0;
-        carritoBolsa.forEach((item) => {
-            total += item.precio * item.cantidad;
-            conteo += item.cantidad;
-        });
-        document.getElementById('cartCount').textContent = `${conteo} productos en tu bolsa`;
-        document.getElementById('cartTotal').textContent = `Total estimado: S/ ${total.toFixed(2)}`;
-    }
+    function actualizarBolsa() { actualizarBarraUnificada(); }
 
     // Map para las cantidades independientes del catálogo (Los flyers de arriba)
     let cantidadesCatalogo = new Map();
@@ -87,29 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    document.getElementById('btnPedirCatalogo').addEventListener('click', () => {
-        let totalUnidades = 0;
-        cantidadesCatalogo.forEach(c => { totalUnidades += c; });
-        if (totalUnidades === 0) return;
-
-        const medidaCantidad = cantidadesCatalogo.get('compra_medida') || 0;
-        modal.tipo     = 'catalogo_grupal';
-        modal.cantidad = medidaCantidad;
-
-        document.getElementById('modalNombre').textContent = 'Tu pedido';
-
-        if (medidaCantidad > 0) {
-            document.getElementById('modalResumen').textContent =
-                `${totalUnidades} mixes · Personaliza tu${medidaCantidad > 1 ? 's' : ''} A Tu Medida`;
-            document.getElementById('seccionMedida').style.display = 'block';
-            poblarMedidaConfig();
-        } else {
-            document.getElementById('modalResumen').textContent =
-                `${totalUnidades} mix${totalUnidades > 1 ? 'es' : ''} · Elige tu pago`;
-            document.getElementById('seccionMedida').style.display = 'none';
-        }
-        abrirModalUI();
-    });
 
     // Crear los items del Configurador dinámicamente y activar sus botones
     function crearItemConfigurador(producto) {
@@ -250,22 +217,29 @@ document.addEventListener('DOMContentLoaded', () => {
         return DESCUENTOS.find(d => totalUnidades >= d.minUnidades) || null;
     }
 
-    function actualizarCarritoCatalogo() {
-        let totalUnidades = 0;
-        let subtotal = 0;
-        let tieneMedida = false;
+    function actualizarCarritoCatalogo() { actualizarBarraUnificada(); }
 
-        cantidadesCatalogo.forEach((cantidad, id) => {
+    function actualizarBarraUnificada() {
+        let catalogUnidades = 0, catalogSubtotal = 0, tieneMedida = false;
+        cantidadesCatalogo.forEach((cant, id) => {
             const prod = CATALOGO_MIXES.find(p => p.id === id);
-            if (prod && cantidad > 0) {
-                totalUnidades += cantidad;
-                subtotal += prod.precio * cantidad;
+            if (prod && cant > 0) {
+                catalogUnidades += cant;
+                catalogSubtotal += prod.precio * cant;
                 if (id === 'compra_medida') tieneMedida = true;
             }
         });
 
-        const bar  = document.getElementById('catalogCartBar');
-        const hint = document.getElementById('catalogHint');
+        let bolsaUnidades = 0, bolsaSubtotal = 0;
+        carritoBolsa.forEach(item => {
+            bolsaUnidades += item.cantidad;
+            bolsaSubtotal += item.precio * item.cantidad;
+        });
+
+        const totalUnidades = catalogUnidades + bolsaUnidades;
+        const hint = document.getElementById('unifiedHint');
+        const bar  = document.getElementById('unifiedCartBar');
+
         if (totalUnidades === 0) {
             bar.style.display  = 'none';
             hint.style.display = 'block';
@@ -274,29 +248,32 @@ document.addEventListener('DOMContentLoaded', () => {
         bar.style.display  = 'flex';
         hint.style.display = 'none';
 
-        document.getElementById('catalogCartCount').textContent =
-            `${totalUnidades} mix${totalUnidades > 1 ? 'es' : ''}`;
+        const countEl = document.getElementById('unifiedCartCount');
+        const totalEl = document.getElementById('unifiedCartTotal');
+        const promoEl = document.getElementById('unifiedPromoMsg');
+        const btn     = document.getElementById('btnPedirTodo');
 
-        const promoMsg  = document.getElementById('catalogPromoMsg');
-        const totalEl   = document.getElementById('catalogCartTotal');
-        const descuento = obtenerDescuento(totalUnidades);
+        countEl.textContent = `${totalUnidades} ${totalUnidades === 1 ? 'producto' : 'productos'}`;
 
-        const btn = document.getElementById('btnPedirCatalogo');
+        const descuento = catalogUnidades > 0 ? obtenerDescuento(catalogUnidades) : null;
+
         if (tieneMedida) {
             totalEl.textContent = '—';
             const descLabel = descuento ? ` · ${descuento.porcentaje}% off incluido` : '';
-            promoMsg.innerHTML = `Toca <strong>Personalizar y pedir</strong> para configurar tu A Tu Medida${descLabel} →`;
+            promoEl.innerHTML = `Toca <strong>Personalizar y pedir</strong> para configurar tu A Tu Medida${descLabel} →`;
             btn.textContent = 'Personalizar y pedir →';
             btn.classList.add('btn-pulse');
         } else if (descuento) {
-            const ahorro = subtotal * (descuento.porcentaje / 100);
-            totalEl.innerHTML = `<s>S/ ${subtotal.toFixed(2)}</s> → <strong>S/ ${(subtotal - ahorro).toFixed(2)}</strong>`;
-            promoMsg.textContent = `🎉 ${descuento.label} · Ahorras S/ ${ahorro.toFixed(2)}`;
+            const ahorro     = catalogSubtotal * (descuento.porcentaje / 100);
+            const sinDesc    = catalogSubtotal + bolsaSubtotal;
+            const totalFinal = sinDesc - ahorro;
+            totalEl.innerHTML = `<s>S/ ${sinDesc.toFixed(2)}</s> → <strong>S/ ${totalFinal.toFixed(2)}</strong>`;
+            promoEl.textContent = `🎉 ${descuento.label} en mixes · Ahorras S/ ${ahorro.toFixed(2)}`;
             btn.textContent = 'Pedir todo →';
             btn.classList.remove('btn-pulse');
         } else {
-            totalEl.textContent = `S/ ${subtotal.toFixed(2)}`;
-            promoMsg.textContent = '';
+            totalEl.textContent = `S/ ${(catalogSubtotal + bolsaSubtotal).toFixed(2)}`;
+            promoEl.textContent = '';
             btn.textContent = 'Pedir todo →';
             btn.classList.remove('btn-pulse');
         }
@@ -620,7 +597,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.confirmarPedido = function() {
         const tieneMediada = modal.tipo === 'medida' ||
-            (modal.tipo === 'catalogo_grupal' && (cantidadesCatalogo.get('compra_medida') || 0) > 0);
+            (modal.tipo === 'catalogo_grupal' && (cantidadesCatalogo.get('compra_medida') || 0) > 0) ||
+            (modal.tipo === 'unificado'        && (cantidadesCatalogo.get('compra_medida') || 0) > 0);
         if (tieneMediada && modal.mixesConfig.length > 0) {
             if (modal.mixesConfig.some(m => !m.tamano)) {
                 alert(modal.cantidad === 1 ? '¡Elige un tamaño para tu mix!' : '¡Elige un tamaño para cada mix!');
@@ -687,25 +665,57 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
             mensaje += `💰 *TOTAL: S/ ${total.toFixed(2)}*\n\n`;
-        } else if (modal.tipo === 'configurador') {
-            let total = 0;
-            carritoBolsa.forEach(item => {
-                const subtotal = item.precio * item.cantidad;
-                total += subtotal;
-                if (item.selecciones && item.selecciones.length > 0) {
-                    item.selecciones.forEach((sel, idx) => {
-                        const label = item.cantidad > 1 ? `${item.nombre} #${idx + 1}` : item.nombre;
-                        mensaje += `👉 *${label}:* ${sel.join(' + ')} — S/ ${item.precio.toFixed(2)}\n`;
+        } else if (modal.tipo === 'configurador' || modal.tipo === 'unificado') {
+            let subtotalMixes = 0, totalUnidadesMixes = 0;
+
+            cantidadesCatalogo.forEach((cant, prodId) => {
+                if (!cant) return;
+                totalUnidadesMixes += cant;
+                if (prodId === 'compra_medida' && modal.mixesConfig.length > 0) {
+                    modal.mixesConfig.forEach((m, idx) => {
+                        const tamLabel = m.tamano.nombre ? ` — ${m.tamano.nombre}` : '';
+                        const ings = [...m.ingredientes].map(iid => INGREDIENTES_MEDIDA.find(i => i.id === iid).nombre).join(' · ');
+                        subtotalMixes += m.tamano.precio;
+                        const label = cant > 1 ? `A Tu Medida #${idx + 1}` : 'A Tu Medida';
+                        mensaje += `👉 *${label}* ${m.tamano.gramos}g${tamLabel} · ${ings} — S/ ${m.tamano.precio.toFixed(2)}\n`;
                     });
-                } else if (item.esGramos) {
-                    mensaje += `👉 *${item.cantidad * 50}g* de ${item.nombre} — S/ ${subtotal.toFixed(2)}\n`;
-                } else if (item.unidad) {
-                    mensaje += `👉 *${item.cantidad}x* ${item.nombre} (${item.unidad}) — S/ ${subtotal.toFixed(2)}\n`;
                 } else {
-                    mensaje += `👉 *${item.cantidad}x* ${item.nombre} — S/ ${subtotal.toFixed(2)}\n`;
+                    const prod = CATALOGO_MIXES.find(p => p.id === prodId);
+                    if (!prod) return;
+                    subtotalMixes += prod.precio * cant;
+                    mensaje += `👉 *${cant}x* ${prod.nombre} — S/ ${(prod.precio * cant).toFixed(2)}\n`;
                 }
             });
-            mensaje += `💰 *TOTAL: S/ ${total.toFixed(2)}*\n\n`;
+
+            const descuento = obtenerDescuento(totalUnidadesMixes);
+            if (descuento && subtotalMixes > 0) {
+                const ahorro = subtotalMixes * (descuento.porcentaje / 100);
+                mensaje += `🎉 *Descuento ${descuento.porcentaje}% en mixes:* -S/ ${ahorro.toFixed(2)}\n`;
+                subtotalMixes -= ahorro;
+            }
+
+            let subtotalBolsa = 0;
+            if (carritoBolsa.size > 0) {
+                if (totalUnidadesMixes > 0) mensaje += `\n`;
+                carritoBolsa.forEach(item => {
+                    const sub = item.precio * item.cantidad;
+                    subtotalBolsa += sub;
+                    if (item.selecciones && item.selecciones.length > 0) {
+                        item.selecciones.forEach((sel, idx) => {
+                            const label = item.cantidad > 1 ? `${item.nombre} #${idx + 1}` : item.nombre;
+                            mensaje += `👉 *${label}:* ${sel.join(' + ')} — S/ ${item.precio.toFixed(2)}\n`;
+                        });
+                    } else if (item.esGramos) {
+                        mensaje += `👉 *${item.cantidad * 50}g* de ${item.nombre} — S/ ${sub.toFixed(2)}\n`;
+                    } else if (item.unidad) {
+                        mensaje += `👉 *${item.cantidad}x* ${item.nombre} (${item.unidad}) — S/ ${sub.toFixed(2)}\n`;
+                    } else {
+                        mensaje += `👉 *${item.cantidad}x* ${item.nombre} — S/ ${sub.toFixed(2)}\n`;
+                    }
+                });
+            }
+
+            mensaje += `💰 *TOTAL: S/ ${(subtotalMixes + subtotalBolsa).toFixed(2)}*\n\n`;
         }
 
         mensaje += `💳 *Pago:* ${modal.pago}\n`;
@@ -715,21 +725,30 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open(`https://wa.me/${TELEFONO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`, '_blank');
     };
 
-    // 4. Configurador → también pasa por el modal de pago
-    document.getElementById('btnPedirWa').addEventListener('click', () => {
-        if (carritoBolsa.size === 0) {
-            alert('¡Usa los botones + del configurador para añadir ingredientes a tu bolsa!');
-            return;
+    // Botón único de pedido unificado
+    document.getElementById('btnPedirTodo').addEventListener('click', () => {
+        let catalogTotal = 0;
+        cantidadesCatalogo.forEach(c => { catalogTotal += c; });
+        const bolsaTotal = [...carritoBolsa.values()].reduce((a, i) => a + i.cantidad, 0);
+        if (catalogTotal === 0 && bolsaTotal === 0) return;
+
+        const medidaCantidad = cantidadesCatalogo.get('compra_medida') || 0;
+        modal.tipo     = 'unificado';
+        modal.cantidad = medidaCantidad;
+
+        const totalItems = catalogTotal + bolsaTotal;
+        document.getElementById('modalNombre').textContent = 'Tu pedido completo';
+
+        if (medidaCantidad > 0) {
+            document.getElementById('modalResumen').textContent =
+                `Personaliza tu${medidaCantidad > 1 ? 's' : ''} A Tu Medida antes de pedir`;
+            document.getElementById('seccionMedida').style.display = 'block';
+            poblarMedidaConfig();
+        } else {
+            document.getElementById('modalResumen').textContent =
+                `${totalItems} producto${totalItems > 1 ? 's' : ''} · Elige tu pago`;
+            document.getElementById('seccionMedida').style.display = 'none';
         }
-        const totalProductos = [...carritoBolsa.values()].reduce((a, i) => a + i.cantidad, 0);
-        const totalPrecio = [...carritoBolsa.values()].reduce((a, i) => a + i.precio * i.cantidad, 0);
-        modal.tipo = 'configurador';
-        document.getElementById('modalNombre').textContent = 'Tu Mix Personalizado';
-        document.getElementById('modalResumen').textContent = `${totalProductos} producto${totalProductos > 1 ? 's' : ''} · Total S/ ${totalPrecio.toFixed(2)}`;
-        const secIng = document.getElementById('seccionIngredientes');
-        const secMix = document.getElementById('seccionMixes');
-        if (secIng) secIng.style.display = 'none';
-        if (secMix) secMix.style.display = 'none';
         abrirModalUI();
     });
 
