@@ -25,7 +25,6 @@
                 <li><a href="#nosotros">Nosotros</a></li>
                 <li><a href="#mixes">Mixes Firmados</a></li>
                 <li><a href="#reels">Videos</a></li>
-                <li><a href="#packs">Packs</a></li>
                 <li><a href="#configurador">Arma tu Mix</a></li>
             </ul>
         </div>
@@ -124,14 +123,45 @@
             <div class="section-title text-center reveal">
                 <span class="eyebrow">nuestro catálogo</span>
                 <h2>Mixes <em>firmados</em> por Healthy Life</h2>
-                <p>Elige la cantidad de tu favorito y mándalo directo al WhatsApp.</p>
             </div>
-            
+
+            <div class="how-it-works reveal">
+                <div class="how-step">
+                    <span class="how-num">01</span>
+                    <span class="how-text">Usa <strong>+</strong> para elegir tus mixes</span>
+                </div>
+                <span class="how-arrow">→</span>
+                <div class="how-step">
+                    <span class="how-num">02</span>
+                    <span class="how-text">Combina para un descuento <em>automático</em></span>
+                </div>
+                <span class="how-arrow">→</span>
+                <div class="how-step">
+                    <span class="how-num">03</span>
+                    <span class="how-text">Un solo click a WhatsApp con todo</span>
+                </div>
+            </div>
+
+            <div class="pack-tiers reveal">
+                <span class="pack-tier-intro">Pide solo o combina</span>
+                <span class="pack-tier-sep">→</span>
+                <span class="pack-tier pack-tier--deal">Pack Amigos · 3+ · 10%</span>
+                <span class="pack-tier-sep">·</span>
+                <span class="pack-tier pack-tier--deal">Pack Grupo · 6+ · 15%</span>
+                <span class="pack-tier-sep">·</span>
+                <span class="pack-tier pack-tier--deal">Pack Mancha · 12+ · 20%</span>
+            </div>
+
             <div class="grid-4 catalog-grid">
                 <div class="card product-card reveal reveal-delay-1">
                     <img src="assets/img/el cerebrito.png" alt="El Cerebrito">
                     <p class="product-ingredients">Nueces · Almendras · Pecanas</p>
                     <p class="product-note">3 frutos premium en un solo mix</p>
+                    <div class="card-info-chips">
+                        <span class="card-chip card-chip--price">S/ 4.00 · 50g</span>
+                        <span class="card-chip">El favorito de los estudiantes</span>
+                        <span class="card-chip">Concentración y energía</span>
+                    </div>
                     <div class="purchase-controls" id="compra_cerebrito">
                         <div class="qty-group">
                             <div class="qty-controls">
@@ -146,7 +176,13 @@
                 <div class="card product-card reveal reveal-delay-2">
                     <img src="assets/img/a tu medida.png" alt="A tu medida">
                     <p class="product-ingredients">Tú eliges tus favoritos</p>
-                    <p class="product-note">Dinos qué frutos quieres al pedir</p>
+                    <p class="product-note">Elige tu tamaño y frutos al pedir</p>
+                    <div class="medida-sizes">
+                        <span class="medida-size-chip">50g · S/ 3.50</span>
+                        <span class="medida-size-chip">Snack Rápido 80g · S/ 4.00</span>
+                        <span class="medida-size-chip">Energía Constante 120g · S/ 6.00</span>
+                        <span class="medida-size-chip">Para Compartir 150g · S/ 7.00</span>
+                    </div>
                     <div class="purchase-controls" id="compra_medida">
                         <div class="qty-group">
                             <div class="qty-controls">
@@ -162,6 +198,11 @@
                     <img src="assets/img/toditito para ti.png" alt="El Toditito para ti">
                     <p class="product-ingredients">Pasas · Maní · Arándanos · Nueces · Pecanas · Almendras</p>
                     <p class="product-note">Los 6 frutos secos en un solo mix</p>
+                    <div class="card-info-chips">
+                        <span class="card-chip card-chip--price">S/ 3.00 · 50g</span>
+                        <span class="card-chip">La opción más completa</span>
+                        <span class="card-chip">Variedad en cada bocado</span>
+                    </div>
                     <div class="purchase-controls" id="compra_toditito">
                         <div class="qty-group">
                             <div class="qty-controls">
@@ -177,6 +218,11 @@
                     <img src="assets/img/elchill.png" alt="El Chill">
                     <p class="product-ingredients">Pasas · Arándanos · Maní</p>
                     <p class="product-note">El mix más suave y dulce</p>
+                    <div class="card-info-chips">
+                        <span class="card-chip card-chip--price">S/ 2.50 · 50g</span>
+                        <span class="card-chip">Perfecto para el recreo</span>
+                        <span class="card-chip">Dulce y ligero</span>
+                    </div>
                     <div class="purchase-controls" id="compra_chill">
                         <div class="qty-group">
                             <div class="qty-controls">
@@ -188,6 +234,19 @@
                         <button class="btn btn-wa btn-comprar" onclick="abrirModalCatalogo('compra_chill', 'El Chill', 2.50)">Pedir al WhatsApp</button>
                     </div>
                 </div>
+            </div>
+
+            <!-- Hint vacío -->
+            <p id="catalogHint" class="catalog-hint">Usa <strong>+</strong> en cualquier mix para empezar tu pedido</p>
+
+            <!-- Carrito del catálogo -->
+            <div id="catalogCartBar" class="cart-bar" style="display:none">
+                <div class="cart-info">
+                    <span id="catalogCartCount">0 mixes</span>
+                    <strong id="catalogCartTotal">S/ 0.00</strong>
+                </div>
+                <span id="catalogPromoMsg" class="promo-hint"></span>
+                <button id="btnPedirCatalogo" class="btn btn-wa btn-lg">Pedir todo →</button>
             </div>
         </div>
     </section>
@@ -226,43 +285,6 @@
                         <video data-src="uploads/WhatsApp Video 2026-04-19 at 2.13.59 AM.mp4" muted loop autoplay playsinline preload="none"></video>
                     </div>
                     <h3 class="text-center">Almendras</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Packs en Mancha -->
-    <section id="packs" class="packs-section">
-        <div class="container">
-            <div class="section-title text-center reveal">
-                <span class="eyebrow">Ahorra en grupo</span>
-                <h2>Oferta <em>Pack en Mancha</em></h2>
-            </div>
-            <div class="grid-3">
-                <div class="card pack-card reveal">
-                    <h4>Pack Estudio</h4>
-                    <p>Ideal para parciales<br>5 mixes surtidos (50g c/u)</p>
-                    <div class="price-old">S/ 18.00</div>
-                    <div class="price-new">S/ 15.00</div>
-                    <span class="discount-badge">Lleva 5, paga menos</span>
-                    <button class="btn btn-wa btn-comprar" onclick="abrirModalPack('Pack Estudio', 5, 15.00)">Pedir al WhatsApp</button>
-                </div>
-                <div class="card pack-card popular reveal reveal-delay-1">
-                    <div class="popular-tag">Más Popular</div>
-                    <h4>Pack Full Day</h4>
-                    <p>Para toda la semana<br>10 mixes surtidos (50g c/u)</p>
-                    <div class="price-old">S/ 35.00</div>
-                    <div class="price-new">S/ 28.00</div>
-                    <span class="discount-badge">Ahorro inteligente</span>
-                    <button class="btn btn-wa btn-comprar" onclick="abrirModalPack('Pack Full Day', 10, 28.00)">Pedir al WhatsApp</button>
-                </div>
-                <div class="card pack-card reveal reveal-delay-2">
-                    <h4>Pack Mancha</h4>
-                    <p>Para compartir<br>20 mixes surtidos (50g c/u)</p>
-                    <div class="price-old">S/ 70.00</div>
-                    <div class="price-new">S/ 50.00</div>
-                    <span class="discount-badge">Mejor precio garantizado</span>
-                    <button class="btn btn-wa btn-comprar" onclick="abrirModalPack('Pack Mancha', 20, 50.00)">Pedir al WhatsApp</button>
                 </div>
             </div>
         </div>
@@ -342,14 +364,8 @@
                 <h3 id="modalNombre"></h3>
                 <p id="modalResumen" class="modal-resumen-text"></p>
             </div>
-            <div id="seccionIngredientes" class="modal-section" style="display:none">
-                <p class="modal-label">Elige hasta <strong>3 frutos</strong> para tu mix:</p>
-                <div class="ingredient-chips" id="ingredientChips"></div>
-                <p id="contadorIng" class="modal-ing-counter">0 / 3 seleccionados</p>
-            </div>
-            <div id="seccionMixes" class="modal-section" style="display:none">
-                <p class="modal-label">¿Qué mixes prefieres? <span class="modal-opcional">(opcional)</span></p>
-                <div class="ingredient-chips" id="mixChips"></div>
+            <div id="seccionMedida" class="modal-section" style="display:none">
+                <div id="medidaConfig"></div>
             </div>
             <div class="modal-section">
                 <p class="modal-label">¿Cómo vas a pagar?</p>

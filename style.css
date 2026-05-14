@@ -130,7 +130,7 @@ em { color: var(--accent-orange); font-style: italic; }
 }
 .product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); }
 .product-card img { width: 100%; height: auto; object-fit: contain; border-radius: 12px; margin-bottom: 15px;}
-.purchase-controls { margin-top: 15px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.purchase-controls { margin-top: auto; padding-top: 15px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .btn-comprar { font-size: 0.85rem; padding: 10px 20px; font-weight: bold; text-transform: uppercase;}
 .product-ingredients { font-size: 0.82rem; color: var(--text-muted); text-align: center; margin: 0 0 4px; letter-spacing: 0.02em; }
 .product-note { font-size: 0.78rem; color: var(--accent-green); text-align: center; font-weight: 600; margin: 0 0 8px; }
@@ -195,6 +195,170 @@ em { color: var(--accent-orange); font-style: italic; }
 }
 .qty-btn:hover { transform: scale(1.1); }
 .qty-val { font-weight: 700; font-size: 1.2rem; min-width: 18px; text-align: center; color: var(--text-main); }
+
+/* ── GUÍA 3 PASOS ── */
+.how-it-works {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 28px 0 0;
+    padding: 18px 28px;
+    background: white;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+}
+.how-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    justify-content: center;
+}
+.how-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.6rem;
+    color: var(--accent-orange);
+    opacity: 0.5;
+    line-height: 1;
+    flex-shrink: 0;
+}
+.how-text {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    max-width: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.how-arrow { color: var(--border-color); font-size: 1.1rem; flex-shrink: 0; }
+
+/* ── PACK TIERS ── */
+.pack-tiers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 10px 0;
+}
+.pack-tier {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    padding: 4px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    background: white;
+    font-weight: 500;
+}
+.pack-tier--deal {
+    color: var(--accent-green);
+    border-color: rgba(85,139,47,0.3);
+    background: rgba(85,139,47,0.05);
+    font-weight: 600;
+}
+.pack-tier-sep {
+    color: var(--border-color);
+    font-size: 0.9rem;
+}
+.pack-tier-intro {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* ── TAMAÑOS A TU MEDIDA ── */
+.medida-sizes {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+    margin: 6px 0 10px;
+}
+.medida-size-chip {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    background: var(--bg-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 4px 12px;
+    text-align: center;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+.medida-size-chip:first-child {
+    color: var(--accent-orange);
+    border-color: var(--accent-orange);
+    background: white;
+}
+
+/* ── CHIPS INFO TARJETA ── */
+.card-info-chips {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+    margin: 6px 0 10px;
+}
+.card-chip {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    background: var(--bg-alt);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 4px 12px;
+    text-align: center;
+    font-weight: 500;
+}
+.card-chip--price {
+    color: var(--accent-orange);
+    border-color: var(--accent-orange);
+    background: white;
+    font-weight: 600;
+}
+
+/* ── PRECIO EN TARJETA ── */
+.price-tag {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    color: var(--accent-orange);
+    margin: 2px 0 10px;
+    text-align: center;
+}
+.price-tag span { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
+
+/* ── HINT VACÍO DEL CARRITO ── */
+.catalog-hint {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.83rem;
+    margin-top: 32px;
+    opacity: 0.65;
+    letter-spacing: 0.01em;
+}
+
+/* ── PROMO HINT (carrito) ── */
+.promo-hint {
+    font-size: 0.8rem;
+    color: #a8d5a2;
+    font-weight: 500;
+    text-align: center;
+    flex: 1;
+    padding: 0 12px;
+}
+.promo-hint strong { color: white; }
+
+/* ── BOTÓN CON PULSO (A Tu Medida pendiente) ── */
+.btn-pulse {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); }
+    50%       { box-shadow: 0 4px 28px rgba(37, 211, 102, 0.7); transform: translateY(-1px); }
+}
 
 /* ── STICKY CART ── */
 .cart-bar { 
