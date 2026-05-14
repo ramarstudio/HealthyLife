@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const DUOS_Y_FAMILIA = [
-        { id: 'comp_eco', nombre: 'Mix Económico (2 acomp.)', precio: 5.00, img: 'assets/img/mix-chill.svg' },
-        { id: 'comp_power', nombre: 'Mix Power (1 prem + 1 acomp)', precio: 7.00, img: 'assets/img/mix-cerebrito.svg' },
+        { id: 'comp_eco', nombre: 'Mix Económico (2 frutos a elegir)', precio: 5.00, img: 'assets/img/mix-chill.svg' },
+        { id: 'comp_power', nombre: 'Mix Power (1 premium + 1 a elegir)', precio: 7.00, img: 'assets/img/mix-cerebrito.svg' },
         { id: 'comp_granola', nombre: 'Granola Artesanal (250g)', precio: 6.00, img: 'assets/img/granola.svg' },
         { id: 'comp_pbutter', nombre: 'Mantequilla de Maní (250g)', precio: 12.00, img: 'assets/img/pbutter.svg' }
     ];
@@ -107,50 +107,196 @@ document.addEventListener('DOMContentLoaded', () => {
     PRODUCTOS_FAVORITOS.forEach(prod => favGrid.appendChild(crearItemConfigurador(prod)));
     DUOS_Y_FAMILIA.forEach(prod => duoGrid.appendChild(crearItemConfigurador(prod)));
 
-    // 3. Función Principal: COMPRAR AHORA Directo (Para Catálogo)
-    // Esta función la llamamos desde el HTML con onclick
-    window.comprarItemDirecto = function(containerId, productoNombre, productoPrecio) {
-        // Obtenemos la cantidad actual que está en el Map de catálogo
-        const cantidad = cantidadesCatalogo.get(containerId) || 0;
+    // ── MODAL UNIVERSAL DE PEDIDO ───────────────────────────────────────
 
-        if (cantidad === 0) {
-            alert('¡Utiliza los botones + para añadir al menos una unidad de este mix!');
-            return;
-        }
+    const INGREDIENTES_MEDIDA = [
+        { id: 'pasas',     nombre: 'Pasas rubias', img: 'assets/img/p-pasas.png' },
+        { id: 'mani',      nombre: 'Maní',          img: 'assets/img/p-mani.png' },
+        { id: 'arandanos', nombre: 'Arándanos',      img: 'assets/img/p-arandanos.png' },
+        { id: 'nueces',    nombre: 'Nueces',         img: 'assets/img/walnut.svg' },
+        { id: 'pecanas',   nombre: 'Pecanas',        img: 'assets/img/p-pecanas.png' },
+        { id: 'almendras', nombre: 'Almendras',      img: 'assets/img/p-almendras.png' },
+    ];
 
-        const subtotal = productoPrecio * cantidad;
-        let mensaje = `¡Hola Healthy Life! 🌰\nQuiero hacer un pedido rápido de tu catálogo:\n\n`;
-        mensaje += `👉 *${cantidad}x* ${productoNombre} (S/ ${subtotal.toFixed(2)})\n`;
-        mensaje += `\n💰 *SUBTOTAL: S/ ${subtotal.toFixed(2)}*\n\n`;
-        mensaje += `Deseo pagar con: (Escribe Yape/Plin/Efectivo)\n`;
-        mensaje += `Dirección de entrega: (Tu dirección aquí)`;
+    const MIXES_CATALOGO = [
+        { id: 'cerebrito', nombre: 'El Cerebrito' },
+        { id: 'medida',    nombre: 'A Tu Medida' },
+        { id: 'toditito',  nombre: 'El Toditito' },
+        { id: 'chill',     nombre: 'El Chill' },
+    ];
 
-        const url = `https://wa.me/${TELEFONO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
-        window.open(url, '_blank');
+    const modal = {
+        tipo: null, nombre: '', precio: 0, cantidad: 0, unidades: 0,
+        ingredientes: new Set(), mixes: new Set(), pago: null,
+    };
+
+    function abrirModalUI() {
+        document.querySelectorAll('.payment-btn').forEach(b => b.classList.remove('selected'));
+        modal.pago = null;
+        document.getElementById('modalPedido').classList.add('open');
     }
 
-    // 4. Enviar a WhatsApp el pedido MAESTRO de abajo (Configurador)
-    document.getElementById('btnPedirWa').addEventListener('click', () => {
-        if (carritoBolsa.size === 0) {
-            alert('¡Utiliza los botones + del configurador para añadir ingredientes a tu bolsa!');
-            return;
+    function poblarIngredientes() {
+        const grid = document.getElementById('ingredientChips');
+        grid.innerHTML = '';
+        modal.ingredientes.clear();
+        INGREDIENTES_MEDIDA.forEach(ing => {
+            const chip = document.createElement('div');
+            chip.className = 'ing-chip';
+            chip.innerHTML = `<img src="${ing.img}" alt="${ing.nombre}"><div class="ing-chip-info"><strong>${ing.nombre}</strong></div><div class="modal-check"></div>`;
+            chip.addEventListener('click', () => {
+                if (modal.ingredientes.has(ing.id)) {
+                    modal.ingredientes.delete(ing.id);
+                    chip.classList.remove('selected');
+                    chip.querySelector('.modal-check').textContent = '';
+                } else if (modal.ingredientes.size < 3) {
+                    modal.ingredientes.add(ing.id);
+                    chip.classList.add('selected');
+                    chip.querySelector('.modal-check').textContent = '✓';
+                }
+                actualizarContador();
+                document.querySelectorAll('#ingredientChips .ing-chip:not(.selected)').forEach(c => {
+                    c.style.opacity = modal.ingredientes.size >= 3 ? '0.35' : '1';
+                    c.style.pointerEvents = modal.ingredientes.size >= 3 ? 'none' : '';
+                });
+            });
+            grid.appendChild(chip);
+        });
+        actualizarContador();
+    }
+
+    function actualizarContador() {
+        document.getElementById('contadorIng').textContent = `${modal.ingredientes.size} / 3 seleccionados`;
+    }
+
+    function poblarMixes() {
+        const grid = document.getElementById('mixChips');
+        grid.innerHTML = '';
+        modal.mixes.clear();
+        MIXES_CATALOGO.forEach(mix => {
+            const chip = document.createElement('div');
+            chip.className = 'ing-chip mix-chip';
+            chip.innerHTML = `<div class="ing-chip-info"><strong>${mix.nombre}</strong></div><div class="modal-check"></div>`;
+            chip.addEventListener('click', () => {
+                if (modal.mixes.has(mix.id)) {
+                    modal.mixes.delete(mix.id);
+                    chip.classList.remove('selected');
+                    chip.querySelector('.modal-check').textContent = '';
+                } else {
+                    modal.mixes.add(mix.id);
+                    chip.classList.add('selected');
+                    chip.querySelector('.modal-check').textContent = '✓';
+                }
+            });
+            grid.appendChild(chip);
+        });
+    }
+
+    window.abrirModalCatalogo = function(containerId, nombre, precio) {
+        const cantidad = cantidadesCatalogo.get(containerId) || 0;
+        if (cantidad === 0) { alert('¡Usa los botones + para añadir al menos una unidad!'); return; }
+        Object.assign(modal, { tipo: 'catalogo', nombre, precio, cantidad });
+        document.getElementById('modalNombre').textContent = nombre;
+        document.getElementById('modalResumen').textContent = `${cantidad} unidad${cantidad > 1 ? 'es' : ''} · Total S/ ${(precio * cantidad).toFixed(2)}`;
+        document.getElementById('seccionIngredientes').style.display = 'none';
+        document.getElementById('seccionMixes').style.display = 'none';
+        abrirModalUI();
+    };
+
+    window.abrirModalMedida = function(containerId) {
+        const cantidad = cantidadesCatalogo.get(containerId) || 0;
+        if (cantidad === 0) { alert('¡Usa los botones + para añadir al menos una unidad!'); return; }
+        Object.assign(modal, { tipo: 'medida', nombre: 'A Tu Medida', precio: 3.50, cantidad });
+        document.getElementById('modalNombre').textContent = 'A Tu Medida';
+        document.getElementById('modalResumen').textContent = `${cantidad} unidad${cantidad > 1 ? 'es' : ''} · Total S/ ${(3.50 * cantidad).toFixed(2)}`;
+        document.getElementById('seccionIngredientes').style.display = 'block';
+        document.getElementById('seccionMixes').style.display = 'none';
+        poblarIngredientes();
+        abrirModalUI();
+    };
+
+    window.abrirModalPack = function(nombre, unidades, precio) {
+        Object.assign(modal, { tipo: 'pack', nombre, precio, cantidad: 1, unidades });
+        document.getElementById('modalNombre').textContent = nombre;
+        document.getElementById('modalResumen').textContent = `${unidades} mixes surtidos · Total S/ ${precio.toFixed(2)}`;
+        document.getElementById('seccionIngredientes').style.display = 'none';
+        document.getElementById('seccionMixes').style.display = 'block';
+        poblarMixes();
+        abrirModalUI();
+    };
+
+    window.cerrarModal = function(e) {
+        if (!e || e.target === document.getElementById('modalPedido')) {
+            document.getElementById('modalPedido').classList.remove('open');
+        }
+    };
+
+    window.seleccionarPago = function(btn) {
+        document.querySelectorAll('.payment-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        modal.pago = btn.dataset.pago;
+    };
+
+    window.confirmarPedido = function() {
+        if (modal.tipo === 'medida' && modal.ingredientes.size === 0) {
+            alert('¡Elige al menos un fruto para tu mix!'); return;
+        }
+        if (!modal.pago) {
+            alert('¡Elige cómo vas a pagar!'); return;
         }
 
-        let total = 0;
-        let mensaje = `¡Hola Healthy Life! 🌰\nYa armé mi carrito interactivo, quiero pedir:\n\n`;
-        
-        carritoBolsa.forEach(item => {
-            const subtotal = item.precio * item.cantidad;
-            total += subtotal;
-            mensaje += `👉 *${item.cantidad}x* ${item.nombre} (S/ ${subtotal.toFixed(2)})\n`;
-        });
-        
-        mensaje += `\n💰 *TOTAL A PAGAR: S/ ${total.toFixed(2)}*\n\n`;
-        mensaje += `💳 Pagaré con: (Escribe Yape/Plin/Efectivo)\n`;
-        mensaje += `📍 Dirección: (Escribe tu dirección)`;
+        let mensaje = `¡Hola Healthy Life! 🌰\nQuiero hacer un pedido:\n\n`;
 
-        const url = `https://wa.me/${TELEFONO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
-        window.open(url, '_blank');
+        if (modal.tipo === 'catalogo') {
+            const subtotal = modal.precio * modal.cantidad;
+            mensaje += `👉 *${modal.cantidad}x* ${modal.nombre} (50g) — S/ ${subtotal.toFixed(2)}\n`;
+            mensaje += `💰 *TOTAL: S/ ${subtotal.toFixed(2)}*\n\n`;
+        } else if (modal.tipo === 'medida') {
+            const subtotal = 3.50 * modal.cantidad;
+            const ings = [...modal.ingredientes].map(id => INGREDIENTES_MEDIDA.find(i => i.id === id).nombre).join(' · ');
+            mensaje += `👉 *${modal.cantidad}x* Mix A Tu Medida (50g) — S/ ${subtotal.toFixed(2)}\n`;
+            mensaje += `🫐 *Frutos elegidos:* ${ings}\n`;
+            mensaje += `💰 *TOTAL: S/ ${subtotal.toFixed(2)}*\n\n`;
+        } else if (modal.tipo === 'pack') {
+            mensaje += `👉 *${modal.nombre}* — ${modal.unidades} mixes · S/ ${modal.precio.toFixed(2)}\n`;
+            if (modal.mixes.size > 0) {
+                const mixNames = [...modal.mixes].map(id => MIXES_CATALOGO.find(m => m.id === id).nombre).join(' · ');
+                mensaje += `🎯 *Mixes preferidos:* ${mixNames}\n`;
+            } else {
+                mensaje += `🎯 *Mixes:* a vuestra elección\n`;
+            }
+            mensaje += `💰 *TOTAL: S/ ${modal.precio.toFixed(2)}*\n\n`;
+        } else if (modal.tipo === 'configurador') {
+            let total = 0;
+            carritoBolsa.forEach(item => {
+                const subtotal = item.precio * item.cantidad;
+                total += subtotal;
+                mensaje += `👉 *${item.cantidad}x* ${item.nombre} — S/ ${subtotal.toFixed(2)}\n`;
+            });
+            mensaje += `💰 *TOTAL: S/ ${total.toFixed(2)}*\n\n`;
+        }
+
+        mensaje += `💳 *Pago:* ${modal.pago}\n`;
+        mensaje += `📍 *Dirección:* (escribe tu dirección aquí)`;
+
+        document.getElementById('modalPedido').classList.remove('open');
+        window.open(`https://wa.me/${TELEFONO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`, '_blank');
+    };
+
+    // 4. Configurador → también pasa por el modal de pago
+    document.getElementById('btnPedirWa').addEventListener('click', () => {
+        if (carritoBolsa.size === 0) {
+            alert('¡Usa los botones + del configurador para añadir ingredientes a tu bolsa!');
+            return;
+        }
+        const totalProductos = [...carritoBolsa.values()].reduce((a, i) => a + i.cantidad, 0);
+        const totalPrecio = [...carritoBolsa.values()].reduce((a, i) => a + i.precio * i.cantidad, 0);
+        modal.tipo = 'configurador';
+        document.getElementById('modalNombre').textContent = 'Tu Mix Personalizado';
+        document.getElementById('modalResumen').textContent = `${totalProductos} producto${totalProductos > 1 ? 's' : ''} · Total S/ ${totalPrecio.toFixed(2)}`;
+        document.getElementById('seccionIngredientes').style.display = 'none';
+        document.getElementById('seccionMixes').style.display = 'none';
+        abrirModalUI();
     });
 
     // 5. Animaciones visuales

@@ -132,6 +132,9 @@ em { color: var(--accent-orange); font-style: italic; }
 .product-card img { width: 100%; height: auto; object-fit: contain; border-radius: 12px; margin-bottom: 15px;}
 .purchase-controls { margin-top: 15px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .btn-comprar { font-size: 0.85rem; padding: 10px 20px; font-weight: bold; text-transform: uppercase;}
+.product-ingredients { font-size: 0.82rem; color: var(--text-muted); text-align: center; margin: 0 0 4px; letter-spacing: 0.02em; }
+.product-note { font-size: 0.78rem; color: var(--accent-green); text-align: center; font-weight: 600; margin: 0 0 8px; }
+.pack-card .btn-comprar { margin-top: 18px; width: 100%; }
 
 /* ── REELS: VIDEO SIN CORTES ── */
 .reels-section { padding: 80px 0; }
@@ -212,6 +215,52 @@ em { color: var(--accent-orange); font-style: italic; }
 .reveal-delay-2 { transition-delay: 0.2s; }
 .reveal-delay-3 { transition-delay: 0.3s; }
 .reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── MODAL UNIVERSAL DE PEDIDO ── */
+.modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(62, 39, 35, 0.6); backdrop-filter: blur(5px);
+    z-index: 200; align-items: center; justify-content: center; padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.modal-card {
+    background: var(--bg-main); border-radius: 28px; padding: 32px;
+    max-width: 500px; width: 100%; box-shadow: 0 30px 80px rgba(0,0,0,0.22);
+    animation: modalIn 0.28s ease-out; max-height: 90vh; overflow-y: auto;
+}
+@keyframes modalIn { from { opacity: 0; transform: translateY(18px) scale(0.97); } to { opacity: 1; transform: none; } }
+.modal-prod-header { margin-bottom: 20px; }
+.modal-prod-header h3 { font-size: 1.5rem; margin-bottom: 4px; }
+.modal-resumen-text { color: var(--text-muted); font-size: 0.9rem; }
+.modal-section { border-top: 1px solid var(--border-color); padding-top: 18px; margin-top: 18px; }
+.modal-label { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 12px; }
+.modal-opcional { font-weight: 400; text-transform: none; letter-spacing: 0; }
+.modal-ing-counter { font-size: 0.82rem; color: var(--accent-green); font-weight: 600; margin-top: 10px; text-align: right; }
+.ingredient-chips { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ing-chip {
+    display: flex; align-items: center; gap: 10px;
+    background: white; border: 2px solid var(--border-color);
+    border-radius: 14px; padding: 10px 12px; cursor: pointer;
+    transition: border-color 0.2s, background 0.2s; user-select: none;
+}
+.ing-chip:hover { border-color: var(--accent-orange); }
+.ing-chip.selected { border-color: var(--accent-green); background: #F1F8E9; }
+.ing-chip img { width: 36px; height: 36px; object-fit: contain; border-radius: 50%; background: var(--bg-alt); padding: 3px; flex-shrink: 0; }
+.ing-chip-info strong { display: block; font-size: 0.85rem; color: var(--text-main); line-height: 1.2; }
+.ing-chip.selected .ing-chip-info strong { color: var(--accent-green); }
+.modal-check { width: 18px; height: 18px; border: 2px solid var(--border-color); border-radius: 5px; margin-left: auto; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; transition: background 0.15s; }
+.ing-chip.selected .modal-check { background: var(--accent-green); border-color: var(--accent-green); color: white; }
+.mix-chip { grid-column: span 1; }
+.payment-selector { display: flex; gap: 10px; }
+.payment-btn {
+    flex: 1; padding: 12px 8px; border: 2px solid var(--border-color);
+    border-radius: 14px; background: white; cursor: pointer; font-size: 0.9rem;
+    font-weight: 600; color: var(--text-main); transition: border-color 0.2s, background 0.2s;
+}
+.payment-btn:hover { border-color: var(--accent-orange); }
+.payment-btn.selected { border-color: var(--accent-green); background: #F1F8E9; color: var(--accent-green); }
+.modal-actions { display: flex; gap: 12px; margin-top: 20px; }
+.modal-actions .btn { flex: 1; }
 
 /* ── FOOTER ── */
 .footer { padding: 40px 0; background: white;}

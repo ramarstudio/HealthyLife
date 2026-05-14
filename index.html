@@ -25,6 +25,7 @@
                 <li><a href="#nosotros">Nosotros</a></li>
                 <li><a href="#mixes">Mixes Firmados</a></li>
                 <li><a href="#reels">Videos</a></li>
+                <li><a href="#packs">Packs</a></li>
                 <li><a href="#configurador">Arma tu Mix</a></li>
             </ul>
         </div>
@@ -129,6 +130,8 @@
             <div class="grid-4 catalog-grid">
                 <div class="card product-card reveal reveal-delay-1">
                     <img src="assets/img/el cerebrito.png" alt="El Cerebrito">
+                    <p class="product-ingredients">Nueces · Almendras · Pecanas</p>
+                    <p class="product-note">3 frutos premium en un solo mix</p>
                     <div class="purchase-controls" id="compra_cerebrito">
                         <div class="qty-group">
                             <div class="qty-controls">
@@ -137,11 +140,13 @@
                                 <button class="qty-btn btn-plus">+</button>
                             </div>
                         </div>
-                        <button class="btn btn-wa btn-comprar" onclick="comprarItemDirecto('compra_cerebrito', 'Mix El Cerebrito (50g)', 4.00)">Pedir al WhatsApp</button>
+                        <button class="btn btn-wa btn-comprar" onclick="abrirModalCatalogo('compra_cerebrito', 'El Cerebrito', 4.00)">Pedir al WhatsApp</button>
                     </div>
                 </div>
                 <div class="card product-card reveal reveal-delay-2">
                     <img src="assets/img/a tu medida.png" alt="A tu medida">
+                    <p class="product-ingredients">Tú eliges tus favoritos</p>
+                    <p class="product-note">Dinos qué frutos quieres al pedir</p>
                     <div class="purchase-controls" id="compra_medida">
                         <div class="qty-group">
                             <div class="qty-controls">
@@ -150,11 +155,13 @@
                                 <button class="qty-btn btn-plus">+</button>
                             </div>
                         </div>
-                        <button class="btn btn-wa btn-comprar" onclick="comprarItemDirecto('compra_medida', 'Mix A Tu Medida (50g)', 3.50)">Pedir al WhatsApp</button>
+                        <button class="btn btn-wa btn-comprar" onclick="abrirModalMedida('compra_medida')">Pedir al WhatsApp</button>
                     </div>
                 </div>
                 <div class="card product-card reveal reveal-delay-3">
                     <img src="assets/img/toditito para ti.png" alt="El Toditito para ti">
+                    <p class="product-ingredients">Pasas · Maní · Arándanos · Nueces · Pecanas · Almendras</p>
+                    <p class="product-note">Los 6 frutos secos en un solo mix</p>
                     <div class="purchase-controls" id="compra_toditito">
                         <div class="qty-group">
                             <div class="qty-controls">
@@ -163,11 +170,13 @@
                                 <button class="qty-btn btn-plus">+</button>
                             </div>
                         </div>
-                        <button class="btn btn-wa btn-comprar" onclick="comprarItemDirecto('compra_toditito', 'Mix El Toditito (50g)', 3.00)">Pedir al WhatsApp</button>
+                        <button class="btn btn-wa btn-comprar" onclick="abrirModalCatalogo('compra_toditito', 'El Toditito Para Ti', 3.00)">Pedir al WhatsApp</button>
                     </div>
                 </div>
                 <div class="card product-card reveal reveal-delay-4">
                     <img src="assets/img/elchill.png" alt="El Chill">
+                    <p class="product-ingredients">Pasas · Arándanos · Maní</p>
+                    <p class="product-note">El mix más suave y dulce</p>
                     <div class="purchase-controls" id="compra_chill">
                         <div class="qty-group">
                             <div class="qty-controls">
@@ -176,7 +185,7 @@
                                 <button class="qty-btn btn-plus">+</button>
                             </div>
                         </div>
-                        <button class="btn btn-wa btn-comprar" onclick="comprarItemDirecto('compra_chill', 'Mix El Chill (50g)', 2.50)">Pedir al WhatsApp</button>
+                        <button class="btn btn-wa btn-comprar" onclick="abrirModalCatalogo('compra_chill', 'El Chill', 2.50)">Pedir al WhatsApp</button>
                     </div>
                 </div>
             </div>
@@ -191,6 +200,7 @@
                 <h2>Mira el producto <em>moverse</em></h2>
                 <p>Sin filtros. Así se ve lo que te llega a casa.</p>
             </div>
+            <p class="text-center" style="color: var(--text-muted); margin-bottom: 30px;">¿Quieres alguno solo o en tu propia mezcla? <a href="#configurador" style="color: var(--accent-orange); font-weight: 600;">Arma tu mix →</a></p>
             <div class="grid-4 reels-grid">
                 <div class="card reel-card reveal">
                     <div class="video-wrapper">
@@ -235,6 +245,7 @@
                     <div class="price-old">S/ 18.00</div>
                     <div class="price-new">S/ 15.00</div>
                     <span class="discount-badge">Lleva 5, paga menos</span>
+                    <button class="btn btn-wa btn-comprar" onclick="abrirModalPack('Pack Estudio', 5, 15.00)">Pedir al WhatsApp</button>
                 </div>
                 <div class="card pack-card popular reveal reveal-delay-1">
                     <div class="popular-tag">Más Popular</div>
@@ -243,6 +254,7 @@
                     <div class="price-old">S/ 35.00</div>
                     <div class="price-new">S/ 28.00</div>
                     <span class="discount-badge">Ahorro inteligente</span>
+                    <button class="btn btn-wa btn-comprar" onclick="abrirModalPack('Pack Full Day', 10, 28.00)">Pedir al WhatsApp</button>
                 </div>
                 <div class="card pack-card reveal reveal-delay-2">
                     <h4>Pack Mancha</h4>
@@ -250,6 +262,7 @@
                     <div class="price-old">S/ 70.00</div>
                     <div class="price-new">S/ 50.00</div>
                     <span class="discount-badge">Mejor precio garantizado</span>
+                    <button class="btn btn-wa btn-comprar" onclick="abrirModalPack('Pack Mancha', 20, 50.00)">Pedir al WhatsApp</button>
                 </div>
             </div>
         </div>
@@ -317,10 +330,41 @@
     <footer class="footer">
         <div class="container text-center">
             <h2>Healthy Life</h2>
-            <p>Pagos contraentrega (Yape, Plin, Efectivo). Entregas coordinadas por WhatsApp.</p>
+            <p>Pagos: Yape, Plin o efectivo al entregar. Entregas coordinadas por WhatsApp.</p>
             <p class="copyright">© 2026 Healthy Life Organic · Lima, Perú</p>
         </div>
     </footer>
+
+    <!-- Modal universal de pedido -->
+    <div id="modalPedido" class="modal-overlay" onclick="cerrarModal(event)">
+        <div class="modal-card">
+            <div class="modal-prod-header">
+                <h3 id="modalNombre"></h3>
+                <p id="modalResumen" class="modal-resumen-text"></p>
+            </div>
+            <div id="seccionIngredientes" class="modal-section" style="display:none">
+                <p class="modal-label">Elige hasta <strong>3 frutos</strong> para tu mix:</p>
+                <div class="ingredient-chips" id="ingredientChips"></div>
+                <p id="contadorIng" class="modal-ing-counter">0 / 3 seleccionados</p>
+            </div>
+            <div id="seccionMixes" class="modal-section" style="display:none">
+                <p class="modal-label">¿Qué mixes prefieres? <span class="modal-opcional">(opcional)</span></p>
+                <div class="ingredient-chips" id="mixChips"></div>
+            </div>
+            <div class="modal-section">
+                <p class="modal-label">¿Cómo vas a pagar?</p>
+                <div class="payment-selector">
+                    <button class="payment-btn" data-pago="Yape" onclick="seleccionarPago(this)">📱 Yape</button>
+                    <button class="payment-btn" data-pago="Plin" onclick="seleccionarPago(this)">💜 Plin</button>
+                    <button class="payment-btn" data-pago="Efectivo" onclick="seleccionarPago(this)">💵 Efectivo</button>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="cerrarModal()">Cancelar</button>
+                <button class="btn btn-wa" onclick="confirmarPedido()">Pedir al WhatsApp →</button>
+            </div>
+        </div>
+    </div>
 
     <script src="main.js"></script>
 </body>
