@@ -205,7 +205,7 @@
                             </div>
                         </div>
                         <button class="btn btn-wa btn-comprar"
-                            onclick="comprarItemDirecto('compra_eco', 'Mix Económico – 2 acompañantes', 5.00)">Pedir al
+                            onclick="abrirModalDuo('Mix Económico', '2 acompañantes', 5.00, 2)">Pedir al
                             WhatsApp</button>
                     </div>
                 </div>
@@ -220,7 +220,7 @@
                             </div>
                         </div>
                         <button class="btn btn-wa btn-comprar"
-                            onclick="comprarItemDirecto('compra_power', 'Mix Power – 1 premium + 1 acompañante', 7.00)">Pedir
+                            onclick="abrirModalDuo('Mix Power', '1 premium + 1 acompañante', 7.00, 2)">Pedir
                             al WhatsApp</button>
                     </div>
                 </div>
@@ -235,10 +235,11 @@
                             </div>
                         </div>
                         <button class="btn btn-wa btn-comprar"
-                            onclick="comprarItemDirecto('compra_premium', 'Mix Premium – 2 poderosos', 7.00)">Pedir al
+                            onclick="abrirModalDuo('Mix Premium', '2 poderosos', 7.00, 2)">Pedir al
                             WhatsApp</button>
                     </div>
                 </div>
+
 
             </div>
 
@@ -404,6 +405,59 @@
             <span>Almendras</span><span>·</span>
             <span>Arándanos</span><span>·</span>
             <span>Pasas rubias</span><span>·</span>
+        </div>
+    </div>
+
+    <!-- Modal universal de pedido -->
+    <div id="modalDuo" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+        <div class="modal-box">
+            <button class="modal-close" onclick="cerrarModal()" aria-label="Cerrar">&times;</button>
+
+            <div class="modal-header">
+                <span class="eyebrow" id="modalSubtitulo">arma tu mix</span>
+                <h3 id="modalTitulo">Mix Económico</h3>
+                <p id="modalDesc" class="modal-desc">Elige los ingredientes de tu mix</p>
+            </div>
+
+            <p class="modal-seccion-label">🌿 Selecciona tus ingredientes</p>
+            <div class="modal-ingredientes" id="modalIngredientes">
+                <label class="ingrediente-chip">
+                    <input type="checkbox" value="Pasas Rubias"> Pasas Rubias
+                </label>
+                <label class="ingrediente-chip">
+                    <input type="checkbox" value="Maní"> Maní
+                </label>
+                <label class="ingrediente-chip">
+                    <input type="checkbox" value="Arándanos deshid."> Arándanos deshid.
+                </label>
+                <label class="ingrediente-chip">
+                    <input type="checkbox" value="Nueces"> Nueces
+                </label>
+                <label class="ingrediente-chip">
+                    <input type="checkbox" value="Pecanas"> Pecanas
+                </label>
+                <label class="ingrediente-chip">
+                    <input type="checkbox" value="Almendras"> Almendras
+                </label>
+            </div>
+            <p id="modalSeleccionInfo" class="modal-seleccion-info"></p>
+
+            <p class="modal-seccion-label">💳 Método de pago</p>
+            <div class="modal-pagos">
+                <label class="pago-chip">
+                    <input type="radio" name="pago" value="Yape" checked> <span>📲 Yape</span>
+                </label>
+                <label class="pago-chip">
+                    <input type="radio" name="pago" value="Plin"> <span>📲 Plin</span>
+                </label>
+                <label class="pago-chip">
+                    <input type="radio" name="pago" value="Efectivo"> <span>💵 Efectivo</span>
+                </label>
+            </div>
+
+            <button id="modalBtnEnviar" class="btn btn-wa btn-lg modal-btn-enviar" onclick="enviarPedidoDuo()">
+                Confirmar y pedir al WhatsApp 🚀
+            </button>
         </div>
     </div>
 
