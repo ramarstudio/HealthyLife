@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="assets/img/frutos-secos.jpeg" as="image">
 </head>
 <body>
 
@@ -27,6 +28,11 @@
                 <li><a href="#reels">Videos</a></li>
                 <li><a href="#configurador">Arma tu Mix</a></li>
             </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
@@ -64,7 +70,7 @@
         <div class="container">
             <div class="nosotros-top grid-2 align-center reveal">
                 <div class="nosotros-img-wrapper">
-                    <img src="assets/img/logo.jpeg" alt="Healthy Life Nosotros" class="nosotros-img">
+                    <img src="assets/img/logo.jpeg" alt="Healthy Life Nosotros" class="nosotros-img" loading="lazy">
                 </div>
                 <div class="nosotros-text">
                     <span class="eyebrow">sobre nosotros</span>
@@ -154,7 +160,7 @@
 
             <div class="grid-4 catalog-grid">
                 <div class="card product-card reveal reveal-delay-1">
-                    <img src="assets/img/el cerebrito.png" alt="El Cerebrito">
+                    <img src="assets/img/el cerebrito.png" alt="El Cerebrito" loading="lazy">
                     <p class="product-ingredients">Nueces · Almendras · Pecanas</p>
                     <p class="product-note">3 frutos premium en un solo mix</p>
                     <div class="card-info-chips">
@@ -173,7 +179,7 @@
                     </div>
                 </div>
                 <div class="card product-card reveal reveal-delay-2">
-                    <img src="assets/img/a tu medida.png" alt="A tu medida">
+                    <img src="assets/img/a tu medida.png" alt="A tu medida" loading="lazy">
                     <p class="product-ingredients">Tú eliges tus favoritos</p>
                     <p class="product-note">Elige tu tamaño y frutos al pedir</p>
                     <div class="medida-sizes">
@@ -193,7 +199,7 @@
                     </div>
                 </div>
                 <div class="card product-card reveal reveal-delay-3">
-                    <img src="assets/img/toditito para ti.png" alt="El Toditito para ti">
+                    <img src="assets/img/toditito para ti.png" alt="El Toditito para ti" loading="lazy">
                     <p class="product-ingredients">Pasas · Maní · Arándanos · Nueces · Pecanas · Almendras</p>
                     <p class="product-note">Los 6 frutos secos en un solo mix</p>
                     <div class="card-info-chips">
@@ -212,7 +218,7 @@
                     </div>
                 </div>
                 <div class="card product-card reveal reveal-delay-4">
-                    <img src="assets/img/elchill.png" alt="El Chill">
+                    <img src="assets/img/elchill.png" alt="El Chill" loading="lazy">
                     <p class="product-ingredients">Pasas · Arándanos · Maní</p>
                     <p class="product-note">El mix más suave y dulce</p>
                     <div class="card-info-chips">
@@ -354,6 +360,7 @@
                     <button class="payment-btn" data-pago="Efectivo" onclick="seleccionarPago(this)">💵 Efectivo</button>
                 </div>
             </div>
+            <p id="modalError" class="modal-error"></p>
             <div class="modal-actions">
                 <button class="btn btn-outline" onclick="cerrarModal()">Cancelar</button>
                 <button class="btn btn-wa" onclick="confirmarPedido()">Pedir al WhatsApp →</button>

@@ -1,18 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Configuración
     const TELEFONO_WHATSAPP = '51999999999'; // <-- Tu número
-    
-    // Base de datos de productos para el Configurador Interactivo
+
+    // ── FUENTE ÚNICA DE FRUTOS ────────────────────────────────────────────
+    const FRUTOS_BASE = [
+        { id: 'pasas',     nombre: 'Pasas rubias', img: 'assets/img/p-pasas.png',     precio: 2.50, tipo: 'basico'  },
+        { id: 'mani',      nombre: 'Maní',          img: 'assets/img/p-mani.png',      precio: 2.50, tipo: 'basico'  },
+        { id: 'arandanos', nombre: 'Arándanos',      img: 'assets/img/p-arandanos.png', precio: 2.50, tipo: 'basico'  },
+        { id: 'nueces',    nombre: 'Nueces',         img: 'assets/img/walnut.svg',      precio: 4.00, tipo: 'premium' },
+        { id: 'pecanas',   nombre: 'Pecanas',        img: 'assets/img/p-pecanas.png',   precio: 4.00, tipo: 'premium' },
+        { id: 'almendras', nombre: 'Almendras',      img: 'assets/img/p-almendras.png', precio: 4.00, tipo: 'premium' },
+    ];
+
+    const INGREDIENTES_MEDIDA = FRUTOS_BASE;
+    const ACOMPAÑANTES_DUO    = FRUTOS_BASE.filter(f => f.tipo === 'basico');
+    const PREMIUMS_DUO        = FRUTOS_BASE.filter(f => f.tipo === 'premium');
+
     const PRODUCTOS_FAVORITOS = [
-        { id: 'ind_pasas',        nombre: 'Pasas rubias',              precio: 2.50,  img: 'assets/img/p-pasas.png',   esGramos: true  },
-        { id: 'ind_mani',         nombre: 'Maní',                      precio: 2.50,  img: 'assets/img/p-mani.png',    esGramos: true  },
-        { id: 'ind_arandanos',    nombre: 'Arándanos deshid.',         precio: 2.50,  img: 'assets/img/p-arandanos.png', esGramos: true },
-        { id: 'ind_nueces',       nombre: 'Nueces',                    precio: 4.00,  img: 'assets/img/walnut.svg',    esGramos: true  },
-        { id: 'ind_pecanas',      nombre: 'Pecanas',                   precio: 4.00,  img: 'assets/img/p-pecanas.png', esGramos: true  },
-        { id: 'ind_almendras',    nombre: 'Almendras',                 precio: 4.00,  img: 'assets/img/p-almendras.png', esGramos: true },
-        { id: 'ind_granola',      nombre: 'Granola Artesanal',         precio: 6.00,  img: 'assets/img/granola.svg',   esGramos: false, unidad: '250g' },
-        { id: 'ind_mantequilla',  nombre: 'Mantequilla de Maní Casera', precio: 12.00, img: 'assets/img/pbutter.svg',  esGramos: false, unidad: '250g' },
-        { id: 'ind_chocomani',    nombre: 'Choco Maní',                precio: 14.00, img: 'assets/img/choco.svg',     esGramos: false, unidad: '250g' },
+        ...FRUTOS_BASE.map(f => ({ id: `ind_${f.id}`, nombre: f.nombre, precio: f.precio, img: f.img, esGramos: true })),
+        { id: 'ind_granola',     nombre: 'Granola Artesanal',          precio:  6.00, img: 'assets/img/granola.svg',  esGramos: false, unidad: '250g' },
+        { id: 'ind_mantequilla', nombre: 'Mantequilla de Maní Casera', precio: 12.00, img: 'assets/img/pbutter.svg',  esGramos: false, unidad: '250g' },
+        { id: 'ind_chocomani',   nombre: 'Choco Maní',                 precio: 14.00, img: 'assets/img/choco.svg',    esGramos: false, unidad: '250g' },
     ];
 
     const DUOS_Y_FAMILIA = [
@@ -21,38 +28,22 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'comp_premium', nombre: 'Mix Premium',   descripcion: '2 frutos poderosos',        precio: 7.00, img: 'assets/img/mix-cerebrito.svg', tipoDuo: 'premium' },
     ];
 
-    const ACOMPAÑANTES_DUO = [
-        { id: 'pasas',     nombre: 'Pasas rubias', img: 'assets/img/p-pasas.png'      },
-        { id: 'mani',      nombre: 'Maní',          img: 'assets/img/p-mani.png'       },
-        { id: 'arandanos', nombre: 'Arándanos',      img: 'assets/img/p-arandanos.png'  },
-    ];
+    // ── ESTADO ────────────────────────────────────────────────────────────
+    let carritoBolsa     = new Map();
+    let cantidadesCatalogo = new Map();
 
-    const PREMIUMS_DUO = [
-        { id: 'nueces',    nombre: 'Nueces',    img: 'assets/img/walnut.svg'      },
-        { id: 'pecanas',   nombre: 'Pecanas',   img: 'assets/img/p-pecanas.png'   },
-        { id: 'almendras', nombre: 'Almendras', img: 'assets/img/p-almendras.png' },
-    ];
-
-    // Map para el "Bolsa Maestra" (Solo para el configurador de abajo)
-    let carritoBolsa = new Map();
     const favGrid = document.getElementById('favGrid');
     const duoGrid = document.getElementById('duoGrid');
 
-    function actualizarBolsa() { actualizarBarraUnificada(); }
-
-    // Map para las cantidades independientes del catálogo (Los flyers de arriba)
-    let cantidadesCatalogo = new Map();
-
-    // 2. Dar vida a los botones + / - (Catálogo y Configurador)
+    // ── BOTONES + / - CATÁLOGO ────────────────────────────────────────────
     function activarBotonesCantidad(contenedor, onCantidadChange) {
         const btnMinus = contenedor.querySelector('.btn-minus');
-        const btnPlus = contenedor.querySelector('.btn-plus');
-        const qtyVal = contenedor.querySelector('.qty-val');
-        
+        const btnPlus  = contenedor.querySelector('.btn-plus');
+        const qtyVal   = contenedor.querySelector('.qty-val');
         let cantidadActual = 0;
 
         btnPlus.addEventListener('click', (e) => {
-            e.stopPropagation(); // Evita clics no deseados
+            e.stopPropagation();
             cantidadActual++;
             qtyVal.textContent = cantidadActual;
             onCantidadChange(cantidadActual);
@@ -68,17 +59,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Activar los botones del Catálogo
     document.querySelectorAll('.catalog-grid .purchase-controls').forEach(control => {
-        const prodId = control.id;
         activarBotonesCantidad(control, (nuevaCantidad) => {
-            cantidadesCatalogo.set(prodId, nuevaCantidad);
-            actualizarCarritoCatalogo();
+            cantidadesCatalogo.set(control.id, nuevaCantidad);
+            actualizarBarraUnificada();
         });
     });
 
-
-    // Crear los items del Configurador dinámicamente y activar sus botones
+    // ── CONFIGURADOR ITEMS ────────────────────────────────────────────────
     function crearItemConfigurador(producto) {
         const { esGramos = false, unidad } = producto;
         const div = document.createElement('div');
@@ -88,24 +76,24 @@ document.addEventListener('DOMContentLoaded', () => {
             : unidad
                 ? `S/ ${producto.precio.toFixed(2)} / ${unidad}`
                 : `S/ ${producto.precio.toFixed(2)}`;
+
         div.innerHTML = `
-            <div class="item-info" style="display: flex; align-items: center; gap: 15px;">
-                <img src="${producto.img}" alt="${producto.nombre}" style="width: 50px; height: 50px; object-fit: contain; border-radius: 50%; background: var(--bg-alt); padding: 5px; border: 1px solid var(--border-color);">
+            <div class="item-info">
+                <img src="${producto.img}" alt="${producto.nombre}" class="item-thumb">
                 <div>
-                    <strong style="font-size: 1.05rem; display: block; color: var(--text-main);">${producto.nombre}</strong>
-                    <small style="color: var(--accent-orange); font-weight: 600; font-size: 0.9rem;">${precioLabel}</small>
+                    <strong class="item-nombre">${producto.nombre}</strong>
+                    <small class="item-precio">${precioLabel}</small>
                 </div>
             </div>
             <div class="qty-controls">
                 <button class="qty-btn btn-minus">−</button>
                 <span class="qty-val">0</span>
                 <button class="qty-btn btn-plus">+</button>
-            </div>
-        `;
+            </div>`;
 
         const btnMinus = div.querySelector('.btn-minus');
-        const btnPlus = div.querySelector('.btn-plus');
-        const qtyVal = div.querySelector('.qty-val');
+        const btnPlus  = div.querySelector('.btn-plus');
+        const qtyVal   = div.querySelector('.qty-val');
         let cantidadActual = 0;
 
         const actualizarDisplay = (qty) => {
@@ -118,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
             actualizarDisplay(cantidadActual);
             div.classList.add('selected');
             carritoBolsa.set(producto.id, { ...producto, cantidad: cantidadActual });
-            actualizarBolsa();
+            actualizarBarraUnificada();
         });
 
         btnMinus.addEventListener('click', (e) => {
@@ -132,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     carritoBolsa.set(producto.id, { ...producto, cantidad: cantidadActual });
                 }
-                actualizarBolsa();
+                actualizarBarraUnificada();
             }
         });
 
@@ -143,20 +131,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const div = document.createElement('div');
         div.className = 'item-chip';
         div.innerHTML = `
-            <div class="item-info" style="display: flex; align-items: center; gap: 15px;">
-                <img src="${producto.img}" alt="${producto.nombre}" style="width: 50px; height: 50px; object-fit: contain; border-radius: 50%; background: var(--bg-alt); padding: 5px; border: 1px solid var(--border-color);">
+            <div class="item-info">
+                <img src="${producto.img}" alt="${producto.nombre}" class="item-thumb">
                 <div>
-                    <strong style="font-size: 1.05rem; display: block; color: var(--text-main);">${producto.nombre}</strong>
-                    <small style="color: var(--text-muted); font-size: 0.83rem;">${producto.descripcion}</small><br>
-                    <small style="color: var(--accent-orange); font-weight: 600; font-size: 0.9rem;">S/ ${producto.precio.toFixed(2)}</small>
+                    <strong class="item-nombre">${producto.nombre}</strong>
+                    <small class="item-desc">${producto.descripcion}</small>
+                    <small class="item-precio">S/ ${producto.precio.toFixed(2)}</small>
                 </div>
             </div>
             <div class="qty-controls">
                 <button class="qty-btn btn-minus">−</button>
                 <span class="qty-val">0</span>
                 <button class="qty-btn btn-plus">+</button>
-            </div>
-        `;
+            </div>`;
 
         const btnMinus = div.querySelector('.btn-minus');
         const btnPlus  = div.querySelector('.btn-plus');
@@ -171,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 carritoBolsa.set(producto.id, actual);
                 qtyVal.textContent = actual.cantidad;
                 div.classList.add('selected');
-                actualizarBolsa();
+                actualizarBarraUnificada();
             });
         });
 
@@ -188,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     carritoBolsa.set(producto.id, actual);
                 }
-                actualizarBolsa();
+                actualizarBarraUnificada();
             }
         });
 
@@ -198,8 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
     PRODUCTOS_FAVORITOS.forEach(prod => favGrid.appendChild(crearItemConfigurador(prod)));
     DUOS_Y_FAMILIA.forEach(prod => duoGrid.appendChild(crearItemDuo(prod)));
 
-    // ── CATÁLOGO: datos, descuentos y carrito ──────────────────────────
-
+    // ── CATÁLOGO: descuentos y carrito ────────────────────────────────────
     const CATALOGO_MIXES = [
         { id: 'compra_cerebrito', nombre: 'El Cerebrito',        precio: 4.00 },
         { id: 'compra_medida',    nombre: 'A Tu Medida (50g)',   precio: 3.50 },
@@ -216,8 +202,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function obtenerDescuento(totalUnidades) {
         return DESCUENTOS.find(d => totalUnidades >= d.minUnidades) || null;
     }
-
-    function actualizarCarritoCatalogo() { actualizarBarraUnificada(); }
 
     function actualizarBarraUnificada() {
         let catalogUnidades = 0, catalogSubtotal = 0, tieneMedida = false;
@@ -279,22 +263,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ── MODAL UNIVERSAL DE PEDIDO ───────────────────────────────────────
-
+    // ── MODAL UNIVERSAL DE PEDIDO ─────────────────────────────────────────
     const TAMANOS_MEDIDA = [
-        { id: '50g',  nombre: null,                 gramos: 50,  precio: 3.50 },
-        { id: '80g',  nombre: 'Snack Rápido',        gramos: 80,  precio: 4.00 },
-        { id: '120g', nombre: 'Energía Constante',   gramos: 120, precio: 6.00 },
-        { id: '150g', nombre: 'Para Compartir',      gramos: 150, precio: 7.00 },
-    ];
-
-    const INGREDIENTES_MEDIDA = [
-        { id: 'pasas',     nombre: 'Pasas rubias', img: 'assets/img/p-pasas.png' },
-        { id: 'mani',      nombre: 'Maní',          img: 'assets/img/p-mani.png' },
-        { id: 'arandanos', nombre: 'Arándanos',      img: 'assets/img/p-arandanos.png' },
-        { id: 'nueces',    nombre: 'Nueces',         img: 'assets/img/walnut.svg' },
-        { id: 'pecanas',   nombre: 'Pecanas',        img: 'assets/img/p-pecanas.png' },
-        { id: 'almendras', nombre: 'Almendras',      img: 'assets/img/p-almendras.png' },
+        { id: '50g',  nombre: null,               gramos: 50,  precio: 3.50 },
+        { id: '80g',  nombre: 'Snack Rápido',      gramos: 80,  precio: 4.00 },
+        { id: '120g', nombre: 'Energía Constante', gramos: 120, precio: 6.00 },
+        { id: '150g', nombre: 'Para Compartir',    gramos: 150, precio: 7.00 },
     ];
 
     const modal = {
@@ -302,14 +276,25 @@ document.addEventListener('DOMContentLoaded', () => {
         mixesConfig: [], pago: null,
     };
 
+    function mostrarErrorModal(msg) {
+        const el = document.getElementById('modalError');
+        if (el) { el.textContent = msg; el.style.display = 'block'; }
+    }
+
+    function limpiarErrorModal() {
+        const el = document.getElementById('modalError');
+        if (el) { el.textContent = ''; el.style.display = 'none'; }
+    }
+
     function abrirModalUI() {
         document.querySelectorAll('.payment-btn').forEach(b => b.classList.remove('selected'));
         modal.pago = null;
+        limpiarErrorModal();
         document.getElementById('modalPedido').classList.add('open');
     }
 
     function actualizarResumenMedida() {
-        const total = modal.mixesConfig.reduce((s, m) => s + (m.tamano ? m.tamano.precio : 0), 0);
+        const total   = modal.mixesConfig.reduce((s, m) => s + (m.tamano ? m.tamano.precio : 0), 0);
         const elegidos = modal.mixesConfig.filter(m => m.tamano).length;
         document.getElementById('modalResumen').textContent = elegidos === modal.cantidad
             ? `${modal.cantidad} mix${modal.cantidad > 1 ? 'es' : ''} · Total S/ ${total.toFixed(2)}`
@@ -329,16 +314,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 contenedor.appendChild(titulo);
             }
 
-            // — Selector de tamaño
             const tamLabel = document.createElement('p');
             tamLabel.className = 'modal-label';
             tamLabel.textContent = 'Tamaño:';
             contenedor.appendChild(tamLabel);
 
-            const tamGrid = document.createElement('div');
+            const tamGrid   = document.createElement('div');
             tamGrid.className = 'ingredient-chips';
 
-            // — Sección de ingredientes (oculta hasta elegir tamaño)
             const ingSection = document.createElement('div');
             ingSection.style.display = 'none';
 
@@ -357,14 +340,13 @@ document.addEventListener('DOMContentLoaded', () => {
             ingSection.appendChild(ingGrid);
             ingSection.appendChild(contador);
 
-            // Chips de tamaño
             TAMANOS_MEDIDA.forEach(tam => {
                 const chip = document.createElement('div');
                 chip.className = 'ing-chip tamano-chip';
                 chip.innerHTML = `
                     <div class="ing-chip-info">
                         <strong>${tam.nombre ?? 'A Tu Medida'}</strong>
-                        <span style="font-size:0.85rem;color:var(--text-muted)">${tam.gramos}g · S/ ${tam.precio.toFixed(2)}</span>
+                        <span class="ing-chip-meta">${tam.gramos}g · S/ ${tam.precio.toFixed(2)}</span>
                     </div>
                     <div class="modal-check"></div>`;
                 chip.addEventListener('click', () => {
@@ -375,7 +357,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     chip.classList.add('selected');
                     chip.querySelector('.modal-check').textContent = '✓';
                     modal.mixesConfig[i].tamano = tam;
-                    // Resetear ingredientes al cambiar tamaño
                     modal.mixesConfig[i].ingredientes.clear();
                     ingGrid.querySelectorAll('.ing-chip').forEach(c => {
                         c.classList.remove('selected');
@@ -390,7 +371,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 tamGrid.appendChild(chip);
             });
 
-            // Chips de ingredientes
             INGREDIENTES_MEDIDA.forEach(ing => {
                 const chip = document.createElement('div');
                 chip.className = 'ing-chip';
@@ -422,7 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.abrirModalCatalogo = function(containerId, nombre, precio) {
         const cantidad = cantidadesCatalogo.get(containerId) || 0;
-        if (cantidad === 0) { alert('¡Usa los botones + para añadir al menos una unidad!'); return; }
+        if (cantidad === 0) { mostrarErrorModal('¡Usa los botones + para añadir al menos una unidad!'); return; }
         Object.assign(modal, { tipo: 'catalogo', nombre, precio, cantidad });
         document.getElementById('modalNombre').textContent = nombre;
         document.getElementById('modalResumen').textContent = `${cantidad} unidad${cantidad > 1 ? 'es' : ''} · Total S/ ${(precio * cantidad).toFixed(2)}`;
@@ -432,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.abrirModalMedida = function(containerId) {
         const cantidad = cantidadesCatalogo.get(containerId) || 0;
-        if (cantidad === 0) { alert('¡Usa los botones + para añadir al menos una unidad!'); return; }
+        if (cantidad === 0) { mostrarErrorModal('¡Usa los botones + para añadir al menos una unidad!'); return; }
         Object.assign(modal, { tipo: 'medida', nombre: 'A Tu Medida', precio: 0, cantidad, mixesConfig: [] });
         document.getElementById('modalNombre').textContent = 'A Tu Medida';
         document.getElementById('modalResumen').textContent = `${cantidad} mix${cantidad > 1 ? 'es' : ''} · Elige tamaño y frutos`;
@@ -459,8 +439,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('duoModalDesc').textContent =
             `${producto.descripcion} · S/ ${producto.precio.toFixed(2)}`;
 
-        const body = document.getElementById('duoModalBody');
-        body.innerHTML = '';
+        const body       = document.getElementById('duoModalBody');
+        body.innerHTML   = '';
         const confirmBtn = document.getElementById('duoConfirmBtn');
         confirmBtn.disabled = true;
 
@@ -474,7 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function buildChips(lista, container, maxSel, key) {
             duoEstado[key] = [];
-            const grid = document.createElement('div');
+            const grid    = document.createElement('div');
             grid.className = 'ingredient-chips';
             const contador = document.createElement('p');
             contador.className = 'modal-ing-counter';
@@ -512,7 +492,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function buildSingle(lista, container, key) {
             duoEstado[key] = null;
-            const grid = document.createElement('div');
+            const grid    = document.createElement('div');
             grid.className = 'ingredient-chips';
             lista.forEach(fruto => {
                 const chip = document.createElement('div');
@@ -546,13 +526,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (producto.tipoDuo === 'eco') {
             addLabel('Elige tus 2 acompañantes:', body);
             buildChips(ACOMPAÑANTES_DUO, body, 2, 'selEco');
-
         } else if (producto.tipoDuo === 'power') {
             addLabel('Elige tu fruto premium:', body);
             buildSingle(PREMIUMS_DUO, body, 'selPremium');
             addLabel('Elige tu acompañante:', body, { marginTop: '14px' });
             buildSingle(ACOMPAÑANTES_DUO, body, 'selAcomp');
-
         } else if (producto.tipoDuo === 'premium') {
             addLabel('Elige tus 2 frutos poderosos:', body);
             buildChips(PREMIUMS_DUO, body, 2, 'selPremiums');
@@ -593,36 +571,39 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.payment-btn').forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
         modal.pago = btn.dataset.pago;
+        limpiarErrorModal();
     };
 
     window.confirmarPedido = function() {
-        const tieneMediada = modal.tipo === 'medida' ||
+        limpiarErrorModal();
+
+        const tieneMedida = modal.tipo === 'medida' ||
             (modal.tipo === 'catalogo_grupal' && (cantidadesCatalogo.get('compra_medida') || 0) > 0) ||
             (modal.tipo === 'unificado'        && (cantidadesCatalogo.get('compra_medida') || 0) > 0);
-        if (tieneMediada && modal.mixesConfig.length > 0) {
+
+        if (tieneMedida && modal.mixesConfig.length > 0) {
             if (modal.mixesConfig.some(m => !m.tamano)) {
-                alert(modal.cantidad === 1 ? '¡Elige un tamaño para tu mix!' : '¡Elige un tamaño para cada mix!');
+                mostrarErrorModal(modal.cantidad === 1 ? '¡Elige un tamaño para tu mix!' : '¡Elige un tamaño para cada mix!');
                 return;
             }
             if (modal.mixesConfig.some(m => m.ingredientes.size === 0)) {
-                alert(modal.cantidad === 1 ? '¡Elige al menos un fruto para tu mix!' : '¡Elige al menos un fruto para cada mix!');
+                mostrarErrorModal(modal.cantidad === 1 ? '¡Elige al menos un fruto para tu mix!' : '¡Elige al menos un fruto para cada mix!');
                 return;
             }
         }
         if (!modal.pago) {
-            alert('¡Elige cómo vas a pagar!'); return;
+            mostrarErrorModal('¡Elige cómo vas a pagar!');
+            return;
         }
 
         let mensaje = `¡Hola Healthy Life! 🌰\nQuiero hacer un pedido:\n\n`;
 
         if (modal.tipo === 'catalogo_grupal') {
-            let subtotal = 0;
-            let totalUnidades = 0;
+            let subtotal = 0, totalUnidades = 0;
             cantidadesCatalogo.forEach((cant, prodId) => {
                 if (!cant) return;
                 totalUnidades += cant;
                 if (prodId === 'compra_medida' && modal.mixesConfig.length > 0) {
-                    // A Tu Medida configurada
                     modal.mixesConfig.forEach((m, idx) => {
                         const tamLabel = m.tamano.nombre ? ` — ${m.tamano.nombre}` : '';
                         const ings = [...m.ingredientes].map(iid => INGREDIENTES_MEDIDA.find(i => i.id === iid).nombre).join(' · ');
@@ -725,7 +706,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open(`https://wa.me/${TELEFONO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`, '_blank');
     };
 
-    // Botón único de pedido unificado
+    // ── BOTÓN PEDIR TODO ──────────────────────────────────────────────────
     document.getElementById('btnPedirTodo').addEventListener('click', () => {
         let catalogTotal = 0;
         cantidadesCatalogo.forEach(c => { catalogTotal += c; });
@@ -752,8 +733,29 @@ document.addEventListener('DOMContentLoaded', () => {
         abrirModalUI();
     });
 
-    // 5. Animaciones visuales
-    const revealElements = document.querySelectorAll('.reveal');
+    // ── HAMBURGER MENU ────────────────────────────────────────────────────
+    const navToggle = document.getElementById('navToggle');
+    const nav = document.querySelector('.nav');
+    if (navToggle) {
+        navToggle.addEventListener('click', () => {
+            const isOpen = nav.classList.toggle('nav-open');
+            navToggle.setAttribute('aria-expanded', String(isOpen));
+        });
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('nav-open');
+                navToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && nav.classList.contains('nav-open')) {
+                nav.classList.remove('nav-open');
+                navToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
+    // ── ANIMACIONES ───────────────────────────────────────────────────────
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -762,9 +764,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-    revealElements.forEach(el => revealObserver.observe(el));
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // Lazy Loading Videos
+    // ── LAZY LOADING VIDEOS ───────────────────────────────────────────────
     const videos = document.querySelectorAll('video[data-src]');
     if (videos.length > 0) {
         const videoObserver = new IntersectionObserver((entries) => {
