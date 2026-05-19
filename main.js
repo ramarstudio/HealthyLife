@@ -609,13 +609,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         const ings = [...m.ingredientes].map(iid => INGREDIENTES_MEDIDA.find(i => i.id === iid).nombre).join(' · ');
                         subtotal += m.tamano.precio;
                         const label = cant > 1 ? `A Tu Medida #${idx + 1}` : 'A Tu Medida';
-                        mensaje += `👉 *${label}* ${m.tamano.gramos}g${tamLabel} · ${ings} — S/ ${m.tamano.precio.toFixed(2)}\n`;
+                        mensaje += `🔸 *${label}* ${m.tamano.gramos}g${tamLabel} · ${ings} — S/ ${m.tamano.precio.toFixed(2)}\n`;
                     });
                 } else {
                     const prod = CATALOGO_MIXES.find(p => p.id === prodId);
                     if (!prod) return;
                     subtotal += prod.precio * cant;
-                    mensaje += `👉 *${cant}x* ${prod.nombre} — S/ ${(prod.precio * cant).toFixed(2)}\n`;
+                    mensaje += `🔸 *${cant}x* ${prod.nombre} — S/ ${(prod.precio * cant).toFixed(2)}\n`;
                 }
             });
             const descuento = obtenerDescuento(totalUnidades);
@@ -628,7 +628,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else if (modal.tipo === 'catalogo') {
             const subtotal = modal.precio * modal.cantidad;
-            mensaje += `👉 *${modal.cantidad}x* ${modal.nombre} (50g) — S/ ${subtotal.toFixed(2)}\n`;
+            mensaje += `🔸 *${modal.cantidad}x* ${modal.nombre} (50g) — S/ ${subtotal.toFixed(2)}\n`;
             mensaje += `💰 *TOTAL: S/ ${subtotal.toFixed(2)}*\n\n`;
         } else if (modal.tipo === 'medida') {
             const total = modal.mixesConfig.reduce((s, m) => s + m.tamano.precio, 0);
@@ -636,13 +636,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const m = modal.mixesConfig[0];
                 const tamLabel = m.tamano.nombre ? ` — ${m.tamano.nombre}` : '';
                 const ings = [...m.ingredientes].map(id => INGREDIENTES_MEDIDA.find(i => i.id === id).nombre).join(' · ');
-                mensaje += `👉 *A Tu Medida* ${m.tamano.gramos}g${tamLabel} — S/ ${m.tamano.precio.toFixed(2)}\n`;
-                mensaje += `🫐 *Frutos:* ${ings}\n`;
+                mensaje += `🔸 *A Tu Medida* ${m.tamano.gramos}g${tamLabel} — S/ ${m.tamano.precio.toFixed(2)}\n`;
+                mensaje += `🍇 *Frutos:* ${ings}\n`;
             } else {
                 modal.mixesConfig.forEach((m, idx) => {
                     const tamLabel = m.tamano.nombre ? ` — ${m.tamano.nombre}` : '';
                     const ings = [...m.ingredientes].map(id => INGREDIENTES_MEDIDA.find(i => i.id === id).nombre).join(' · ');
-                    mensaje += `👉 *Mix ${idx + 1}:* ${m.tamano.gramos}g${tamLabel} · ${ings} — S/ ${m.tamano.precio.toFixed(2)}\n`;
+                    mensaje += `🔸 *Mix ${idx + 1}:* ${m.tamano.gramos}g${tamLabel} · ${ings} — S/ ${m.tamano.precio.toFixed(2)}\n`;
                 });
             }
             mensaje += `💰 *TOTAL: S/ ${total.toFixed(2)}*\n\n`;
@@ -658,13 +658,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         const ings = [...m.ingredientes].map(iid => INGREDIENTES_MEDIDA.find(i => i.id === iid).nombre).join(' · ');
                         subtotalMixes += m.tamano.precio;
                         const label = cant > 1 ? `A Tu Medida #${idx + 1}` : 'A Tu Medida';
-                        mensaje += `👉 *${label}* ${m.tamano.gramos}g${tamLabel} · ${ings} — S/ ${m.tamano.precio.toFixed(2)}\n`;
+                        mensaje += `🔸 *${label}* ${m.tamano.gramos}g${tamLabel} · ${ings} — S/ ${m.tamano.precio.toFixed(2)}\n`;
                     });
                 } else {
                     const prod = CATALOGO_MIXES.find(p => p.id === prodId);
                     if (!prod) return;
                     subtotalMixes += prod.precio * cant;
-                    mensaje += `👉 *${cant}x* ${prod.nombre} — S/ ${(prod.precio * cant).toFixed(2)}\n`;
+                    mensaje += `🔸 *${cant}x* ${prod.nombre} — S/ ${(prod.precio * cant).toFixed(2)}\n`;
                 }
             });
 
@@ -684,14 +684,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (item.selecciones && item.selecciones.length > 0) {
                         item.selecciones.forEach((sel, idx) => {
                             const label = item.cantidad > 1 ? `${item.nombre} #${idx + 1}` : item.nombre;
-                            mensaje += `👉 *${label}:* ${sel.join(' + ')} — S/ ${item.precio.toFixed(2)}\n`;
+                            mensaje += `🔸 *${label}:* ${sel.join(' + ')} — S/ ${item.precio.toFixed(2)}\n`;
                         });
                     } else if (item.esGramos) {
-                        mensaje += `👉 *${item.cantidad * 50}g* de ${item.nombre} — S/ ${sub.toFixed(2)}\n`;
+                        mensaje += `🔸 *${item.cantidad * 50}g* de ${item.nombre} — S/ ${sub.toFixed(2)}\n`;
                     } else if (item.unidad) {
-                        mensaje += `👉 *${item.cantidad}x* ${item.nombre} (${item.unidad}) — S/ ${sub.toFixed(2)}\n`;
+                        mensaje += `🔸 *${item.cantidad}x* ${item.nombre} (${item.unidad}) — S/ ${sub.toFixed(2)}\n`;
                     } else {
-                        mensaje += `👉 *${item.cantidad}x* ${item.nombre} — S/ ${sub.toFixed(2)}\n`;
+                        mensaje += `🔸 *${item.cantidad}x* ${item.nombre} — S/ ${sub.toFixed(2)}\n`;
                     }
                 });
             }
