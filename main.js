@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const TELEFONO_WHATSAPP = '51900634225'; // <-- Tu número
+    const GRAMOS_POR_UNIDAD = 50;
 
     // ── FUENTE ÚNICA DE FRUTOS ────────────────────────────────────────────
     const FRUTOS_BASE = [
@@ -72,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const div = document.createElement('div');
         div.className = 'item-chip';
         const precioLabel = esGramos
-            ? `S/ ${producto.precio.toFixed(2)} / 50g`
+            ? `S/ ${producto.precio.toFixed(2)} / ${GRAMOS_POR_UNIDAD}g`
             : unidad
                 ? `S/ ${producto.precio.toFixed(2)} / ${unidad}`
                 : `S/ ${producto.precio.toFixed(2)}`;
@@ -97,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let cantidadActual = 0;
 
         const actualizarDisplay = (qty) => {
-            qtyVal.textContent = esGramos && qty > 0 ? `${qty * 50}g` : qty;
+            qtyVal.textContent = esGramos && qty > 0 ? `${qty * GRAMOS_POR_UNIDAD}g` : qty;
         };
 
         btnPlus.addEventListener('click', (e) => {
@@ -188,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── CATÁLOGO: descuentos y carrito ────────────────────────────────────
     const CATALOGO_MIXES = [
         { id: 'compra_cerebrito', nombre: 'El Cerebrito',        precio: 4.00 },
-        { id: 'compra_medida',    nombre: 'A Tu Medida (50g)',   precio: 3.50 },
+        { id: 'compra_medida',    nombre: `A Tu Medida (${GRAMOS_POR_UNIDAD}g)`, precio: 3.50 },
         { id: 'compra_toditito',  nombre: 'El Toditito Para Ti', precio: 3.00 },
         { id: 'compra_chill',     nombre: 'El Chill',            precio: 2.50 },
     ];
@@ -270,6 +271,19 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: '120g', nombre: 'Energía Constante', gramos: 120, precio: 6.00 },
         { id: '150g', nombre: 'Para Compartir',    gramos: 150, precio: 7.00 },
     ];
+
+    // ── FUENTE ÚNICA: poblar precios en HTML desde JS ─────────────────────
+    CATALOGO_MIXES.forEach(prod => {
+        const key = prod.id.replace('compra_', '');
+        const el = document.getElementById(`precio_${key}`);
+        if (el) el.textContent = `S/ ${prod.precio.toFixed(2)} · ${GRAMOS_POR_UNIDAD}g`;
+    });
+    const medidaSizesEl = document.getElementById('medidaSizes');
+    if (medidaSizesEl) {
+        medidaSizesEl.innerHTML = TAMANOS_MEDIDA.map(t =>
+            `<span class="medida-size-chip">${t.nombre ? t.nombre + ' ' : ''}${t.gramos}g · S/ ${t.precio.toFixed(2)}</span>`
+        ).join('');
+    }
 
     const modal = {
         tipo: null, nombre: '', precio: 0, cantidad: 0,
@@ -628,7 +642,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else if (modal.tipo === 'catalogo') {
             const subtotal = modal.precio * modal.cantidad;
-            mensaje += `🔸 *${modal.cantidad}x* ${modal.nombre} (50g) — S/ ${subtotal.toFixed(2)}\n`;
+            mensaje += `🔸 *${modal.cantidad}x* ${modal.nombre} (${GRAMOS_POR_UNIDAD}g) — S/ ${subtotal.toFixed(2)}\n`;
             mensaje += `💰 *TOTAL: S/ ${subtotal.toFixed(2)}*\n\n`;
         } else if (modal.tipo === 'medida') {
             const total = modal.mixesConfig.reduce((s, m) => s + m.tamano.precio, 0);
@@ -687,7 +701,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             mensaje += `🔸 *${label}:* ${sel.join(' + ')} — S/ ${item.precio.toFixed(2)}\n`;
                         });
                     } else if (item.esGramos) {
-                        mensaje += `🔸 *${item.cantidad * 50}g* de ${item.nombre} — S/ ${sub.toFixed(2)}\n`;
+                        mensaje += `🔸 *${item.cantidad * GRAMOS_POR_UNIDAD}g* de ${item.nombre} — S/ ${sub.toFixed(2)}\n`;
                     } else if (item.unidad) {
                         mensaje += `🔸 *${item.cantidad}x* ${item.nombre} (${item.unidad}) — S/ ${sub.toFixed(2)}\n`;
                     } else {
