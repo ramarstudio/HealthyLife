@@ -513,7 +513,38 @@ em { color: var(--accent-orange); font-style: italic; }
     .payment-selector { flex-direction: column; }
     .modal-actions { flex-direction: column; }
     .modal-card { padding: 20px 16px; border-radius: 20px; }
-    .ingredient-chips { grid-template-columns: 1fr; }
+    .ingredient-chips { grid-template-columns: 1fr 1fr; }
     .cart-bar { padding: 16px 20px; }
     .marquee-track { font-size: 1.3rem; }
+
+    /* Reducir padding de secciones en móvil */
+    .hero { padding: 40px 0; }
+    .beneficios-section { padding: 50px 0; }
+    .reels-section, .packs-section, .configurador, .catalog { padding: 50px 0; }
+    .catalog-divider { margin: 40px 0 10px; padding-top: 40px; }
+    .nosotros-top { margin-bottom: 30px; }
+    .nosotros-text h2 { font-size: 2rem; }
+    .trust-container { padding: 24px 18px; }
+    .trust-section { padding-bottom: 50px; }
+    .config-panel { padding: 20px 16px; }
+    .cart-bar { margin-top: 30px; border-radius: 18px; }
+    .footer { padding: 28px 0; }
+
+    /* Modal desde abajo en móvil */
+    .modal-overlay { align-items: flex-end; padding: 0; }
+    .modal-card { border-radius: 24px 24px 0 0; max-height: 88vh; }
+
+    /* Productos en 2 columnas en móvil */
+    .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .product-card { padding: 14px 10px; }
+    .product-card img { border-radius: 10px; }
+}
+
+@media (max-width: 380px) {
+    .container { padding: 0 14px; }
+    .grid-4 { grid-template-columns: 1fr; }
+    .ingredient-chips { grid-template-columns: 1fr; }
+    .modal-card { padding: 18px 14px; }
+    .cart-bar { padding: 14px 16px; }
+    h1 { font-size: 2.2rem; }
 }
