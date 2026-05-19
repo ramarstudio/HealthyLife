@@ -723,7 +723,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 .replace(/🎉/g, '¡')
                 .replace(/💰/g, '$')
                 .replace(/🍇/g, '-')
-                .replace(/💳/g, '✉');
+                .replace(/💳/g, '');
         }
 
         document.getElementById('modalPedido').classList.remove('open');
