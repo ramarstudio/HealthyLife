@@ -699,8 +699,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mensaje += `💰 *TOTAL: S/ ${(subtotalMixes + subtotalBolsa).toFixed(2)}*\n\n`;
         }
 
-        mensaje += `💳 *Pago:* ${modal.pago}\n`;
-        mensaje += `📍 *Dirección:* (escribe tu dirección aquí)`;
+        mensaje += `💳 *Pago:* ${modal.pago}`;
 
         document.getElementById('modalPedido').classList.remove('open');
         window.open(`https://wa.me/${TELEFONO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`, '_blank');
