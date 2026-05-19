@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const TELEFONO_WHATSAPP = '51999999999'; // <-- Tu número
+    const TELEFONO_WHATSAPP = '51900634225'; // <-- Tu número
 
     // ── FUENTE ÚNICA DE FRUTOS ────────────────────────────────────────────
     const FRUTOS_BASE = [
