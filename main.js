@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const TELEFONO_WHATSAPP = '51900634225'; // <-- Tu número
     const GRAMOS_POR_UNIDAD = 50;
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
     // ── FUENTE ÚNICA DE FRUTOS ────────────────────────────────────────────
     const FRUTOS_BASE = [
@@ -714,6 +715,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         mensaje += `💳 *Pago:* ${modal.pago}`;
+
+        if (!isMobile) {
+            mensaje = mensaje
+                .replace(/🌰/g, '')
+                .replace(/🔸/g, '•')
+                .replace(/🎉/g, '¡')
+                .replace(/💰/g, '$')
+                .replace(/🍇/g, '-')
+                .replace(/💳/g, '✉');
+        }
 
         document.getElementById('modalPedido').classList.remove('open');
         window.open(`https://wa.me/${TELEFONO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`, '_blank');
