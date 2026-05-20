@@ -470,6 +470,24 @@ em { color: var(--accent-orange); font-style: italic; }
     text-align: center;
 }
 
+/* ── NUEVO INPUT ESTILIZADO DE NOMBRE ── */
+.modal-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    background: white;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.modal-input:focus {
+    outline: none;
+    border-color: var(--accent-green);
+    box-shadow: 0 0 0 3px rgba(85, 139, 47, 0.1);
+}
+
 /* ── FOOTER ── */
 .footer { padding: 40px 0; background: white;}
 .copyright { margin-top: 20px; font-size: 0.9rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 20px;}

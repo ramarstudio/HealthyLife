@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ── MODAL UNIVERSAL DE PEDIDO ─────────────────────────────────────────
     const TAMANOS_MEDIDA = [
-        { id: '50g',  nombre: null,               gramos: 50,  precio: 3.50 },
+        { id: '50g',  nombre: null,             gramos: 50,  precio: 3.50 },
         { id: '80g',  nombre: 'Snack Rápido',      gramos: 80,  precio: 4.00 },
         { id: '120g', nombre: 'Energía Constante', gramos: 120, precio: 6.00 },
         { id: '150g', nombre: 'Para Compartir',    gramos: 150, precio: 7.00 },
@@ -306,6 +306,10 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.pago = null;
         limpiarErrorModal();
         document.getElementById('modalPedido').classList.add('open');
+        
+        // MODIFICACIÓN: Limpiar el campo de nombre al abrir
+        const inputNombre = document.getElementById('nombreCliente');
+        if (inputNombre) inputNombre.value = '';
     }
 
     function actualizarResumenMedida() {
@@ -316,6 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
             : `${elegidos} de ${modal.cantidad} tamaños elegidos`;
     }
 
+    // ── POBLAR MEDIDA CONFIG ──────────────────────────────────────────────
     function poblarMedidaConfig() {
         const contenedor = document.getElementById('medidaConfig');
         contenedor.innerHTML = '';
@@ -589,8 +594,18 @@ document.addEventListener('DOMContentLoaded', () => {
         limpiarErrorModal();
     };
 
+    // ── CONFIRMAR PEDIDO (CON VALIDACIÓN DE NOMBRE OBLIGATORIO) ───────────
     window.confirmarPedido = function() {
         limpiarErrorModal();
+
+        // MODIFICACIÓN: Capturar y validar nombre del cliente obligatoriamente
+        const nombreInput = document.getElementById('nombreCliente');
+        const nombreCliente = nombreInput ? nombreInput.value.trim() : '';
+
+        if (!nombreCliente) {
+            mostrarErrorModal('¡Por favor, ingresa tu nombre para procesar el pedido!');
+            return;
+        }
 
         const tieneMedida = modal.tipo === 'medida' ||
             (modal.tipo === 'catalogo_grupal' && (cantidadesCatalogo.get('compra_medida') || 0) > 0) ||
@@ -611,7 +626,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        let mensaje = `¡Hola Healthy Life! 🌰\nQuiero hacer un pedido:\n\n`;
+        // MODIFICACIÓN: Se añade el nombre del cliente al inicio del mensaje
+        let mensaje = `¡Hola Healthy Life! 🌰\nSoy *${nombreCliente}* y quiero hacer un pedido:\n\n`;
 
         if (modal.tipo === 'catalogo_grupal') {
             let subtotal = 0, totalUnidades = 0;
